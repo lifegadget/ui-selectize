@@ -15,15 +15,28 @@ export default Ember.Component.extend({
 	// bound Selectize config
 	options: null,
 	_workingOptions: [], // final resting place for "options"
-	optgroups: null,
-	optgroupField: null,
-	optgroupValueField: null,
-	optgroupLableField: null,
+	
+	optgroups: null, // the array of optgroups
+	optgroupField: null, // property name on "options" which refers to optgroupsValueField
+	optgroupValueField: 'id', // the displayed name for optgroup
+	optgroupLabelField: 'name', // property on "optgroups" array for the "value" which will match options property
+	optgroupOrder: null, // array of optgroup keys in a particular order
+	_optgroupOrder: function() {
+		this._stringToArray('optgroupOrder');
+	}.observes('optgroupOrder').on('didInsertElement'),
+	plugins: null,
+	_plugins: function() {
+		this._stringToArray('plugins');
+	}.observes('plugins').on('didInsertElement'),
+	
 	onInitialize: null,
 	onDestroy: null,
 	labelField: 'name',
 	valueField: 'id', // the field in the incoming hash which will be used for assigning a value to the input selector
 	searchField: ['name'], // properties to search through for a match
+	_searchField: function() {
+		this._stringToArray('searchField');
+	}.observes('searchField').on('didInsertElement'),
 	sortField: 'name',
 	
 	create: false, // allows user to create new items not on the list (can be true, false, or callback)
@@ -41,6 +54,16 @@ export default Ember.Component.extend({
 	addPrecedence: false,
 	selectOnTab: true,
 	inputClass: 'form-control selectize-input',
+	
+	// Convert a string value into an array so that 
+	// templates can provide static arrays to this 
+	// component
+	_stringToArray: function(property) {
+		var value = this.get(property);
+		if(typeOf(value) === 'string') {
+			this.set(property, value.split(','));
+		}
+	},
 	
 	// Public Callback bindings
 	score: null,
@@ -130,7 +153,6 @@ export default Ember.Component.extend({
 		else {
 			workingOptions = options;
 		}
-		console.log('setting working options: %o', workingOptions);
 		this.set('_workingOptions', workingOptions);
 	}.observes('options'),
 	/**
@@ -151,7 +173,6 @@ export default Ember.Component.extend({
 		var valueField = this.get('valueField');
 		if(typeOf(value) === 'array') {
 			if (value.join(',') !== uiValue.join(',')) {
-				console.log('value has indeed changed: %o, %o', value,this.selectize.getValue() );
 				this.setValue(value);
 			}
 			this.set('valueObject',value.map(function(item){
@@ -159,7 +180,6 @@ export default Ember.Component.extend({
 			}));
 		} else {
 			if (value !== uiValue) {
-				console.log('value has indeed changed: %o, %o', value,this.selectize.getValue() );
 				this.setValue(value);
 			}
 			this.set('valueObject', this.get('_workingOptions').findBy(valueField, value));
@@ -169,46 +189,35 @@ export default Ember.Component.extend({
 	// Initializes the UI select control
 	initialiseSelectize: function() {
 		var self = this;
-		this._optionsObserver();
-		var options = this.get('_workingOptions') || [];
-		var config = this.getProperties(
-			'optgroups','optgroupField','optgroupValueField','optgroupLableField','inputClass','onInitialize','onDestroy','labelField','valueField','searchField','sortField','placeholder',
-			'create','createOnBlur','createFilter','highlight','persist','openOnFocus','maxOptions','maxItems','hideSelected','allowEmptyOption','scrollDuration','dropdownParent','addPrecedence','selectOnTab',
-			'score'
-		);
-
-		config.options = options;
-		config.onInitialize = Ember.$.proxy(this._onInitialize, this);
-		config.onOptionAdd = Ember.$.proxy(this._onOptionAdd, this);
-		config.onOptionRemove = Ember.$.proxy(this._onOptionRemove, this);
-		config.onChange = Ember.$.proxy(this._onChange, this);
-		config.onDropdownOpen = Ember.$.proxy(this._onDropdownOpen, this);
-		config.onDropdownClose = Ember.$.proxy(this._onDropdownClose, this);
-		config.onItemAdd = Ember.$.proxy(this._onItemAdd, this);
-		config.onItemRemove = Ember.$.proxy(this._onItemRemove, this);
+		Ember.run.next(this, function() {
+			this._optionsObserver();
+			var options = this.get('_workingOptions') || [];
+			var config = this.getProperties(
+				'optgroups','optgroupField','optgroupValueField','optgroupLabelField','optgroupOrder',
+				'inputClass','onInitialize','onDestroy','labelField','valueField','searchField','sortField','placeholder',
+				'create','createOnBlur','createFilter','highlight','persist','openOnFocus','maxOptions','maxItems','hideSelected','allowEmptyOption','scrollDuration','dropdownParent','addPrecedence','selectOnTab',
+				'score', 'plugins'
+			);
+			config.options = options;
+			config.onInitialize = Ember.$.proxy(this._onInitialize, this);
+			config.onOptionAdd = Ember.$.proxy(this._onOptionAdd, this);
+			config.onOptionRemove = Ember.$.proxy(this._onOptionRemove, this);
+			config.onChange = Ember.$.proxy(this._onChange, this);
+			config.onDropdownOpen = Ember.$.proxy(this._onDropdownOpen, this);
+			config.onDropdownClose = Ember.$.proxy(this._onDropdownClose, this);
+			config.onItemAdd = Ember.$.proxy(this._onItemAdd, this);
+			config.onItemRemove = Ember.$.proxy(this._onItemRemove, this);
 		
-		this.$().selectize(config);
-		this.selectize = this.$()[0].selectize;
+			this.$().selectize(config);
+			this.selectize = this.$()[0].selectize;
 		
-		if(this.get('value')) {
-			console.log('value set on initialisation: %o',this.get('value') );
-			this.setValue(this.get('value'));
-		}
+			if(this.get('value')) {
+				console.log('value set on initialisation: %o',this.get('value') );
+				this.setValue(this.get('value'));
+			}
+			
+		});
 	}.on('didInsertElement'),
-	destroyEvent: function(self) {
-		console.log('destroying selectize: %o', self);
-	},
-	changeEvent: function(valueObj) {
-		var value = this.$().val();
-		console.log('value changed: %o', value);
-		this.set('value', value);
-		if (value !== '') {
-			this.set('selected',true);
-		} else {
-			this.set('selected',false);
-		}
-		this.sendAction('change',value, valueObj);
-	},
 	disableSelector: function() {
 		this.get('selectize').lock();
 	},

@@ -3,5 +3,6 @@ import UiSelectizeComponent from 'ui-selectize/components/ui-selectize';
 
 export default UiSelectizeComponent.extend({
 	hideSelected: true,
-	placeholder: 'Select tags'
+	placeholder: 'Select tags',
+	plugins: ['remove_button']
 });

@@ -11,8 +11,8 @@
 	<ul>
 		<li><a href="http://brianreavis.github.io/selectize.js/" target="selectize-demo">Functional Overview</a> and Demos (including plugins)</a></li>
 		<li><a href="https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md" target="selectize-api">Usage</a></li>
-		<li><a href="" target="selectize-api">API</a></li>
-		<li><a href="" target="selectize-events">Event Model</a></li>
+		<li><a href="https://github.com/brianreavis/selectize.js/blob/master/docs/api.md" target="selectize-api">API</a></li>
+		<li><a href="https://github.com/brianreavis/selectize.js/blob/master/docs/events.md" target="selectize-events">Event Model</a></li>
 		<li><a href="https://github.com/brianreavis/selectize.js" target="selectize-github">Github</a></li>
 	</ul>
 
@@ -104,72 +104,169 @@
 	<p>
 		In all other ways all three components are the same and in all three you are free to use any of the bindings to change behaviour.
 	</p>
+
+	<h3>Tests / Examples</h3>
+
+
+	<h4>Basics</h4>
+	<div id="ui-number-array-input" class="container">
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-selectize placeholder="placeholder" options='foo,bar,baz'}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Tags with placeholder and static options<br/>
+				<code>
+	\{{ui-selectize placeholder='placeholder' options='foo,bar,baz'}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-selectize hideSelected=true placeholder="placeholder" options='foo,bar,baz'}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Tags where selected are hidden<br/>
+				<code>
+	\{{ui-selectize hideSelected=true placeholder='placeholder' options='foo,bar,baz'}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-selectize placeholder="placeholder" options='foo,bar,baz' maxItems=1}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Select with placeholder and static options<br/>
+				<code>
+	\{{ui-selectize  maxItems=1 placeholder='placeholder' options='foo,bar,baz'}}
+				</code>
+			</div>
+		</div>
+	</div>
+
+
+	<h4>Select and Tags sub-components</h4>
+	<div id="ui-number-array-input" class="container">
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-tags-input options='foo,bar,baz'}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Default Tags component<br/>
+				<code>
+	\{{ui-tags-input options='foo,bar,baz'}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-select-input options='foo,bar,baz'}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Default Select component<br/>
+				<code>
+	\{{ui-select-input options='foo,bar,baz'}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-tags-input options='foo,bar,baz' openOnFocus=false}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Tags w/o open-on-focus<br/>
+				<code>
+	\{{ui-tags-input options='foo,bar,baz' openOnFocus=false}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-select-input options=animals searchField="name,synonyms"}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Select w/ search on synonyms: try 'ape','king'<br/>
+				<code>
+	\{{ui-select-input options=animals searchField="synonyms"}}
+				</code>
+			</div>
+		</div>
+	</div>
+
+	<h4>Select Groups</h4>
+	<div id="ui-number-array-input" class="container">
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group"}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Grouped Selection<br/>
+				<code>
+					\{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group"}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" optgroupOrder="color,animal,body" }}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Grouped Selection w/ custom sort<br/>
+				<code>
+					\{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" optgroupOrder="color,animal,body"}}
+				</code>
+			</div>
+		</div>
+	</div>
+
+	<h4>Using Plugins</h4>
+<pre>
+Using plugins is just a matter of including the name in the plugin property. 
+By default \{{ui-tags-input}} has <b>remove_button</b> included.
+</pre>
+	<div id="ui-number-array-input" class="container">
+		<div class="row">
+			<div class="col-xs-5 col-md-3">
+				{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" plugins='remove_button'}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Selection with cancel<br/>
+				<code>
+					\{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" plugins='optgroup_columns'}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5 col-md-3">
+				{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" plugins='optgroup_columns'}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Column-base selection: <i>optgroup_columns</i><br/>
+				<code>
+					\{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" plugins='optgroup_columns'}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5 col-md-3">
+				{{ui-tags-input options=groupedChoices plugins='remove_button,restore_on_backspace' optgroups=optGroup optgroupField="group"}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Tags with: <i>remove_button(default), restore_on_backspace</i><br/>
+				<code>
+					\{{ui-tags-input options=groupedChoices plugins='remove_button,restore_on_backspace'}}
+				</code>
+			</div>
+		</div>
 	
+	</div>
+
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+
 </div>
-
-<h3>Tests / Examples</h3>
-
-
-<h4>Basics</h4>
-<div id="ui-number-array-input" class="fluid-container">
-	<div class="row">
-		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-selectize placeholder="placeholder" options='foo,bar,baz'}}
-		</div>
-		<div class="col-xs-8">
-			Tags with placeholder and static options<br/>
-			<code>
-\{{ui-selectize placeholder='placeholder' options='foo,bar,baz'}}
-			</code>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-selectize hideSelected=true placeholder="placeholder" options='foo,bar,baz'}}
-		</div>
-		<div class="col-xs-8">
-			Tags where selected are hidden<br/>
-			<code>
-\{{ui-selectize hideSelected=true placeholder='placeholder' options='foo,bar,baz'}}
-			</code>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-selectize placeholder="placeholder" options='foo,bar,baz' maxItems=1}}
-		</div>
-		<div class="col-xs-8">
-			Select with placeholder and static options<br/>
-			<code>
-\{{ui-selectize  maxItems=1 placeholder='placeholder' options='foo,bar,baz'}}
-			</code>
-		</div>
-	</div>
-</div>
-
-<h4>Select and Tags sub-components</h4>
-<div id="ui-number-array-input" class="fluid-container">
-	<div class="row">
-		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-tags-input options='foo,bar,baz'}}
-		</div>
-		<div class="col-xs-8">
-			Default Tags component<br/>
-			<code>
-\{{ui-tags-input options='foo,bar,baz'}}
-			</code>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-select-input options='foo,bar,baz'}}
-		</div>
-		<div class="col-xs-8">
-			Default Select component<br/>
-			<code>
-\{{ui-select-input options='foo,bar,baz'}}
-			</code>
-		</div>
-	</div>
-</div>
-
