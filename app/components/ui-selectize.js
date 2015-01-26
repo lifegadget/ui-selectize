@@ -34,7 +34,7 @@ export default Ember.Component.extend({
 	openOnFocus: true,
 	maxOptions: 1000,
 	maxItems: 10000,
-	hideSelected: true, // do not show items as option when already selected
+	hideSelected: false, // do not show items as option when already selected
 	allowEmptyOption: false,
 	scrollDuration: 60,
 	dropdownParent: null,
@@ -103,6 +103,10 @@ export default Ember.Component.extend({
 		var self = this;
 		var options = this.get('options');
 		var workingOptions = [];
+		// If string then assume it a CSV array
+		if(typeOf(options) === 'string') {
+			options = options.split(',');
+		}
 		// PROMISE
 		if( options && options.then ) {
 			options.then(
@@ -115,11 +119,6 @@ export default Ember.Component.extend({
 					// TODO: implement
 				}
 			);
-		}
-		// CSV
-		else if(typeOf(options) === 'string') {
-			console.log('Found string options representation: ', options);
-			workingOptions = options.split(',');
 		}
 		// SIMPLE ARRAY 
 		else if(options && options.length > 0 && typeOf(options[0]) !== "object") {
@@ -139,9 +138,10 @@ export default Ember.Component.extend({
 	onto the selectize control.
 	*/
 	_workingOptionsObserver: function() {
-		console.log('working options changed');
+		console.log('working options changed [%s]', this.get('elementId'));
 		Ember.run.next(this, function() {
-			this.loadOptions(this.get('_workingOptions'));			
+			this.loadOptions(this.get('_workingOptions'));
+			console.log('finished loading %', this.get('elementId'));
 		})
 	}.observes('_workingOptions'),
 	_valueObserver: function() {

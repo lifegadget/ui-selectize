@@ -92,26 +92,84 @@
 			<li>onItemRemove</li>
 		</ul>		
 	</div>
+	<h4>Components</h4>
+	<p>
+		The primary component is <code>ui-selectize</code> which mimics the jQuery defaults and API as much as possible. For convenience purposes, however, two additional componenents are made available to enhance 
+		semantic clarity in your code and arrive at some better default values for "selects" versus "tags":
+	</p>
+	<ul>
+		<li><code>ui-tags-input</code> - sets *hideSelected* to false so that chosen tags are no longer available</li>
+		<li><code>ui-select-input</code> - sets <em>maxItems</em> to <strong>1</strong> (required for selects)</li>
+	</ul>
+	<p>
+		In all other ways all three components are the same and in all three you are free to use any of the bindings to change behaviour.
+	</p>
+	
 </div>
 
-<h3>Tests</h3>
-<p>
-	An array of useful tests for this component 	
-</p>
+<h3>Tests / Examples</h3>
+
 
 <h4>Basics</h4>
 <div id="ui-number-array-input" class="fluid-container">
 	<div class="row">
 		<div class="col-xs-4 col-sm-3 col-md-2">
-			{{ui-selectize placeholder="placeholder"}}
+			{{ui-selectize placeholder="placeholder" options='foo,bar,baz'}}
 		</div>
 		<div class="col-xs-8">
-			Tags with placeholder<br/>
+			Tags with placeholder and static options<br/>
 			<code>
-\{{ui-selectize placeholder="placeholder" options="one,two,three"}}
+\{{ui-selectize placeholder='placeholder' options='foo,bar,baz'}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-selectize hideSelected=true placeholder="placeholder" options='foo,bar,baz'}}
+		</div>
+		<div class="col-xs-8">
+			Tags where selected are hidden<br/>
+			<code>
+\{{ui-selectize hideSelected=true placeholder='placeholder' options='foo,bar,baz'}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-selectize placeholder="placeholder" options='foo,bar,baz' maxItems=1}}
+		</div>
+		<div class="col-xs-8">
+			Select with placeholder and static options<br/>
+			<code>
+\{{ui-selectize  maxItems=1 placeholder='placeholder' options='foo,bar,baz'}}
 			</code>
 		</div>
 	</div>
 </div>
 
+<h4>Select and Tags sub-components</h4>
+<div id="ui-number-array-input" class="fluid-container">
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-tags-input options='foo,bar,baz'}}
+		</div>
+		<div class="col-xs-8">
+			Default Tags component<br/>
+			<code>
+\{{ui-tags-input options='foo,bar,baz'}}
+			</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-select-input options='foo,bar,baz'}}
+		</div>
+		<div class="col-xs-8">
+			Default Select component<br/>
+			<code>
+\{{ui-select-input options='foo,bar,baz'}}
+			</code>
+		</div>
+	</div>
+</div>
 
