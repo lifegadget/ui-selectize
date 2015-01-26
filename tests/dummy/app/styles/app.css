@@ -1,3 +1,69 @@
 html, body {
-  margin: 20px;
+	font-family: Verdana, Geneva, sans-serif;
+	margin: 20px;
+}
+h1 {
+	font-size: 3rem;
+	margin-bottom: .25rem;
+	padding-bottom: 0px;
+	font-family: "Courier New", Courier, monospace;
+}
+a {
+	text-decoration: none;
+	font-weight: 500;
+	margin: auto 2px auto 2px;
+}
+a:hover {
+	background: lightgrey;
+	border-radius: 5px;
+}
+h2 {
+	font-weight: 100;
+	font-size: 1.7rem;
+	font-style: italic;
+	color: darkgrey;
+	margin-top: .5rem;
+	margin-bottom: 3rem;
+}
+
+.demo-table td {
+	padding-right: 1rem;
+	padding-top: .5rem;
+	padding-bottom: .5rem;
+}
+
+.demo-table td i {
+	font-size: 16pt;
+}
+
+code {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 9pt;
+	line-spacing: 1rem;
+}
+
+note {
+	display: block;
+	color: #7C7C7C;
+	font-weight: 150;
+	border-left-style: solid;
+	border-left-color: lightgrey;
+	padding-left: 10px;
+	margin-bottom: 1rem;
+}
+
+.row {
+	margin-top: .5rem;
+	margin-bottom: .5rem;
+}
+
+.link {
+	cursor: pointer;
+	padding: 2px;
+	margin-bottom: 8px;
+	border-radius: 3px;
+	background-color: lightgrey;
+}
+.link.selected {
+	font-weight: 900;
 }

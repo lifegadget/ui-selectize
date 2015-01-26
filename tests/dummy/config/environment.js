@@ -16,7 +16,17 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+	contentSecurityPolicy: {
+	    'default-src': "'unsafe-eval' http://cloudfront.net",
+	    'script-src': "'self'",
+	    'font-src': "'self' http://fonts.gstatic.com http://fonts.googleapis.com",
+	    'connect-src': "'self'",
+	    'img-src': "'self'",
+	    'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
+	    'media-src': "'self'"
+	  }
+	
   };
 
   if (environment === 'development') {
@@ -25,6 +35,10 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+	ENV.contentSecurityPolicy['default-src'] = "'unsafe-eval' https://d3ijcis4e2ziok.cloudfront.net ";	
+	ENV.contentSecurityPolicy['script-src'] = "'self' 'unsafe-eval' 0.0.0.0:35729";	
+	ENV.contentSecurityPolicy['connect-src'] = "'self' 0.0.0.0:35729";
+	
   }
 
   if (environment === 'test') {

@@ -1,4 +1,4 @@
-# Ui-selectize
+# ui-selectize
 
 This README outlines the details of collaborating on this Ember addon.
 

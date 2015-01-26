@@ -1,3 +1,117 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<div class="container">
+	<h1>ui-selectize</h1>
+	<h2>The <a href="http://brianreavis.github.io/selectize.js/" target="_new">selectize</a> select/tag form-control wrapped in Ember-CLI love</h2>
 
-{{outlet}}
+	<h3>Description</h3>
+	<p>
+		This control, developed by Brian Reavis has become very popular due to its small footprint, skinnable interface and programatic API (including a plugin API). Most of the documentation you'll want to use 
+		can be found on his site, but here are few important links:
+	</p>
+
+	<ul>
+		<li><a href="http://brianreavis.github.io/selectize.js/" target="selectize-demo">Functional Overview</a> and Demos (including plugins)</a></li>
+		<li><a href="https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md" target="selectize-api">Usage</a></li>
+		<li><a href="" target="selectize-api">API</a></li>
+		<li><a href="" target="selectize-events">Event Model</a></li>
+		<li><a href="https://github.com/brianreavis/selectize.js" target="selectize-github">Github</a></li>
+	</ul>
+
+	<h4>This Addon</h4>
+	<p>
+		The goal is -- at least 99% of the time -- to provide easy programmatic availability to the existing control and <i>not</i> to extend its functionality. So for that reason the original documentation
+		should serve as a good guide in most cases. 	
+	</p>
+	
+	<h4>Overview</h4>
+	<p>
+		This addon serves two principle use-cases which you'll see demonstrated below: 	
+	</p>
+	
+	<div class="row">
+		<div class="col-xs-6">
+			<h5 class="text-center">Selecting</h5>
+		</div>
+		<div class="col-xs-6">
+			<h5 class="text-center">Tagging</h5>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			{{ui-selectize options=demoChoices value=mySelection maxItems=1}}
+		</div>
+		<div class="col-xs-6">
+			{{ui-selectize options=demoChoices placeholder="Choose tags" value=myTags}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 text-center text-muted">
+			value: {{mySelection}}
+		</div>
+		<div class="col-xs-6 text-center text-muted">
+			value: {{myTags}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 text-center text-muted">
+			<code>\{{ui-selectize options=demoChoices maxItems=1}}</code>
+		</div>
+		<div class="col-xs-6 text-center text-muted">
+			<code>\{{ui-selectize options=demoChoices placeholder="Choose tags"}}</code>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 text-center text-muted">
+			Presents user with choices with the aim for them to pick one value from the list. 
+		</div>
+		<div class="col-xs-6 text-center text-muted">
+			Allows user to choose any number of "tags" where the value of the bound variable is an array of choices.
+		</div>
+	</div>
+	
+	<h4>Exposed Events</h4>
+	<p>
+		Rather than tapping into the Selectize events directly, events are made available as Ember actions. Action names are the same as the event names put out by Selectize. 
+		The one exception is "score(search)" where the function be directly bound to.
+	</p>
+	<p>
+		Events include:
+	</p>
+	<div class="col-xs-6">
+		<ul>
+			<li>onInitialize</li>
+			<li>onChange</li>
+			<li>onOptionAdd</li>
+			<li>onOptionRemove</li>
+		</ul>		
+	</div>
+	<div class="col-xs-6">
+		<ul>
+			<li>onDropdownOpen</li>
+			<li>onDropdownClose</li>
+			<li>onItemAdd</li>
+			<li>onItemRemove</li>
+		</ul>		
+	</div>
+</div>
+
+<h3>Tests</h3>
+<p>
+	An array of useful tests for this component 	
+</p>
+
+<h4>Basics</h4>
+<div id="ui-number-array-input" class="fluid-container">
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2">
+			{{ui-selectize placeholder="placeholder"}}
+		</div>
+		<div class="col-xs-8">
+			Tags with placeholder<br/>
+			<code>
+\{{ui-selectize placeholder="placeholder" options="one,two,three"}}
+			</code>
+		</div>
+	</div>
+</div>
+
+
