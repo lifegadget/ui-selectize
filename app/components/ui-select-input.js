@@ -1,7 +1,3 @@
-import Ember from 'ember';
-import UiSelectizeComponent from '../components/ui-selectize';
-
-export default UiSelectizeComponent.extend({
-	maxItems:1
-});
-
+import UiSelectInputComponent from 'ui-selectize/components/ui-select-input';
+ 
+export default UiSelectInputComponent;

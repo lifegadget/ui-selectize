@@ -7,4 +7,4 @@ export default Ember.Controller.extend({
 	mySelection: 'Monkey',
 	myTags: ['Monkey']
 	
-})
+});
