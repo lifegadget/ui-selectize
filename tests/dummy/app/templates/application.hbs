@@ -98,12 +98,16 @@
 		semantic clarity in your code and arrive at some better default values for "selects" versus "tags":
 	</p>
 	<ul>
-		<li><code>ui-tags-input</code> - sets *hideSelected* to false so that chosen tags are no longer available</li>
+		<li><code>ui-tags-input</code> - sets *hideSelected* to false so that chosen tags are no longer available and the "remove_button" plugin included too</li>
 		<li><code>ui-select-input</code> - sets <em>maxItems</em> to <strong>1</strong> (required for selects)</li>
 	</ul>
 	<p>
 		In all other ways all three components are the same and in all three you are free to use any of the bindings to change behaviour.
 	</p>
+	
+	{{#if isolate}}
+		Isolation mode, no tests shown
+	{{else}}
 
 	<h3>Tests / Examples</h3>
 
@@ -268,5 +272,7 @@ By default \{{ui-tags-input}} has <b>remove_button</b> included.
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
+	
+	{{/if}}
 
 </div>
