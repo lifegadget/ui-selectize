@@ -162,7 +162,10 @@ export default Ember.Component.extend({
 	_workingOptionsObserver: function() {
 		console.log('working options changed [%s]', this.get('elementId'));
 		Ember.run.next(this, function() {
-			this.loadOptions(this.get('_workingOptions'));
+			var workingOptions = this.get('_workingOptions');
+			if(workingOptions.length > 0) {
+				this.loadOptions();				
+			}
 			console.log('finished loading %', this.get('elementId'));
 		});
 	}.observes('_workingOptions'),
@@ -245,7 +248,9 @@ export default Ember.Component.extend({
 		}
 	},
 	loadOptions: function(options) {
-		this.get('selectize').load(options);
+		if(!isEmpty(options)) {
+			this.get('selectize').load(options);			
+		}
 	},
 	cleanup: function() {
 		this.get('selectize').off('initialize').off('optionAdd').off('change').off('dropdownOpen').off('dropdownClose').off('itemAdd').off('itemRemove');
