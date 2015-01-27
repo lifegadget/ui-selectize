@@ -27,6 +27,6 @@ export default Ember.Controller.extend({
 		{id:"lion", name:"Lion", group:"animal", synonyms: 'king'},
 		{id:"rabbit", name:"Rabbit", group:"animal"}		
 	],
-	isolate: true
+	isolate: false
 	
 });

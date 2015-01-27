@@ -74,7 +74,7 @@ export default Ember.Component.extend({
 		this.sendAction('onInitialize');
 	},
 	_onChange:function(value) {
-		console.log('value changed: %o', value);
+		// console.log('value changed: %o', value);
 		this.set('value', value);
 		if (isEmpty(value)) {
 			this.set('selected',false);
@@ -160,13 +160,11 @@ export default Ember.Component.extend({
 	onto the selectize control.
 	*/
 	_workingOptionsObserver: function() {
-		console.log('working options changed [%s]', this.get('elementId'));
 		Ember.run.next(this, function() {
 			var workingOptions = this.get('_workingOptions');
 			if(workingOptions.length > 0) {
 				this.loadOptions();				
 			}
-			console.log('finished loading %', this.get('elementId'));
 		});
 	}.observes('_workingOptions'),
 	_valueObserver: function() {
@@ -215,7 +213,6 @@ export default Ember.Component.extend({
 			this.selectize = this.$()[0].selectize;
 		
 			if(this.get('value')) {
-				console.log('value set on initialisation: %o',this.get('value') );
 				this.setValue(this.get('value'));
 			}
 			
@@ -231,7 +228,6 @@ export default Ember.Component.extend({
 	setValue: function(value) {
 		Ember.run.next(this, function() {
 			var selectize = this.get('selectize');
-			console.log('setting value: %o',value);
 			if(selectize) {
 				selectize.setValue(value);				
 			}
