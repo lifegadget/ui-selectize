@@ -35,11 +35,11 @@ export default Ember.Component.extend({
 	optgroupOrder: null, // array of optgroup keys in a particular order
 	_optgroupOrder: function() {
 		this._stringToArray('optgroupOrder');
-	}.observes('optgroupOrder').on('didInsertElement'),
+	}.observes('optgroupOrder'),
 	plugins: null,
 	_plugins: function() {
 		this._stringToArray('plugins');
-	}.observes('plugins').on('didInsertElement'),
+	}.observes('plugins'),
 	
 	onInitialize: null,
 	onDestroy: null,
@@ -48,7 +48,7 @@ export default Ember.Component.extend({
 	searchField: ['name'], // properties to search through for a match
 	_searchField: function() {
 		this._stringToArray('searchField');
-	}.observes('searchField').on('didInsertElement'),
+	}.observes('searchField'),
 	sortField: 'name',
 	
 	create: false, // allows user to create new items not on the list (can be true, false, or callback)
@@ -202,8 +202,11 @@ export default Ember.Component.extend({
 	// Initializes the UI select control
 	initialiseSelectize: function() {
 		var self = this;
-		Ember.run.next(this, function() {
-			this._optionsObserver();
+		var preReqs = ['_optionsObserver','_plugins','_searchField','_optgroupOrder'];
+		preReqs.forEach(function(o) {
+			self[o]();
+		});
+			
 			var options = this.get('_workingOptions') || [];
 			var config = this.getProperties(
 				'optgroups','optgroupField','optgroupValueField','optgroupLabelField','optgroupOrder',
@@ -223,6 +226,8 @@ export default Ember.Component.extend({
 		
 			this.$().selectize(config);
 			this.selectize = this.$()[0].selectize;
+		
+		Ember.run.next(this, function() {
 		
 			if(this.get('value')) {
 				this.setValue(this.get('value'));
