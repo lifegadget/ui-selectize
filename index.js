@@ -1,4 +1,6 @@
 module.exports = {
+	name: 'ui-selectize',
+	description: 'selectize select/tag form-control wrapped in Ember-CLI love',
 	included: function(app) {
 		this._super.included(app);
 		app.import(app.bowerDirectory + 'selectize/dist/js/standalone/selectize.js');
