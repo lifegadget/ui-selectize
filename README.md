@@ -6,7 +6,7 @@
 ## Installation
 
 * change directories to your project folder
-* `ember install:addon ui-number-input`
+* `ember install:addon ui-selectize`
 
 ## Examples / Tests ##
 
