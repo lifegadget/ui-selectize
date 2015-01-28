@@ -261,7 +261,7 @@ export default Ember.Component.extend({
 		}
 	},
 	cleanup: function() {
-		this.get('selectize').off('initialize').off('optionAdd').off('change').off('dropdownOpen').off('dropdownClose').off('itemAdd').off('itemRemove');
+		this.get('selectize').off();
 	}.on('willDestroyElement')
 	
 });
