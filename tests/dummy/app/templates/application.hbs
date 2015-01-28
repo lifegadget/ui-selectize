@@ -240,6 +240,21 @@
 				</code>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-xs-2  col-md-1">
+				{{ui-tags-input enabled=false}}
+			</div>
+			<div class="col-xs-3 col-md-2">
+				{{ui-select-input enabled=false}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Disabled<br/>
+				<code>
+					\{{ui-tags-input enabled=false}}
+					\{{ui-select-input enabled=false}}
+				</code>
+			</div>
+		</div>
 	</div>
 
 	<h4>Select Groups</h4>
@@ -252,6 +267,32 @@
 				Grouped Selection<br/>
 				<code>
 					\{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group"}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" optgroupOrder="color,animal,body" }}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Grouped Selection w/ custom sort<br/>
+				<code>
+					\{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" optgroupOrder="color,animal,body"}}
+				</code>
+			</div>
+		</div>
+	</div>
+
+	<h4>Promise Backed Data</h4>
+	<div id="ui-number-array-input" class="container">
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-select-input options=promisedOptions }}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Ember Data<br/>
+				<code>
+					\{{ui-select-input options=promisedOptions }}
 				</code>
 			</div>
 		</div>

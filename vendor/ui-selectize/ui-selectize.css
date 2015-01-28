@@ -1,3 +1,8 @@
+.selectize-control.ui-selectize.locked .form-control {
+	cursor: not-allowed;
+}
+
+
 .selectize-control.ui-selectize.finger-friendly .selectize-input {
 	height: auto;
 	padding-top: 1rem;

@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 	tagName: 'select',
 	classNames: ['ui-selectize'],
 	classNameBindings: [ 'selected:selected:not-selected', 'touchDevice', 'fingerFriendly' ],
-	attributeBindings: [ 'name','autocomplete' ],
+	attributeBindings: [ 'name','autocomplete','disabled' ],
 	autocomplete: false,
 	autofocus: false,
 	touchDevice: function() {
@@ -24,6 +24,17 @@ export default Ember.Component.extend({
 			this.set('fingerFriendly', true);
 		}
 	}.on('didInsertElement'),
+	disabled: Ember.computed.not('enabled'),
+	enabled: true,
+	_enabled: function() {
+		var enabled = this.get('enabled');
+		if(enabled) {
+			this.selectize.unlock();
+		} else {
+			this.selectize.lock();
+		}
+	}.observes('enabled'),
+	
 	// bound Selectize config
 	options: null,
 	_workingOptions: [], // final resting place for "options"
@@ -147,7 +158,14 @@ export default Ember.Component.extend({
 			options.then(
 				// PROMISE RESOLVED
 				function(item) {
-					self.set('_workingOptions', item._data);
+					console.log('promise[%s] was resolved: %o', self.get('elementId'), item.content.map(function(item) {
+						return item._data;
+					}));
+					self.propertyWillChange('_workingOptions');
+					self.set('_workingOptions', item.content.map(function(item) {
+						return item._data;
+					}));
+					self.propertyDidChange('_workingOptions');
 				},
 				// PROMISE REJECTED
 				function(error) {
@@ -172,84 +190,75 @@ export default Ember.Component.extend({
 	onto the selectize control.
 	*/
 	_workingOptionsObserver: function() {
+		console.log('working option changed [%s]', this.get('elementId'));
 		Ember.run.next(this, function() {
-			var workingOptions = this.get('_workingOptions');
+			var workingOptions = this.get('_workingOptions') || [];
 			if(workingOptions.length > 0) {
-				this.loadOptions();				
+				this.loadOptions(workingOptions);				
 			}
 		});
-	}.observes('_workingOptions'),
+	}.observes('_workingOptions','_workingOptions.length'),
 	_valueObserver: function() {
 		var value = this.get('value');
 		var uiValue = this.selectize.getValue();
-		var workingOptions = this.get('_workingOptions');
+		var workingOptions = this.get('_workingOptions') || [];
 		var valueField = this.get('valueField');
+		var selectize = this.get('selectize');
+		if(!selectize) {
+			return false;
+		}
 		if(typeOf(value) === 'array') {
 			if (value.join(',') !== uiValue.join(',')) {
-				this.setValue(value);
+				selectize.setValue(value);
 			}
 			this.set('valueObject',value.map(function(item){
 				return workingOptions.findBy(valueField, item);
 			}));
 		} else {
 			if (value !== uiValue) {
-				this.setValue(value);
+				selectize.setValue(value);
 			}
-			this.set('valueObject', this.get('_workingOptions').findBy(valueField, value));
+			this.set('valueObject', workingOptions.findBy(valueField, value));
 		}
 	}.observes('value'),
 
 	// Initializes the UI select control
 	initialiseSelectize: function() {
 		var self = this;
-		var preReqs = ['_optionsObserver','_plugins','_searchField','_optgroupOrder'];
+		var preReqs = ['_workingOptionsObserver','_optionsObserver','_plugins','_searchField','_optgroupOrder'];
 		preReqs.forEach(function(o) {
 			self[o]();
 		});
-			
-			var options = this.get('_workingOptions') || [];
-			var config = this.getProperties(
-				'optgroups','optgroupField','optgroupValueField','optgroupLabelField','optgroupOrder',
-				'inputClass','onInitialize','onDestroy','labelField','valueField','searchField','sortField','placeholder',
-				'create','createOnBlur','createFilter','highlight','persist','openOnFocus','maxOptions','maxItems','hideSelected','allowEmptyOption','scrollDuration','dropdownParent','addPrecedence','selectOnTab',
-				'score', 'plugins'
-			);
-			config.options = options;
-			config.onInitialize = Ember.$.proxy(this._onInitialize, this);
-			config.onOptionAdd = Ember.$.proxy(this._onOptionAdd, this);
-			config.onOptionRemove = Ember.$.proxy(this._onOptionRemove, this);
-			config.onChange = Ember.$.proxy(this._onChange, this);
-			config.onDropdownOpen = Ember.$.proxy(this._onDropdownOpen, this);
-			config.onDropdownClose = Ember.$.proxy(this._onDropdownClose, this);
-			config.onItemAdd = Ember.$.proxy(this._onItemAdd, this);
-			config.onItemRemove = Ember.$.proxy(this._onItemRemove, this);
 		
-			this.$().selectize(config);
-			this.selectize = this.$()[0].selectize;
-		
-		Ember.run.next(this, function() {
-		
-			if(this.get('value')) {
-				this.setValue(this.get('value'));
-			}
-			
+		var options = this.get('_workingOptions') || [];
+		var config = this.getProperties(
+			'optgroups','optgroupField','optgroupValueField','optgroupLabelField','optgroupOrder',
+			'inputClass','onInitialize','onDestroy','labelField','valueField','searchField','sortField','placeholder',
+			'create','createOnBlur','createFilter','highlight','persist','openOnFocus','maxOptions','maxItems','hideSelected','allowEmptyOption','scrollDuration','dropdownParent','addPrecedence','selectOnTab',
+			'score', 'plugins'
+		);
+		config.options = options;
+		config.onInitialize = Ember.$.proxy(this._onInitialize, this);
+		config.onOptionAdd = Ember.$.proxy(this._onOptionAdd, this);
+		config.onOptionRemove = Ember.$.proxy(this._onOptionRemove, this);
+		config.onChange = Ember.$.proxy(this._onChange, this);
+		config.onDropdownOpen = Ember.$.proxy(this._onDropdownOpen, this);
+		config.onDropdownClose = Ember.$.proxy(this._onDropdownClose, this);
+		config.onItemAdd = Ember.$.proxy(this._onItemAdd, this);
+		config.onItemRemove = Ember.$.proxy(this._onItemRemove, this);
+	
+		this.$().selectize(config);
+		this.selectize = this.$()[0].selectize;
+		// post-initalization observers
+		var postReqs = ['_valueObserver'];
+		postReqs.forEach(function(o) {
+			self[o]();
 		});
+		
+		// if(this.get('value')) {
+		// 	this.setValue(this.get('value'));
+		// }
 	}.on('didInsertElement'),
-	disableSelector: function() {
-		this.get('selectize').lock();
-	},
-	enableSelector: function() {
-		this.get('selectize').unlock();
-	},
-	// sets the widget to the value of the Ember property
-	setValue: function(value) {
-		Ember.run.next(this, function() {
-			var selectize = this.get('selectize');
-			if(selectize) {
-				selectize.setValue(value);				
-			}
-		});
-	},
 	addOptions: function(options) {
 			if(options && options.length > 0) {
 			var selectize = this.get('selectize');
@@ -262,10 +271,13 @@ export default Ember.Component.extend({
 	},
 	loadOptions: function(options) {
 		if(!isEmpty(options)) {
-			this.get('selectize').load(options);			
+			console.log('loading options [%s]: %o', this.get('elementId'), options);
+			this.get('selectize').load(function(callback) {
+				callback(options);
+			});			
 		}
 	},
-	cleanup: function() {
+	teardown: function() {
 		this.get('selectize').off();
 	}.on('willDestroyElement')
 	
