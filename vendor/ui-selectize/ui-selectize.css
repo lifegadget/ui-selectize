@@ -1,0 +1,49 @@
+.selectize-control.ui-selectize.finger-friendly .selectize-input {
+	height: auto;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.selectize-control.multi.ui-selectize.finger-friendly .selectize-input {
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+}
+
+.selectize-control.ui-selectize .selectize-input.large {
+	height: auto;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	line-height: 2rem;
+}
+.selectize-control.multi.ui-selectize.finger-friendly .selectize-input {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	height: auto;
+}
+
+.selectize-control.multi.ui-selectize.finger-friendly .selectize-input.has-items .item {
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	margin-left: .1rem;
+	margin-top: .25rem;
+	margin-bottom: .25rem;
+} 
+
+.selectize-control.multi.ui-selectize.finger-friendly .selectize-input.has-items .item .remove {
+	padding-top: .75rem;
+	padding-left: .35rem;
+	padding-right: .35rem;
+} 
+
+.selectize-control.multi.ui-selectize.finger-friendly .selectize-input.has-items {
+	padding-top: .1rem;
+	padding-bottom: .1rem;
+}
+.ui-selectize.finger-friendly .selectize-dropdown-content .option {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.ui-selectize.touch-device {}

@@ -6,13 +6,18 @@
 ## Installation
 
 * change directories to your project folder
-* `ember install:addon ui-number-input`
+* `ember install:addon ui-selectize`
+
+### Dependencies ###
+
+This addon will install the underlying **Selectize** component which itself depends on a few small libraries (see Selectize site for details).
 
 ## Examples / Tests ##
 
 Documentation, example configuration/tests are all available here:
 
 > [Online Demo](http://development.ui-selectize.divshot.io)
+
 
 ## Repo Contribution
 

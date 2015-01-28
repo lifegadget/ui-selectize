@@ -68,30 +68,48 @@
 		</div>
 	</div>
 	
-	<h4>Exposed Events</h4>
-	<p>
-		Rather than tapping into the Selectize events directly, events are made available as Ember actions. Action names are the same as the event names put out by Selectize. 
-		The one exception is "score(search)" where the function be directly bound to.
-	</p>
-	<p>
-		Events include:
-	</p>
-	<div class="col-xs-6">
-		<ul>
-			<li>onInitialize</li>
-			<li>onChange</li>
-			<li>onOptionAdd</li>
-			<li>onOptionRemove</li>
-		</ul>		
+	<div id="events">
+		<h4>Exposed Events</h4>
+		<p>
+			Rather than tapping into the Selectize events directly, events are made available as Ember actions. Action names are the same as the event names put out by Selectize. 
+			The one exception is "score(search)" where the function be directly bound to.
+		</p>
+		<p>
+			Events include:
+		</p>
+		<div class="col-xs-6">
+			<ul>
+				<li>onInitialize</li>
+				<li>onChange</li>
+				<li>onOptionAdd</li>
+				<li>onOptionRemove</li>
+			</ul>		
+		</div>
+		<div class="col-xs-6">
+			<ul>
+				<li>onDropdownOpen</li>
+				<li>onDropdownClose</li>
+				<li>onItemAdd</li>
+				<li>onItemRemove</li>
+			</ul>		
+		</div>		
 	</div>
-	<div class="col-xs-6">
-		<ul>
-			<li>onDropdownOpen</li>
-			<li>onDropdownClose</li>
-			<li>onItemAdd</li>
-			<li>onItemRemove</li>
-		</ul>		
+	
+	<div id="touch">
+		<h4>Touch Devices</h4>
+		<p>
+			While there are plenty of reasons to <i>not</i> to use user-agent matching to detect mobile browers the fact is feature detection isn't really a good option anymore either. 
+			So whether you choose to use it or not this addon will add a <code>touch-device</code> class to the control when it thinks you're on a mobile platform. Secondarily, 
+			it will also auto-default the component's <b>fingerFriendly</b> property to <i>true</i> which will make all of the controls a bit bigger to make your fingers happy. If 
+			your fingers aren't happy at that point they never will be. :) 
+		</p>
+		<p>
+			Final point on servicing touch devices ... click delays are annoying! It is recommended that you use a solution like fastclick which can be easily incorporated into your
+			project with <a href="https://github.com/ember-mobile/ember-cli-fastclick">ember-cli-fastclick</a> or <a href="https://github.com/runspired/ember-mobiletouch">ember-mobiletouch</a>.
+		</p>
 	</div>
+	
+	
 	<h4>Components</h4>
 	<p>
 		The primary component is <code>ui-selectize</code> which mimics the jQuery defaults and API as much as possible. For convenience purposes, however, two additional componenents are made available to enhance 
@@ -198,6 +216,32 @@
 		</div>
 	</div>
 
+	<h4>Formatting</h4>
+	<div id="ui-number-array-input" class="container">
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=true}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Fat Finger (mobile default)<br/>
+				<code>
+					\{{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=true}}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=false}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				NOT Fat Finger friendly (desktop default)<br/>
+				<code>
+					\{{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=false}}
+				</code>
+			</div>
+		</div>
+	</div>
+
 	<h4>Select Groups</h4>
 	<div id="ui-number-array-input" class="container">
 		<div class="row">
@@ -223,6 +267,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<h4>Using Plugins</h4>
 <pre>

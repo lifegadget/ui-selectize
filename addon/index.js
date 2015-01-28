@@ -4,5 +4,7 @@ module.exports = {
 		app.import(app.bowerDirectory + 'selectize/dist/js/standalone/selectize.js');
 		app.import(app.bowerDirectory + 'selectize/dist/css/selectize.css');
 		app.import(app.bowerDirectory + 'selectize/dist/css/selectize.bootstrap3.css');
+		// app.import(app.bowerDirectory + 'modernizr/modernizr.js');
+		app.import('vendor/ui-selectize/ui-selectize.css');
 	}
 };

@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
 	optGroup: [
 		{id: 'color', name: 'Colors'},
 		{id: 'animal', name: 'Animals'},
-		{id: 'body', name: 'Body Parts'}
+		{id: 'body', name: 'Body'}
 	],
 	animals: [
 		{id:"monkey", name:"Monkey", group:"animal", synonyms: ['ape','gorilla']},

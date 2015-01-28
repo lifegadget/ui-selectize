@@ -6,12 +6,24 @@ var isEmpty = Ember.isEmpty;
 export default Ember.Component.extend({
 	// component props
 	tagName: 'select',
-	classBindings: ['x-selectize'],
-	classNameBindings: [ 'selected', 'alignClass' ],
+	classNames: ['ui-selectize'],
+	classNameBindings: [ 'selected:selected:not-selected', 'touchDevice', 'fingerFriendly' ],
 	attributeBindings: [ 'name','autocomplete' ],
 	autocomplete: false,
 	autofocus: false,
-	
+	touchDevice: function() {
+		if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+			return 'touch-device';
+		} else {
+			return false;
+		}
+	}.property(),
+	fingerFriendly: null,
+	_fingerFriendly: function() {
+		if(this.get('touchDevice') && this.get('fingerFriendly') === null) {
+			this.set('fingerFriendly', true);
+		}
+	}.on('didInsertElement'),
 	// bound Selectize config
 	options: null,
 	_workingOptions: [], // final resting place for "options"
