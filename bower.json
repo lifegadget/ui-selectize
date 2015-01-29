@@ -15,7 +15,6 @@
     "qunit": "~1.17.1",
     "bootstrap": "~3.3.2",
     "selectize": "~0.11.2",
-    "modernizr": "~2.8.3",
     "pretender": "0.1.0"
   }
 }

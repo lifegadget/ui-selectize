@@ -158,14 +158,18 @@ export default Ember.Component.extend({
 			options.then(
 				// PROMISE RESOLVED
 				function(item) {
-					console.log('promise[%s] was resolved: %o', self.get('elementId'), item.content.map(function(item) {
+					console.log('promise[%s] was resolved', self.get('elementId'));
+					workingOptions = self.get('_workingOptions');
+					var newOptions = item.content.map(function(item) {
 						return item._data;
-					}));
-					self.propertyWillChange('_workingOptions');
-					self.set('_workingOptions', item.content.map(function(item) {
-						return item._data;
-					}));
-					self.propertyDidChange('_workingOptions');
+					});
+					if(JSON.stringify(newOptions) !== JSON.stringify(workingOptions)) {
+						self.propertyWillChange('_workingOptions');
+						self.set('_workingOptions', newOptions);
+						self.propertyDidChange('_workingOptions');
+					} else {
+						console.warn('no change after promise resolution, no change made');
+					}
 				},
 				// PROMISE REJECTED
 				function(error) {
@@ -183,21 +187,28 @@ export default Ember.Component.extend({
 		else {
 			workingOptions = options;
 		}
-		this.set('_workingOptions', workingOptions);
+		// Change if impact to working options
+		if(options && JSON.stringify(workingOptions) !== JSON.stringify(this.get('_workingOptions'))) {
+			this.propertyWillChange('_workingOptions');
+			this.set('_workingOptions', workingOptions);
+			this.propertyDidChange('_workingOptions');	
+		}
 	}.observes('options'),
 	/**
 	When changes are made to working options then pass this change directly 
 	onto the selectize control.
 	*/
 	_workingOptionsObserver: function() {
-		console.log('working option changed [%s]', this.get('elementId'));
-		Ember.run.next(this, function() {
-			var workingOptions = this.get('_workingOptions') || [];
-			if(workingOptions.length > 0) {
-				this.loadOptions(workingOptions);				
-			}
-		});
-	}.observes('_workingOptions','_workingOptions.length'),
+		var workingOptions = this.get('_workingOptions') || [];
+		var hasInitialized = this.get('hasInitialized');
+		if(hasInitialized) {
+			Ember.run.next(this, function() {
+				if(workingOptions.length > 0) {
+					this.loadOptions(workingOptions);				
+				}
+			});	
+		}
+	}.observes('_workingOptions'),
 	_valueObserver: function() {
 		var value = this.get('value');
 		var uiValue = this.selectize.getValue();
@@ -223,7 +234,7 @@ export default Ember.Component.extend({
 	}.observes('value'),
 
 	// Initializes the UI select control
-	initialiseSelectize: function() {
+	initializeSelectize: function() {
 		var self = this;
 		var preReqs = ['_workingOptionsObserver','_optionsObserver','_plugins','_searchField','_optgroupOrder'];
 		preReqs.forEach(function(o) {
@@ -254,10 +265,7 @@ export default Ember.Component.extend({
 		postReqs.forEach(function(o) {
 			self[o]();
 		});
-		
-		// if(this.get('value')) {
-		// 	this.setValue(this.get('value'));
-		// }
+		this.set('hasInitialized', true);
 	}.on('didInsertElement'),
 	addOptions: function(options) {
 			if(options && options.length > 0) {
@@ -270,8 +278,8 @@ export default Ember.Component.extend({
 		}
 	},
 	loadOptions: function(options) {
-		if(!isEmpty(options)) {
-			console.log('loading options [%s]: %o', this.get('elementId'), options);
+		var hasInitialized = this.get('hasInitialized');
+		if(!isEmpty(options) && hasInitialized) {
 			this.get('selectize').load(function(callback) {
 				callback(options);
 			});			
