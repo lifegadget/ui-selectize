@@ -23,53 +23,77 @@
 	</p>
 	
 	<h4>Overview</h4>
-	<p>
-		This addon serves two principle use-cases which you'll see demonstrated below: 	
-	</p>
+	<div id="overview">
+		<p>
+			This addon serves two principle use-cases which you'll see demonstrated below: 	
+		</p>
 	
-	<div class="row">
-		<div class="col-xs-6">
-			<h5 class="text-center">Selecting</h5>
+		<div class="row">
+			<div class="col-xs-6">
+				<h5 class="text-center">Selecting</h5>
+			</div>
+			<div class="col-xs-6">
+				<h5 class="text-center">Tagging</h5>
+			</div>
 		</div>
-		<div class="col-xs-6">
-			<h5 class="text-center">Tagging</h5>
+		<div class="row">
+			<div class="col-xs-6">
+				{{ui-selectize options=demoChoices value=mySelection maxItems=1}}
+			</div>
+			<div class="col-xs-6">
+				{{ui-selectize options=demoChoices placeholder="Choose tags" value=myTags}}
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			{{ui-selectize options=demoChoices value=mySelection maxItems=1}}
+		<div class="row">
+			<div class="col-xs-6 text-center text-muted">
+				value: {{mySelection}}
+			</div>
+			<div class="col-xs-6 text-center text-muted">
+				value: {{myTags}}
+			</div>
 		</div>
-		<div class="col-xs-6">
-			{{ui-selectize options=demoChoices placeholder="Choose tags" value=myTags}}
+		<div class="row">
+			<div class="col-xs-6 text-center text-muted">
+				<code>\{{ui-selectize options=demoChoices maxItems=1}}</code>
+			</div>
+			<div class="col-xs-6 text-center text-muted">
+				<code>\{{ui-selectize options=demoChoices placeholder="Choose tags"}}</code>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6 text-center text-muted">
-			value: {{mySelection}}
-		</div>
-		<div class="col-xs-6 text-center text-muted">
-			value: {{myTags}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6 text-center text-muted">
-			<code>\{{ui-selectize options=demoChoices maxItems=1}}</code>
-		</div>
-		<div class="col-xs-6 text-center text-muted">
-			<code>\{{ui-selectize options=demoChoices placeholder="Choose tags"}}</code>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6 text-center text-muted">
-			Presents user with choices with the aim for them to pick one value from the list. 
-		</div>
-		<div class="col-xs-6 text-center text-muted">
-			Allows user to choose any number of "tags" where the value of the bound variable is an array of choices.
+		<div class="row">
+			<div class="col-xs-6 text-center text-muted">
+				Presents user with choices with the aim for them to pick one value from the list. 
+			</div>
+			<div class="col-xs-6 text-center text-muted">
+				Allows user to choose any number of "tags" where the value of the bound variable is an array of choices.
+			</div>
 		</div>
 	</div>
 	
+	<h4>Value Binding</h4>
+	<div id="binding">
+		<p>
+			The primary binding that exists for the ui-selectize controls is `value`. This binds itself to the `valueProperty` that is specified on instantiation (or relies on the default value of 'id'). So for instance, 
+			if you put this into a template:
+			<pre>	\{{ui-selectize value=myValue options='one,two,three'}}</pre>
+			the options would be auto-expanded to <code>[{id:'one',value:'one'},{...},{...}]</code> and then your container would be assigned the `id` value of whatever option has been chosen.
+		</p>
+		<p>
+			In addition to this obvious usecase above, there are also to important variations to be aware of:
+			<ul>
+				<li><b>valueObject</b> - whenever a choice is selected the valueObject will be available (one-way binding) and will present the all the properties that the object contains. 
+					Not very useful in the simple example but often the full set of attributes are what you are interested in and <i>valueObject</i> provides that 
+					without needing to do another "findBy" or similar operation on the container. </li>
+				<li>
+					<strong>Ember Data</strong> - when the data that is being loaded up as options then it can be useful to have the <em>valueObject</em> actually 
+					be the ember-data object rather than just a POJO with all the attributes set. This is the default behaviour but if you wish to just get back a POJO object set <code>useEmberModelWhenAvailable</code> to false.
+				</li>
+			</ul>
+		</p>
+	</div>
+	
+	<h4>Exposed Events</h4>
 	<div id="events">
-		<h4>Exposed Events</h4>
 		<p>
 			Rather than tapping into the Selectize events directly, events are made available as Ember actions. Action names are the same as the event names put out by Selectize. 
 			The one exception is "score(search)" where the function be directly bound to.
@@ -95,8 +119,8 @@
 		</div>		
 	</div>
 	
+	<h4>Touch Devices</h4>
 	<div id="touch">
-		<h4>Touch Devices</h4>
 		<p>
 			While there are plenty of reasons to <i>not</i> to use user-agent matching to detect mobile browers the fact is feature detection isn't really a good option anymore either. 
 			So whether you choose to use it or not this addon will add a <code>touch-device</code> class to the control when it thinks you're on a mobile platform. Secondarily, 
@@ -293,17 +317,6 @@
 				Ember Data<br/>
 				<code>
 					\{{ui-select-input options=promisedOptions }}
-				</code>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-5  col-md-3">
-				{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" optgroupOrder="color,animal,body" }}
-			</div>
-			<div class="col-xs-7 col-md-9">
-				Grouped Selection w/ custom sort<br/>
-				<code>
-					\{{ui-select-input options=groupedChoices optgroups=optGroup optgroupField="group" optgroupOrder="color,animal,body"}}
 				</code>
 			</div>
 		</div>

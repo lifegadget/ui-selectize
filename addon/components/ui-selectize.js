@@ -129,6 +129,8 @@ export default Ember.Component.extend({
 	// value bindings
 	value: null, // the value of the selector (based on valueField)
 	valueObject: null, // the full object that is selected
+	_emberModelObjects: null, // in the case of pulling from ED, this is the actual reference set
+	useEmberModelWhenAvailable: true,
 
 	placeholder: 'Select one',
 	selected: false,
@@ -164,6 +166,7 @@ export default Ember.Component.extend({
 					var newOptions = item.content.map(function(item) {
 						return item._data;
 					});
+					self.set('_emberModelObjects', item.content); // this is so we can pass back the actual Ember-Data object
 					if(JSON.stringify(newOptions) !== JSON.stringify(workingOptions)) {
 						self.propertyWillChange('_workingOptions');
 						self.set('_workingOptions', newOptions);
@@ -203,7 +206,7 @@ export default Ember.Component.extend({
 		if(hasInitialized) {
 			Ember.run.next(this, function() {
 				if(workingOptions.length > 0) {
-					this.loadOptions(workingOptions);				
+					this.loadOptions(workingOptions);
 				}
 			});	
 		}
@@ -214,6 +217,7 @@ export default Ember.Component.extend({
 		var workingOptions = this.get('_workingOptions') || [];
 		var valueField = this.get('valueField');
 		var selectize = this.get('selectize');
+		var emberModelObjects = this.get('_emberModelObjects');
 		if(!selectize) {
 			return false;
 		}
@@ -223,12 +227,21 @@ export default Ember.Component.extend({
 			}
 			this.set('valueObject',value.map(function(item){
 				return workingOptions.findBy(valueField, item);
-			}));
+			}));				
 		} else {
-			if (value !== uiValue) {
-				selectize.setValue(value);
+			// if it is an Ember Model that created the array then 
+			// use the actual ember-data model objects rather than the 
+			// POJO array that Selectize likes
+			if(!isEmpty(emberModelObjects) && this.get('useEmberModelWhenAvailable')) {
+				var pojo = workingOptions.findBy(valueField, value);
+				this.set('valueObject', emberModelObjects.findBy('id',pojo.id));
+			} else {
+			
+				if (value !== uiValue) {
+					selectize.setValue(value);
+				}
+				this.set('valueObject', workingOptions.findBy(valueField, value));
 			}
-			this.set('valueObject', workingOptions.findBy(valueField, value));
 		}
 	}.observes('value'),
 
