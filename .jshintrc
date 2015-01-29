@@ -2,7 +2,11 @@
   "predef": [
     "document",
     "window",
-    "-Promise"
+    "-Promise",
+	"navigator"
+  ],
+  "global": [
+  	"navigator"
   ],
   "browser": true,
   "boss": true,

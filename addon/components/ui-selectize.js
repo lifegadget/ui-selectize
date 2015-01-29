@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 var typeOf = Ember.typeOf;
 var isEmpty = Ember.isEmpty;
+/* global navigator: false */
 
 export default Ember.Component.extend({
 	// component props
@@ -167,9 +168,7 @@ export default Ember.Component.extend({
 						self.propertyWillChange('_workingOptions');
 						self.set('_workingOptions', newOptions);
 						self.propertyDidChange('_workingOptions');
-					} else {
-						console.warn('no change after promise resolution, no change made');
-					}
+					} 
 				},
 				// PROMISE REJECTED
 				function(error) {
@@ -240,7 +239,6 @@ export default Ember.Component.extend({
 		preReqs.forEach(function(o) {
 			self[o]();
 		});
-		
 		var options = this.get('_workingOptions') || [];
 		var config = this.getProperties(
 			'optgroups','optgroupField','optgroupValueField','optgroupLabelField','optgroupOrder',
