@@ -33,10 +33,15 @@ export default Ember.Controller.extend({
 		var store = this.get('store');
 		return store.find('color');
 	}.property(),
+	promisedObject: function() {
+		var store = this.get('store');
+		return store.find('animal', 'mammal');
+	}.property(),
 	
 	server: null,
 	startupServer: function() {
 		var self = this;
+		var promisedObject = { animal: {id:"mammal", examples:['lion','bear','tiger']} };
 		var promisedData = { 
 			colors: [
 				{id:"red", name:"Red", group:"primary"},
@@ -49,7 +54,10 @@ export default Ember.Controller.extend({
 		self.set('server', new Pretender(function(){
 		  this.get('/colors', function(request){
 			  return [200, {"Content-Type": "application/json"}, JSON.stringify(promisedData)];
-		  }, 15000);
+		  }, 5000);
+		  this.get('/animals/:id', function(request){
+			  return [200, {"Content-Type": "application/json"}, JSON.stringify(promisedObject)];
+		  }, 5000);
 		}));		
 	}.on('init'),
 	teardownServer: function() {

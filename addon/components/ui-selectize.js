@@ -162,10 +162,36 @@ export default Ember.Component.extend({
 				// PROMISE RESOLVED
 				function(item) {
 					console.log('promise[%s] was resolved', self.get('elementId'));
+					var optionsField = self.get('optionsField');
+					var newOptions = [];
+					if(item.id) {
+						// returned promise was an object, need optionsField to deduce where array can be found
+						if(optionsField) {
+							newOptions = item._data[optionsField];
+							// validate that its an array
+							if(typeOf(newOptions) === 'array') {
+								// ensure array-of-objects
+								newOptions = newOptions.map(function(item) {
+									if(typeOf(item) === 'object' && item.id) {
+										return item;
+									} else {
+										return { id: item, name: item };
+									}
+								});
+							} else {
+								console.warn('Component %s\'s "%s" property was not an array value.');
+								newOptions = [];
+							}
+						} else {
+							console.warn('An object was returned for %s but there was no "optionsField" specified', this.get('elementId'));
+						}
+					} else {
+						// returned promise is an array of values
+						newOptions = item.content.map(function(item) {
+							return item._data;
+						});
+					}
 					workingOptions = self.get('_workingOptions');
-					var newOptions = item.content.map(function(item) {
-						return item._data;
-					});
 					self.set('_emberModelObjects', item.content); // this is so we can pass back the actual Ember-Data object
 					if(JSON.stringify(newOptions) !== JSON.stringify(workingOptions)) {
 						self.propertyWillChange('_workingOptions');

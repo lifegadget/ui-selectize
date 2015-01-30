@@ -92,6 +92,21 @@
 		</p>
 	</div>
 	
+	<h4>Options Binding</h4>
+	<div id="binding">
+		The options which selectize offers as choices can come in various flavours but in all cases they will be converted into an <em>array</em> of <em>objects</em> with both <code>id</code> and <code>name</code> properties. The 
+		acceptable input formats include:
+		<ul>
+			<li><strong>CSV String</strong> - allows static definition of an array within a template by allowing a comma-seperated list of values</li>
+			<li><strong>Simple Array</strong> - any simple array (numeric or string) will be used and both <code>id</code> and <code>name</code> will take on same value</li>
+			<li><strong>Array Promise</strong> - you can simply point a Ember-Data array promise at selectize and it will resolve it</li>
+			<li>
+				<strong>Property Promise</strong> - you can also point to a single Ember-Data record and indicate a property name which contains the array definition. 
+				In order to do this you must set the <code>optionsField</code> property to indicate which property has the array.
+			</li>
+		</ul>
+	</div>
+	
 	<h4>Exposed Events</h4>
 	<div id="events">
 		<p>
@@ -132,7 +147,6 @@
 			project with <a href="https://github.com/ember-mobile/ember-cli-fastclick">ember-cli-fastclick</a> or <a href="https://github.com/runspired/ember-mobiletouch">ember-mobiletouch</a>.
 		</p>
 	</div>
-	
 	
 	<h4>Components</h4>
 	<p>
@@ -317,6 +331,17 @@
 				Ember Data<br/>
 				<code>
 					\{{ui-select-input options=promisedOptions }}
+				</code>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5  col-md-3">
+				{{ui-select-input options=promisedObject optionsField='examples'}}
+			</div>
+			<div class="col-xs-7 col-md-9">
+				Ember Data Property w/ offset<br/>
+				<code>
+					\{{ui-select-input options=promisedObject optionsField='examples'}}
 				</code>
 			</div>
 		</div>

@@ -40,6 +40,8 @@ code {
 	font-family: "Courier New", Courier, monospace;
 	font-size: 9pt;
 	line-spacing: 1rem;
+	color: rgb(63, 63, 63);
+	background-color: rgb(235, 234, 234);
 }
 
 note {
