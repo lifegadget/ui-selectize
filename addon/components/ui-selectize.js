@@ -8,13 +8,13 @@ export default Ember.Component.extend({
 	// component props
 	tagName: 'select',
 	classNames: ['ui-selectize'],
-	classNameBindings: [ 'selected:selected:not-selected', 'touchDevice', 'fingerFriendly' ],
+	classNameBindings: [ 'touchDevice', 'fingerFriendly', 'selected:selected:not-selected' ],
 	attributeBindings: [ 'name','autocomplete','disabled' ],
 	autocomplete: false,
 	autofocus: false,
 	touchDevice: function() {
 		if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
-			return 'touch-device';
+			return true;
 		} else {
 			return false;
 		}
@@ -24,7 +24,7 @@ export default Ember.Component.extend({
 		if(this.get('touchDevice') && this.get('fingerFriendly') === null) {
 			this.set('fingerFriendly', true);
 		}
-	}.on('didInsertElement'),
+	},
 	disabled: Ember.computed.not('enabled'),
 	enabled: true,
 	_enabled: function() {
@@ -34,7 +34,7 @@ export default Ember.Component.extend({
 		} else {
 			this.selectize.lock();
 		}
-	}.observes('enabled'),
+	}.observes('didInsertElement'),
 	
 	// bound Selectize config
 	options: null,
@@ -183,7 +183,7 @@ export default Ember.Component.extend({
 								newOptions = [];
 							}
 						} else {
-							console.warn('An object was returned for %s but there was no "optionsField" specified', this.get('elementId'));
+							console.warn('An object was returned for %s but there was no "optionsField" specified', self.get('elementId'));
 						}
 					} else {
 						// returned promise is an array of values
@@ -274,7 +274,7 @@ export default Ember.Component.extend({
 	// Initializes the UI select control
 	initializeSelectize: function() {
 		var self = this;
-		var preReqs = ['_workingOptionsObserver','_optionsObserver','_plugins','_searchField','_optgroupOrder'];
+		var preReqs = ['_workingOptionsObserver','_optionsObserver','_plugins','_searchField','_optgroupOrder','_fingerFriendly'];
 		preReqs.forEach(function(o) {
 			self[o]();
 		});

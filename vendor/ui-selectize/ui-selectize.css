@@ -2,9 +2,11 @@
 	cursor: not-allowed;
 }
 
+.selectize-control.ui-selectize .selectize-input {
+	height: auto;
+}
 
 .selectize-control.ui-selectize.finger-friendly .selectize-input {
-	height: auto;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 }
