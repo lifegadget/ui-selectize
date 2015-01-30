@@ -24,7 +24,7 @@ export default Ember.Component.extend({
 		if(this.get('touchDevice') && this.get('fingerFriendly') === null) {
 			this.set('fingerFriendly', true);
 		}
-	},
+	}.on('didInsertElement'),
 	disabled: Ember.computed.not('enabled'),
 	enabled: true,
 	_enabled: function() {
@@ -34,7 +34,7 @@ export default Ember.Component.extend({
 		} else {
 			this.selectize.lock();
 		}
-	}.observes('didInsertElement'),
+	}.on('didInsertElement'),
 	
 	// bound Selectize config
 	options: null,

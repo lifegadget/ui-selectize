@@ -145,21 +145,26 @@
 		<p>
 			Final point on servicing touch devices ... click delays are annoying! It is recommended that you use a solution like fastclick which can be easily incorporated into your
 			project with <a href="https://github.com/ember-mobile/ember-cli-fastclick">ember-cli-fastclick</a> or <a href="https://github.com/runspired/ember-mobiletouch">ember-mobiletouch</a>.
+			As an unfortunate side-effect though, fastclick will make selecting options not work. No problem, a small plugin has been added called <code>fast_click</code> and it is included
+			by default in both the <em>ui-tags-input</em> and the <em>ui-select-input</em> but not the base <em>ui-selectize</em> (of course it can be added). Do keep in mind that if you 
+			set the <code>plugins</code> parameter it is destructive so you'll need to <em>re-</em>include this plugin if you're using fastclick.
 		</p>
 	</div>
 	
 	<h4>Components</h4>
-	<p>
-		The primary component is <code>ui-selectize</code> which mimics the jQuery defaults and API as much as possible. For convenience purposes, however, two additional componenents are made available to enhance 
-		semantic clarity in your code and arrive at some better default values for "selects" versus "tags":
-	</p>
-	<ul>
-		<li><code>ui-tags-input</code> - sets *hideSelected* to false so that chosen tags are no longer available and the "remove_button" plugin included too</li>
-		<li><code>ui-select-input</code> - sets <em>maxItems</em> to <strong>1</strong> (required for selects)</li>
-	</ul>
-	<p>
-		In all other ways all three components are the same and in all three you are free to use any of the bindings to change behaviour.
-	</p>
+	<div id="components">
+		<p>
+			The primary component is <code>ui-selectize</code> which mimics the jQuery defaults and API as much as possible. For convenience purposes, however, two additional componenents are made available to enhance 
+			semantic clarity in your code and arrive at some better default values for "selects" versus "tags":
+		</p>
+		<ul>
+			<li><code>ui-tags-input</code> - sets *hideSelected* to false so that chosen tags are no longer available and the "remove_button" plugin included too</li>
+			<li><code>ui-select-input</code> - sets <em>maxItems</em> to <strong>1</strong> (required for selects)</li>
+		</ul>
+		<p>
+			In all other ways all three components are the same and in all three you are free to use any of the bindings to change behaviour.
+		</p>		
+	</div>
 	
 	{{#if isolate}}
 		Isolation mode, no tests shown
