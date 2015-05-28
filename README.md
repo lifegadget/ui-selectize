@@ -1,12 +1,11 @@
-# ui-selectize
+# ui-selectize [![npm version](https://badge.fury.io/js/ui-selectize.svg)](http://badge.fury.io/js/ui-selectize)
 
 > The [selectize](http://brianreavis.github.io/selectize.js/) select/tag form-control wrapped in Ember-CLI love
-
 
 ## Installation
 
 * change directories to your project folder
-* `ember install:addon ui-selectize`
+* `ember install ui-selectize`
 
 ### Dependencies ###
 
@@ -17,7 +16,6 @@ This addon will install the underlying **Selectize** component which itself depe
 Documentation, example configuration/tests are all available here:
 
 > [Online Demo](http://development.ui-selectize.divshot.io)
-
 
 ## Repo Contribution
 
