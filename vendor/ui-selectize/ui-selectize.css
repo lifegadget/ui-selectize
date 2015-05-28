@@ -36,13 +36,13 @@
 	margin-left: .1rem;
 	margin-top: .25rem;
 	margin-bottom: .25rem;
-} 
+}
 
 .selectize-control.multi.ui-selectize.finger-friendly .selectize-input.has-items .item .remove {
 	padding-top: .75rem;
 	padding-left: .35rem;
 	padding-right: .35rem;
-} 
+}
 
 .selectize-control.multi.ui-selectize.finger-friendly .selectize-input.has-items {
 	padding-top: .1rem;
@@ -54,3 +54,7 @@
 }
 
 .ui-selectize.touch-device {}
+
+.ui-selectize.inline-control {
+  display: inline-flex;
+}

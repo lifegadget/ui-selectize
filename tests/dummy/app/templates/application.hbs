@@ -4,7 +4,7 @@
 
 	<h3>Description</h3>
 	<p>
-		This control, developed by Brian Reavis has become very popular due to its small footprint, skinnable interface and programatic API (including a plugin API). Most of the documentation you'll want to use 
+		This control, developed by Brian Reavis has become very popular due to its small footprint, skinnable interface and programatic API (including a plugin API). Most of the documentation you'll want to use
 		can be found on his site, but here are few important links:
 	</p>
 
@@ -19,15 +19,15 @@
 	<h4>This Addon</h4>
 	<p>
 		The goal is -- at least 99% of the time -- to provide easy programmatic availability to the existing control and <i>not</i> to extend its functionality. So for that reason the original documentation
-		should serve as a good guide in most cases. 	
+		should serve as a good guide in most cases.
 	</p>
-	
+
 	<h4>Overview</h4>
 	<div id="overview">
 		<p>
-			This addon serves two principle use-cases which you'll see demonstrated below: 	
+			This addon serves two principle use-cases which you'll see demonstrated below:
 		</p>
-	
+
 		<div class="row">
 			<div class="col-xs-6">
 				<h5 class="text-center">Selecting</h5>
@@ -62,18 +62,18 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-6 text-center text-muted">
-				Presents user with choices with the aim for them to pick one value from the list. 
+				Presents user with choices with the aim for them to pick one value from the list.
 			</div>
 			<div class="col-xs-6 text-center text-muted">
 				Allows user to choose any number of "tags" where the value of the bound variable is an array of choices.
 			</div>
 		</div>
 	</div>
-	
+
 	<h4>Value Binding</h4>
 	<div id="binding">
 		<p>
-			The primary binding that exists for the ui-selectize controls is `value`. This binds itself to the `valueProperty` that is specified on instantiation (or relies on the default value of 'id'). So for instance, 
+			The primary binding that exists for the ui-selectize controls is `value`. This binds itself to the `valueProperty` that is specified on instantiation (or relies on the default value of 'id'). So for instance,
 			if you put this into a template:
 			<pre>	\{{ui-selectize value=myValue options='one,two,three'}}</pre>
 			the options would be auto-expanded to <code>[{id:'one',value:'one'},{...},{...}]</code> and then your container would be assigned the `id` value of whatever option has been chosen.
@@ -81,36 +81,36 @@
 		<p>
 			In addition to this obvious usecase above, there are also to important variations to be aware of:
 			<ul>
-				<li><b>valueObject</b> - whenever a choice is selected the valueObject will be available (one-way binding) and will present the all the properties that the object contains. 
-					Not very useful in the simple example but often the full set of attributes are what you are interested in and <i>valueObject</i> provides that 
+				<li><b>valueObject</b> - whenever a choice is selected the valueObject will be available (one-way binding) and will present the all the properties that the object contains.
+					Not very useful in the simple example but often the full set of attributes are what you are interested in and <i>valueObject</i> provides that
 					without needing to do another "findBy" or similar operation on the container. </li>
 				<li>
-					<strong>Ember Data</strong> - when the data that is being loaded up as options then it can be useful to have the <em>valueObject</em> actually 
+					<strong>Ember Data</strong> - when the data that is being loaded up as options then it can be useful to have the <em>valueObject</em> actually
 					be the ember-data object rather than just a POJO with all the attributes set. This is the default behaviour but if you wish to just get back a POJO object set <code>useEmberModelWhenAvailable</code> to false.
 				</li>
 			</ul>
 		</p>
 	</div>
-	
+
 	<h4>Options Binding</h4>
 	<div id="binding">
-		The options which selectize offers as choices can come in various flavours but in all cases they will be converted into an <em>array</em> of <em>objects</em> with both <code>id</code> and <code>name</code> properties. The 
+		The options which selectize offers as choices can come in various flavours but in all cases they will be converted into an <em>array</em> of <em>objects</em> with both <code>id</code> and <code>name</code> properties. The
 		acceptable input formats include:
 		<ul>
 			<li><strong>CSV String</strong> - allows static definition of an array within a template by allowing a comma-seperated list of values</li>
 			<li><strong>Simple Array</strong> - any simple array (numeric or string) will be used and both <code>id</code> and <code>name</code> will take on same value</li>
 			<li><strong>Array Promise</strong> - you can simply point a Ember-Data array promise at selectize and it will resolve it</li>
 			<li>
-				<strong>Property Promise</strong> - you can also point to a single Ember-Data record and indicate a property name which contains the array definition. 
+				<strong>Property Promise</strong> - you can also point to a single Ember-Data record and indicate a property name which contains the array definition.
 				In order to do this you must set the <code>optionsField</code> property to indicate which property has the array.
 			</li>
 		</ul>
 	</div>
-	
+
 	<h4>Exposed Events</h4>
 	<div id="events">
 		<p>
-			Rather than tapping into the Selectize events directly, events are made available as Ember actions. Action names are the same as the event names put out by Selectize. 
+			Rather than tapping into the Selectize events directly, events are made available as Ember actions. Action names are the same as the event names put out by Selectize.
 			The one exception is "score(search)" where the function be directly bound to.
 		</p>
 		<p>
@@ -122,7 +122,7 @@
 				<li>onChange</li>
 				<li>onOptionAdd</li>
 				<li>onOptionRemove</li>
-			</ul>		
+			</ul>
 		</div>
 		<div class="col-xs-6">
 			<ul>
@@ -130,31 +130,31 @@
 				<li>onDropdownClose</li>
 				<li>onItemAdd</li>
 				<li>onItemRemove</li>
-			</ul>		
-		</div>		
+			</ul>
+		</div>
 	</div>
-	
+
 	<h4>Touch Devices</h4>
 	<div id="touch">
 		<p>
-			While there are plenty of reasons to <i>not</i> to use user-agent matching to detect mobile browers the fact is feature detection isn't really a good option anymore either. 
-			So whether you choose to use it or not this addon will add a <code>touch-device</code> class to the control when it thinks you're on a mobile platform. Secondarily, 
-			it will also auto-default the component's <b>fingerFriendly</b> property to <i>true</i> which will make all of the controls a bit bigger to make your fingers happy. If 
-			your fingers aren't happy at that point they never will be. :) 
+			While there are plenty of reasons to <i>not</i> to use user-agent matching to detect mobile browers the fact is feature detection isn't really a good option anymore either.
+			So whether you choose to use it or not this addon will add a <code>touch-device</code> class to the control when it thinks you're on a mobile platform. Secondarily,
+			it will also auto-default the component's <b>fingerFriendly</b> property to <i>true</i> which will make all of the controls a bit bigger to make your fingers happy. If
+			your fingers aren't happy at that point they never will be. :)
 		</p>
 		<p>
 			Final point on servicing touch devices ... click delays are annoying! It is recommended that you use a solution like fastclick which can be easily incorporated into your
 			project with <a href="https://github.com/ember-mobile/ember-cli-fastclick">ember-cli-fastclick</a> or <a href="https://github.com/runspired/ember-mobiletouch">ember-mobiletouch</a>.
 			As an unfortunate side-effect though, fastclick will make selecting options not work. No problem, a small plugin has been added called <code>fast_click</code> and it is included
-			by default in both the <em>ui-tags-input</em> and the <em>ui-select-input</em> but not the base <em>ui-selectize</em> (of course it can be added). Do keep in mind that if you 
+			by default in both the <em>ui-tags-input</em> and the <em>ui-select-input</em> but not the base <em>ui-selectize</em> (of course it can be added). Do keep in mind that if you
 			set the <code>plugins</code> parameter it is destructive so you'll need to <em>re-</em>include this plugin if you're using fastclick.
 		</p>
 	</div>
-	
+
 	<h4>Components</h4>
 	<div id="components">
 		<p>
-			The primary component is <code>ui-selectize</code> which mimics the jQuery defaults and API as much as possible. For convenience purposes, however, two additional componenents are made available to enhance 
+			The primary component is <code>ui-selectize</code> which mimics the jQuery defaults and API as much as possible. For convenience purposes, however, two additional componenents are made available to enhance
 			semantic clarity in your code and arrive at some better default values for "selects" versus "tags":
 		</p>
 		<ul>
@@ -163,9 +163,9 @@
 		</ul>
 		<p>
 			In all other ways all three components are the same and in all three you are free to use any of the bindings to change behaviour.
-		</p>		
+		</p>
 	</div>
-	
+
 	{{#if isolate}}
 		Isolation mode, no tests shown
 	{{else}}
@@ -355,7 +355,7 @@
 
 	<h4>Using Plugins</h4>
 <pre>
-Using plugins is just a matter of including the name in the plugin property. 
+Using plugins is just a matter of including the name in the plugin property.
 By default \{{ui-tags-input}} has <b>remove_button</b> included.
 </pre>
 	<div id="ui-number-array-input" class="container">
@@ -392,8 +392,54 @@ By default \{{ui-tags-input}} has <b>remove_button</b> included.
 				</code>
 			</div>
 		</div>
-	
+
 	</div>
+
+  <h4>Inline</h4>
+<pre>
+By default selectize is displayed as a <em>block</em> component but you can change this behaviour by setting the <b>inline</b>
+property which is a boolean flag. The one issue with this is that just setting the CSS <em>display</em> property will result in
+the control dynamically resize to fit the content once it is selected. This may sound good but its actually typically NOT the
+user experience you want.
+
+Instead using the <code>width</code> property is more often the better option. By setting the width property to a non-null value
+-- this can be discreet <em>px</em> value or more abstracted measurements like <em>em</em> or even <em>%</em> -- you automatically
+enter into an inline mode but the width of the selectize control remains constant.
+</pre>
+  <div id="ui-number-array-input" class="container">
+    <div class="row">
+      <div class="col-xs-5 col-md-3">
+        {{ui-select-input options='foo,bar,baz' inline=true}} Look at me
+      </div>
+      <div class="col-xs-7 col-md-9">
+        Inline control with text on right<br/>
+        <code>
+          \{{ui-select-input options='foo,bar,baz' inline=true}} Look at me
+        </code>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-5 col-md-3">
+        {{ui-select-input options='foo,bar,baz' inline=true}} {{ui-tags-input options='foo,bar,baz' inline=true}}
+      </div>
+      <div class="col-xs-7 col-md-9">
+        Two inline controls side-by-side<br/>
+        <code>
+          \{{ui-select-input options='foo,bar,baz' inline=true}} \{{ui-tags-input options='foo,bar,baz' inline=true}}
+        </code>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-5 col-md-3">
+        {{ui-select-input options='foo,bar,baz' width='50%'}} {{ui-tags-input options='foo,bar,baz' width='50%'}}
+      </div>
+      <div class="col-xs-7 col-md-9">
+        Two inline controls with fixed width (50%)<br/>
+        <code>
+          \{{ui-select-input options='foo,bar,baz' width='50%'}} \{{ui-tags-input options='foo,bar,baz' width='50%'}}
+        </code>
+      </div>
+    </div>  </div>
 
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
@@ -401,7 +447,7 @@ By default \{{ui-tags-input}} has <b>remove_button</b> included.
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
-	
+
 	{{/if}}
 
 </div>

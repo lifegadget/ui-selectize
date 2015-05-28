@@ -1,5 +1,4 @@
 import Ember from 'ember';
-
 var typeOf = Ember.typeOf;
 var isEmpty = Ember.isEmpty;
 /* global navigator: false */
@@ -8,7 +7,7 @@ export default Ember.Component.extend({
 	// component props
 	tagName: 'select',
 	classNames: ['ui-selectize'],
-	classNameBindings: [ 'touchDevice', 'fingerFriendly', 'selected:selected:not-selected' ],
+	classNameBindings: [ 'touchDevice', 'fingerFriendly', 'selected:selected:not-selected', 'inline:inline-control:block-control' ],
 	attributeBindings: [ 'name','autocomplete','disabled' ],
 	autocomplete: false,
 	autofocus: false,
@@ -35,11 +34,11 @@ export default Ember.Component.extend({
 			this.selectize.lock();
 		}
 	}.on('didInsertElement'),
-	
+
 	// bound Selectize config
 	options: null,
 	_workingOptions: [], // final resting place for "options"
-	
+
 	optgroups: null, // the array of optgroups
 	optgroupField: null, // property name on "options" which refers to optgroupsValueField
 	optgroupValueField: 'id', // the displayed name for optgroup
@@ -52,7 +51,7 @@ export default Ember.Component.extend({
 	_plugins: function() {
 		this._stringToArray('plugins');
 	}.observes('plugins'),
-	
+
 	onInitialize: null,
 	onDestroy: null,
 	labelField: 'name',
@@ -62,9 +61,9 @@ export default Ember.Component.extend({
 		this._stringToArray('searchField');
 	}.observes('searchField'),
 	sortField: 'name',
-	
+
 	create: false, // allows user to create new items not on the list (can be true, false, or callback)
-	createOnBlur: false, 
+	createOnBlur: false,
 	createFilter: null,
 	highlight: true,
 	persist: true, // options user created will show up after deselected
@@ -78,9 +77,9 @@ export default Ember.Component.extend({
 	addPrecedence: false,
 	selectOnTab: true,
 	inputClass: 'form-control selectize-input',
-	
-	// Convert a string value into an array so that 
-	// templates can provide static arrays to this 
+
+	// Convert a string value into an array so that
+	// templates can provide static arrays to this
 	// component
 	_stringToArray: function(property) {
 		var value = this.get(property);
@@ -88,10 +87,10 @@ export default Ember.Component.extend({
 			this.set(property, value.split(','));
 		}
 	},
-	
+
 	// Public Callback bindings
 	score: null,
-	
+
 	// Private Event Handling
 	_onInitialize: function() {
 		this.initialized = true;
@@ -139,15 +138,15 @@ export default Ember.Component.extend({
 
 	/**
 	Options can come in as:
-	
-		a) a simple array of values 
+
+		a) a simple array of values
 		b) an array of objects
 		c) a promise which resolves to (b)
-	
-	This methods intent is to make all bindings to options eventually end up as an array of options. 
-	This consistent view will be stored to the '_workingOptions' property where the remaining 
+
+	This methods intent is to make all bindings to options eventually end up as an array of options.
+	This consistent view will be stored to the '_workingOptions' property where the remaining
 	interaction with the selectize control will exist
-	*/	
+	*/
 	_optionsObserver: function() {
 		var self = this;
 		var options = this.get('options');
@@ -197,7 +196,7 @@ export default Ember.Component.extend({
 						self.propertyWillChange('_workingOptions');
 						self.set('_workingOptions', newOptions);
 						self.propertyDidChange('_workingOptions');
-					} 
+					}
 				},
 				// PROMISE REJECTED
 				function(error) {
@@ -205,12 +204,12 @@ export default Ember.Component.extend({
 				}
 			);
 		}
-		// SIMPLE ARRAY 
+		// SIMPLE ARRAY
 		else if(options && options.length > 0 && typeOf(options[0]) !== "object") {
 			workingOptions = options.map(function(item) {
 				return {id: item, name: item};
 			});
-		} 
+		}
 		// ARRAY of OBJECTS
 		else {
 			workingOptions = options;
@@ -219,11 +218,11 @@ export default Ember.Component.extend({
 		if(options && JSON.stringify(workingOptions) !== JSON.stringify(this.get('_workingOptions'))) {
 			this.propertyWillChange('_workingOptions');
 			this.set('_workingOptions', workingOptions);
-			this.propertyDidChange('_workingOptions');	
+			this.propertyDidChange('_workingOptions');
 		}
 	}.observes('options'),
 	/**
-	When changes are made to working options then pass this change directly 
+	When changes are made to working options then pass this change directly
 	onto the selectize control.
 	*/
 	_workingOptionsObserver: function() {
@@ -234,7 +233,7 @@ export default Ember.Component.extend({
 				if(workingOptions.length > 0) {
 					this.loadOptions(workingOptions);
 				}
-			});	
+			});
 		}
 	}.observes('_workingOptions'),
 	_valueObserver: function() {
@@ -253,16 +252,16 @@ export default Ember.Component.extend({
 			}
 			this.set('valueObject',value.map(function(item){
 				return workingOptions.findBy(valueField, item);
-			}));				
+			}));
 		} else {
-			// if it is an Ember Model that created the array then 
-			// use the actual ember-data model objects rather than the 
+			// if it is an Ember Model that created the array then
+			// use the actual ember-data model objects rather than the
 			// POJO array that Selectize likes
 			if(!isEmpty(emberModelObjects) && this.get('useEmberModelWhenAvailable')) {
 				var pojo = workingOptions.findBy(valueField, value);
 				this.set('valueObject', emberModelObjects.findBy('id',pojo.id));
 			} else {
-			
+
 				if (value !== uiValue) {
 					selectize.setValue(value);
 				}
@@ -294,7 +293,7 @@ export default Ember.Component.extend({
 		config.onDropdownClose = Ember.$.proxy(this._onDropdownClose, this);
 		config.onItemAdd = Ember.$.proxy(this._onItemAdd, this);
 		config.onItemRemove = Ember.$.proxy(this._onItemRemove, this);
-	
+
 		this.$().selectize(config);
 		this.selectize = this.$()[0].selectize;
 		// post-initalization observers
@@ -319,11 +318,11 @@ export default Ember.Component.extend({
 		if(!isEmpty(options) && hasInitialized) {
 			this.get('selectize').load(function(callback) {
 				callback(options);
-			});			
+			});
 		}
 	},
 	teardown: function() {
 		this.get('selectize').off();
 	}.on('willDestroyElement')
-	
+
 });
