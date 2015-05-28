@@ -1,7 +1,5 @@
 import Ember from 'ember';
-var typeOf = Ember.typeOf;
-var isEmpty = Ember.isEmpty;
-/* global navigator: false */
+const { computed, observer, $, A, run, on, typeOf, debug, keys, get, set, inject, isEmpty } = Ember;    // jshint ignore:line
 
 export default Ember.Component.extend({
 	// component props
@@ -11,29 +9,29 @@ export default Ember.Component.extend({
 	attributeBindings: [ 'name','autocomplete','disabled' ],
 	autocomplete: false,
 	autofocus: false,
-	touchDevice: function() {
+	touchDevice: computed(function() {
 		if(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
 			return true;
 		} else {
 			return false;
 		}
-	}.property(),
+	}),
 	fingerFriendly: null,
-	_fingerFriendly: function() {
+	_fingerFriendly: on('didInsertElement', function() {
 		if(this.get('touchDevice') && this.get('fingerFriendly') === null) {
 			this.set('fingerFriendly', true);
 		}
-	}.on('didInsertElement'),
+	}),
 	disabled: Ember.computed.not('enabled'),
 	enabled: true,
-	_enabled: function() {
+	_enabled: on('didInsertElement', function() {
 		var enabled = this.get('enabled');
 		if(enabled) {
 			this.selectize.unlock();
 		} else {
 			this.selectize.lock();
 		}
-	}.on('didInsertElement'),
+	}),
 
 	// bound Selectize config
 	options: null,
@@ -44,22 +42,22 @@ export default Ember.Component.extend({
 	optgroupValueField: 'id', // the displayed name for optgroup
 	optgroupLabelField: 'name', // property on "optgroups" array for the "value" which will match options property
 	optgroupOrder: null, // array of optgroup keys in a particular order
-	_optgroupOrder: function() {
+	_optgroupOrder: observer('optgroupOrder', function() {
 		this._stringToArray('optgroupOrder');
-	}.observes('optgroupOrder'),
+	}),
 	plugins: null,
-	_plugins: function() {
+	_plugins: observer('plugins', function() {
 		this._stringToArray('plugins');
-	}.observes('plugins'),
+	}),
 
 	onInitialize: null,
 	onDestroy: null,
 	labelField: 'name',
 	valueField: 'id', // the field in the incoming hash which will be used for assigning a value to the input selector
 	searchField: ['name'], // properties to search through for a match
-	_searchField: function() {
+	_searchField: observer('searchField', function() {
 		this._stringToArray('searchField');
-	}.observes('searchField'),
+	}),
 	sortField: 'name',
 
 	create: false, // allows user to create new items not on the list (can be true, false, or callback)
@@ -147,7 +145,7 @@ export default Ember.Component.extend({
 	This consistent view will be stored to the '_workingOptions' property where the remaining
 	interaction with the selectize control will exist
 	*/
-	_optionsObserver: function() {
+	_optionsObserver: observer('options', function() {
 		var self = this;
 		var options = this.get('options');
 		var workingOptions = [];
@@ -200,12 +198,12 @@ export default Ember.Component.extend({
 				},
 				// PROMISE REJECTED
 				function(error) {
-					// TODO: implement
+          debug(error);
 				}
 			);
 		}
 		// SIMPLE ARRAY
-		else if(options && options.length > 0 && typeOf(options[0]) !== "object") {
+		else if(options && options.length > 0 && typeOf(options[0]) !== 'object') {
 			workingOptions = options.map(function(item) {
 				return {id: item, name: item};
 			});
@@ -220,12 +218,12 @@ export default Ember.Component.extend({
 			this.set('_workingOptions', workingOptions);
 			this.propertyDidChange('_workingOptions');
 		}
-	}.observes('options'),
+	}),
 	/**
 	When changes are made to working options then pass this change directly
 	onto the selectize control.
 	*/
-	_workingOptionsObserver: function() {
+	_workingOptionsObserver: observer('_workingOptions', function() {
 		var workingOptions = this.get('_workingOptions') || [];
 		var hasInitialized = this.get('hasInitialized');
 		if(hasInitialized) {
@@ -235,11 +233,11 @@ export default Ember.Component.extend({
 				}
 			});
 		}
-	}.observes('_workingOptions'),
-	_valueObserver: function() {
+	}),
+	_valueObserver: observer('value', function() {
 		var value = this.get('value');
 		var uiValue = this.selectize.getValue();
-		var workingOptions = this.get('_workingOptions') || [];
+		var workingOptions = new A(this.get('_workingOptions')) || [];
 		var valueField = this.get('valueField');
 		var selectize = this.get('selectize');
 		var emberModelObjects = this.get('_emberModelObjects');
@@ -268,10 +266,10 @@ export default Ember.Component.extend({
 				this.set('valueObject', workingOptions.findBy(valueField, value));
 			}
 		}
-	}.observes('value'),
+	}),
 
 	// Initializes the UI select control
-	initializeSelectize: function() {
+	initializeSelectize: on('didInsertElement', function() {
 		var self = this;
 		var preReqs = ['_workingOptionsObserver','_optionsObserver','_plugins','_searchField','_optgroupOrder','_fingerFriendly'];
 		preReqs.forEach(function(o) {
@@ -302,7 +300,7 @@ export default Ember.Component.extend({
 			self[o]();
 		});
 		this.set('hasInitialized', true);
-	}.on('didInsertElement'),
+	}),
 	addOptions: function(options) {
 			if(options && options.length > 0) {
 			var selectize = this.get('selectize');
@@ -321,8 +319,8 @@ export default Ember.Component.extend({
 			});
 		}
 	},
-	teardown: function() {
+	teardown: on('willDestroyElement', function() {
 		this.get('selectize').off();
-	}.on('willDestroyElement')
+	})
 
 });
