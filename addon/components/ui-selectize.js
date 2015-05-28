@@ -1,11 +1,12 @@
 import Ember from 'ember';
 const { computed, observer, $, A, run, on, typeOf, debug, keys, get, set, inject, isEmpty } = Ember;    // jshint ignore:line
+import StyleManager from 'ui-selectize/mixins/style-manager';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(StyleManager,{
 	// component props
 	tagName: 'select',
 	classNames: ['ui-selectize'],
-	classNameBindings: [ 'touchDevice', 'fingerFriendly', 'selected:selected:not-selected', 'inline:inline-control:block-control' ],
+	classNameBindings: [ 'touchDevice', 'fingerFriendly', 'selected:selected:not-selected', '_inline:inline-control:block-control' ],
 	attributeBindings: [ 'name','autocomplete','disabled' ],
 	autocomplete: false,
 	autofocus: false,
@@ -16,6 +17,11 @@ export default Ember.Component.extend({
 			return false;
 		}
 	}),
+  inline: false,
+  _inline: computed('inline','width', function() {
+    const { inline, width } = this.getProperties('inline', 'width');
+    return inline || width;
+  }),
 	fingerFriendly: null,
 	_fingerFriendly: on('didInsertElement', function() {
 		if(this.get('touchDevice') && this.get('fingerFriendly') === null) {

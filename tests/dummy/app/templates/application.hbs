@@ -431,15 +431,28 @@ enter into an inline mode but the width of the selectize control remains constan
     </div>
     <div class="row">
       <div class="col-xs-5 col-md-3">
-        {{ui-select-input options='foo,bar,baz' width='50%'}} {{ui-tags-input options='foo,bar,baz' width='50%'}}
+        {{ui-select-input options='foo,bar,baz' width='49%'}} {{ui-tags-input options='foo,bar,baz' width='49%'}}
       </div>
       <div class="col-xs-7 col-md-9">
         Two inline controls with fixed width (50%)<br/>
         <code>
-          \{{ui-select-input options='foo,bar,baz' width='50%'}} \{{ui-tags-input options='foo,bar,baz' width='50%'}}
+          \{{ui-select-input options='foo,bar,baz' width='49%'}} \{{ui-tags-input options='foo,bar,baz' width='49%'}}
         </code>
       </div>
-    </div>  </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-5 col-md-3">
+        {{ui-select-input options='foo,bar,baz' width='150px'}} hello world
+      </div>
+      <div class="col-xs-7 col-md-9">
+        An inline control with fixed width and text to right<br/>
+        <code>
+          \{{ui-select-input options='foo,bar,baz' width='150px'}} hello world
+        </code>
+      </div>
+    </div>
+
+  </div>
 
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
