@@ -39,10 +39,11 @@ export default Ember.Component.extend(StyleManager,{
 		}
 	}),
 
-	// bound Selectize config
 	options: null,
 	_workingOptions: [], // final resting place for "options"
 
+  // Selectize OPTIONS API surface
+  // ------------------------------
 	optgroups: null, // the array of optgroups
 	optgroupField: null, // property name on "options" which refers to optgroupsValueField
 	optgroupValueField: 'id', // the displayed name for optgroup
