@@ -27,12 +27,12 @@ export default Ember.Controller.extend({
 		{id:'rabbit', name:'Rabbit', group:'animal'}
 	],
 	isolate: false,
-	promisedOptions: computed(function() {
-		var store = this.get('store');
-		return store.find('color');
-	}),
-	promisedObject: computed(function() {
-		var store = this.get('store');
-		return store.find('animal', 'mammal');
-	})
+	// promisedOptions: computed(function() {
+	// 	var store = this.get('store');
+	// 	return store.find('color');
+	// }),
+	// promisedObject: computed(function() {
+	// 	var store = this.get('store');
+	// 	return store.find('animal', 'mammal');
+	// })
 });
