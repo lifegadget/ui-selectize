@@ -3,6 +3,8 @@ const { computed, observer, $, A, run, on, typeOf, debug, keys, get, set, inject
 
 export default Ember.Controller.extend({
 	demoChoices: ['Frog','Monkey','Lion'],
+  myValue: 'bar',
+  myStartingTags: ['foo','baz'],
 	mySelection: 'Monkey',
 	myTags: ['Monkey'],
 	groupedChoices: [
@@ -27,6 +29,7 @@ export default Ember.Controller.extend({
 		{id:'rabbit', name:'Rabbit', group:'animal'}
 	],
 	isolate: false,
+  disabledToggle: true
 	// promisedOptions: computed(function() {
 	// 	var store = this.get('store');
 	// 	return store.find('color');

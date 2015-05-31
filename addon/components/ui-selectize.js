@@ -21,7 +21,12 @@ export default Ember.Component.extend(StyleManager,{
 	tagName: 'select',
 	classNames: ['ui-selectize'],
 	classNameBindings: [ 'touchDevice', 'fingerFriendly', 'selected:selected:not-selected', '_inline:inline-control:block-control' ],
-	attributeBindings: [ 'name','autocomplete','disabled' ],
+	attributeBindings: [ 'name','autocomplete' ],
+  // wrestle back control of disabled property
+  _propertyRemapping: on('init', function() {
+    Ember.A(this.get('attributeBindings')).removeObject('disabled');
+  }),
+
 	autocomplete: false,
 	autofocus: false,
 	touchDevice: computed(function() {
@@ -42,19 +47,18 @@ export default Ember.Component.extend(StyleManager,{
 			this.set('fingerFriendly', true);
 		}
 	}),
-	disabled: Ember.computed.not('enabled'),
-	enabled: true,
-	_enabled: observer('enabled', function() {
-		var enabled = this.get('enabled');
-		if(enabled) {
-			this.selectize.unlock();
+	disabled: false,
+	_disabledObserver: observer('disabled', function() {
+		const { disabled, selectize } = this.getProperties('disabled', 'selectize');
+		if(disabled) {
+			selectize.disable();
 		} else {
-			this.selectize.lock();
+			selectize.enable();
 		}
 	}),
 
 	options: null,
-  _options: computed('options','options.@each.value', function() {
+  _options: computed('options','options.@each.value','valueField','labelField', function() {
     const {labelField, valueField, searchField, optgroupField} = this.getProperties('labelField', 'valueField', 'searchField','optgroupField');
     const options = convertToObjectArray(this.get('options'));
 
@@ -63,6 +67,8 @@ export default Ember.Component.extend(StyleManager,{
       const value = get(item,valueField);
       const label = get(item,labelField);
       const group = optgroupField ? get(item,optgroupField) : null;
+      console.log('label [%s]: %o, value: %o', labelField, label, value);
+      console.log('ITEM: %o', item);
       if(searchField) {
         console.log('search: %o', searchField);
       }
@@ -88,16 +94,27 @@ export default Ember.Component.extend(StyleManager,{
   // bound values passed straight through to control
   apiPassThrough: [
     'optgroups',
+    'inputClass','onInitialize','onDestroy','sortField','placeholder',
+    'create','createOnBlur','createFilter','highlight','persist','openOnFocus','maxOptions','maxItems','hideSelected',
+    'allowEmptyOption','scrollDuration','dropdownParent','addPrecedence','selectOnTab',
+    'score'
   ],
-  // Arguably not needed but for "meta" reasons; these are props which are consumed by a CP
-  // rather than Selectize directly
+  // Arguably not needed except for "meta" reasons; these are props which are consumed directly by a CP
+  // rather than Selectize (which would recieve a state change indirectly)
   apiIntermediate: [
+    'valueField', 'labelField',
     'optgroupField', 'optgroupValueField', 'optgroupLabelField'
   ],
   // CP's to be used rather than bound value
   apiProcessed: [
-    '_optgroupOrder', '_plugins',
+    '_optgroupOrder', '_plugins', '_searchField', '_sortField'
   ],
+  // Static mappings to API
+  apiStaticMappings: {
+    valueField: 'value',
+    labelField: 'label',
+    searchField: 'search'
+  },
 
 	optgroups: null, // the array of optgroups
 	optgroupField: null, // property name on "options" which refers to optgroupsValueField
@@ -118,19 +135,38 @@ export default Ember.Component.extend(StyleManager,{
     return typeOf(plugins) === 'string' ? plugins.split(',') : plugins;
   }),
 
-
 	onInitialize: null,
 	onDestroy: null,
 	labelField: 'name',
 	valueField: 'id', // the field in the incoming hash which will be used for assigning a value to the input selector
 	searchField: 'name', // property/properties to search through for a match
-  _searchFields: computed('searchField', function() {
+  _searchField: computed('searchField', function() {
     const searchField = this.get('searchField');
-    // if a string, convert to an array (splitting a CSV if exists)
     return typeOf(searchField) === 'string' ? searchField.split(',') : searchField;
   }),
   searchConjunction: 'and', // when searching for multiple terms (seperated by a space)
 	sortField: 'name',
+  // Selectize allows "sortField" to be an array of objects or a string value;
+  // we will just simplify this to the more versatile array of objects which also
+  // allows the optional attribute "direction" (which is "asc" or "desc")
+  _sortField: computed('sortField', function() {
+    const sortField = this.get('sortField');
+    const sortFields = typeOf(sortField) === 'string' ? sortField.split(',') : sortField;
+
+    return sortFields.map( item => {
+      switch(typeOf(item)) {
+        case 'string':
+          return {field: item};
+        case 'object':
+          return item;
+        default:
+          debug('an invalid property was passed to the sortField property: ' + JSON.stringify(item));
+          return null;
+      }
+    }).filter( item => {
+      return item !== null;
+    });
+  }),
 
 	create: false, // allows user to create new items not on the list (can be true, false, or callback)
 	createOnBlur: false,
@@ -160,6 +196,7 @@ export default Ember.Component.extend(StyleManager,{
 		} else {
 			this.set('selected',true);
 		}
+    console.log('value changed to: %o', value);
 		this.sendAction('onChange',value, this.get('valueObject'));
 	},
 	_onOptionAdd:function(value,data) {
@@ -181,53 +218,47 @@ export default Ember.Component.extend(StyleManager,{
 		this.sendAction('onItemRemove', value);
 	},
 
-	// value bindings
-	value: null, // the value of the selector (based on valueField)
+  placeholder: 'Select one',
+  selected: false,
+  loadingMessage: 'loading ...',
+  selectize: null,
+	// Value
+  // ----------------------
+	value: null, // the value of the selector (a scalar if "select-input", an array if "tags-input")
 	valueObject: null, // the full object that is selected
-
-	placeholder: 'Select one',
-	selected: false,
-	loadingMessage: 'loading ...',
-	selectize: null,
-
+  inputType: computed('maxItems', function() {
+    return this.get('maxItems') === 1 ? 'select' : 'tags';
+  }),
+  // ensures regardless of inputType that value is an array
+  _value: computed('value', 'inputType', function() {
+    const {value, inputType} = this.getProperties('value','inputType');
+    return inputType === 'select' ? [value] : value;
+  }),
+  // detect component value changes, push to UI control
 	_valueObserver: observer('value', function() {
-		var value = this.get('value');
-		var uiValue = this.selectize.getValue();
-		var workingOptions = new A(this.get('_workingOptions')) || [];
-		var valueField = this.get('valueField');
-		var selectize = this.get('selectize');
-		var emberModelObjects = this.get('_emberModelObjects');
-		if(!selectize) {
-			return false;
-		}
-		if(typeOf(value) === 'array') {
-			if (value.join(',') !== uiValue.join(',')) {
-				selectize.setValue(value);
-			}
-			this.set('valueObject',value.map(function(item){
-				return workingOptions.findBy(valueField, item);
-			}));
-		} else {
-			// if it is an Ember Model that created the array then
-			// use the actual ember-data model objects rather than the
-			// POJO array that Selectize likes
-			if(!isEmpty(emberModelObjects) && this.get('useEmberModelWhenAvailable')) {
-				var pojo = workingOptions.findBy(valueField, value);
-				this.set('valueObject', emberModelObjects.findBy('id',pojo.id));
-			} else {
+		const value = this.get('_value');
+    const options = new A(this.get('_options'));
+    const selectize = this.get('selectize');
+    // if(!selectize) {
+    //   debug('value changed in selectize but control not found.');
+    //   return false;
+    // }
+    const uiValue = selectize.getValue();
 
-				if (value !== uiValue) {
-					selectize.setValue(value);
-				}
-				this.set('valueObject', workingOptions.findBy(valueField, value));
-			}
-		}
-	}),
+    // update Selectize's value
+    if(JSON.stringify(value) !== JSON.stringify(uiValue)) {
+      selectize.setValue(value);
+    }
+
+    const valueObject = options.findBy('value', value[0]);
+    console.log('value object [%o]: %o', value,valueObject.object);
+    this.set('valueObject', valueObject);
+  }),
 
 	// Initializes the UI select control
 	initializeSelectize: on('didInsertElement', function() {
-		const options = this.get('_options');
     const optgroupOrder = this.get('_optgroupOrder');
+    const value = this.get('_value');
 		let config = this.getProperties(
 			'optgroups','optgroupField','optgroupValueField','optgroupLabelField',
 			'inputClass','onInitialize','onDestroy','labelField','valueField','searchField','sortField','placeholder',
@@ -254,6 +285,12 @@ export default Ember.Component.extend(StyleManager,{
 		this.selectize = this.$()[0].selectize;
 		this.set('hasInitialized', true);
     this.loadOptions();
+    this._disabledObserver();
+    if(value) {
+      new A(value).forEach( item => {
+        this.selectize.addItem(item);
+      });
+    }
     this.sendAction('onInitialize');
 	}),
 	addOptions: function(options) {
@@ -269,10 +306,9 @@ export default Ember.Component.extend(StyleManager,{
 	loadOptions: function() {
 		// const hasInitialized = this.get('hasInitialized');
     const options = this.get('_options');
-    const $selectize = this.get('selectize');
+    const selectize = this.get('selectize');
 		if(!isEmpty(options) ) {
-			$selectize.load((callback) => {
-        console.log('loading selectize: %o', options);
+			selectize.load((callback) => {
 				callback(options);
 			});
 		}

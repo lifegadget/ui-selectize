@@ -197,17 +197,41 @@
 				</code>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-5  col-md-3">
-				{{ui-selectize placeholder="placeholder" options='foo,bar,baz' maxItems=1}}
-			</div>
-			<div class="col-xs-7 col-md-9">
-				Select with placeholder and static options<br/>
-				<code>
-	\{{ui-selectize  maxItems=1 placeholder='placeholder' options='foo,bar,baz'}}
-				</code>
-			</div>
-		</div>
+    <div class="row">
+      <div class="col-xs-5  col-md-3">
+        {{ui-selectize placeholder="placeholder" options='foo,bar,baz' maxItems=1}}
+      </div>
+      <div class="col-xs-7 col-md-9">
+        Select with placeholder and static options<br/>
+        <code>
+  \{{ui-selectize  maxItems=1 placeholder='placeholder' options='foo,bar,baz'}}
+        </code>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5  col-md-3">
+        {{ui-selectize value=myValue placeholder="placeholder" options='foo,bar,baz' maxItems=1}}
+      </div>
+      <div class="col-xs-7 col-md-9">
+        Select with bound value starting value: {{myValue}}<br/>
+        <code>
+  \{{ui-selectize value=myValue maxItems=1 placeholder='placeholder' options='foo,bar,baz'}}
+        </code>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5  col-md-3">
+        {{ui-selectize value=myStartingTags placeholder="placeholder" options='foo,bar,baz'}}
+      </div>
+      <div class="col-xs-7 col-md-9">
+        Tags with bound values starting value: {{myStartingTags}}<br/>
+        <code>
+  \{{ui-selectize value=myStartingTags placeholder='placeholder' options='foo,bar,baz'}}
+        </code>
+      </div>
+    </div>
 	</div>
 
 
@@ -285,16 +309,16 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-2  col-md-1">
-				{{ui-tags-input enabled=false}}
+				{{ui-tags-input disabled=disabledToggle}}
 			</div>
 			<div class="col-xs-3 col-md-2">
-				{{ui-select-input enabled=false}}
+				{{ui-select-input disabled=disabledToggle}}
 			</div>
 			<div class="col-xs-7 col-md-9">
-				Disabled<br/>
+				{{ui-toggle-button on='disabled' off='enabled' size='small' value=disabledToggle}}<br/>
 				<code>
-					\{{ui-tags-input enabled=false}}
-					\{{ui-select-input enabled=false}}
+					\{{ui-tags-input {{#if disabledToggle}}disabled=true{{/if}} }}
+					\{{ui-select-input {{#if disabledToggle}}disabled=true{{/if}} }}
 				</code>
 			</div>
 		</div>
