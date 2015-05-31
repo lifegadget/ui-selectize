@@ -72,7 +72,6 @@ export default Ember.Component.extend(StyleManager,{
     });
   }),
   _optionsObserver: on('init', observer('_options', function() {
-    const options = this.get('_options');
     const hasInitialized = this.get('hasInitialized');
     if(hasInitialized) {
       run(() => {
