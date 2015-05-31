@@ -62,16 +62,10 @@ export default Ember.Component.extend(StyleManager,{
     const {labelField, valueField, searchField, optgroupField} = this.getProperties('labelField', 'valueField', 'searchField','optgroupField');
     const options = convertToObjectArray(this.get('options'));
 
-    console.log('_options[%s,%s]: %o', valueField, labelField, options);
     return options.map(item => {
       const value = get(item,valueField);
       const label = get(item,labelField);
       const group = optgroupField ? get(item,optgroupField) : null;
-      console.log('label [%s]: %o, value: %o', labelField, label, value);
-      console.log('ITEM: %o', item);
-      if(searchField) {
-        console.log('search: %o', searchField);
-      }
       const search = searchField ? get(item,searchField) : label; // default to label field if not set
 
       return { label: label, value: value, group: group, search: search, object: item };
@@ -80,7 +74,6 @@ export default Ember.Component.extend(StyleManager,{
   _optionsObserver: on('init', observer('_options', function() {
     const options = this.get('_options');
     const hasInitialized = this.get('hasInitialized');
-    console.log('options changed[%s]: %o', hasInitialized, options);
     if(hasInitialized) {
       run(() => {
         this.loadOptions();
@@ -183,20 +176,19 @@ export default Ember.Component.extend(StyleManager,{
 	addPrecedence: false,
 	selectOnTab: true,
 	inputClass: 'form-control selectize-input',
-
-	// callback function to score the result (TODO: validate this is what this property is for)
+	// callback function to score the result (default used if left as null)
 	score: null,
+  placeholder: 'Select one',
+  loadingMessage: 'loading ...',
 
 	// Private Event Handling
 	_onChange:function(value) {
-		// console.log('value changed: %o', value);
 		this.set('value', value);
 		if (isEmpty(value)) {
 			this.set('selected',false);
 		} else {
 			this.set('selected',true);
 		}
-    console.log('value changed to: %o', value);
 		this.sendAction('onChange',value, this.get('valueObject'));
 	},
 	_onOptionAdd:function(value,data) {
@@ -218,9 +210,7 @@ export default Ember.Component.extend(StyleManager,{
 		this.sendAction('onItemRemove', value);
 	},
 
-  placeholder: 'Select one',
   selected: false,
-  loadingMessage: 'loading ...',
   selectize: null,
 	// Value
   // ----------------------
@@ -239,10 +229,6 @@ export default Ember.Component.extend(StyleManager,{
 		const value = this.get('_value');
     const options = new A(this.get('_options'));
     const selectize = this.get('selectize');
-    // if(!selectize) {
-    //   debug('value changed in selectize but control not found.');
-    //   return false;
-    // }
     const uiValue = selectize.getValue();
 
     // update Selectize's value
@@ -251,7 +237,6 @@ export default Ember.Component.extend(StyleManager,{
     }
 
     const valueObject = options.findBy('value', value[0]);
-    console.log('value object [%o]: %o', value,valueObject.object);
     this.set('valueObject', valueObject);
   }),
 
