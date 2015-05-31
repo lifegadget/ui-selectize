@@ -38,18 +38,18 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-6">
-				{{ui-selectize options=demoChoices value=mySelection maxItems=1}}
+				{{ui-selectize options=demoChoices value=initialSelect maxItems=1}}
 			</div>
 			<div class="col-xs-6">
-				{{ui-selectize options=demoChoices placeholder="Choose tags" value=myTags}}
+				{{ui-selectize options=demoChoices value=initialTags placeholder="Choose tags" }}
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-6 text-center text-muted">
-				value: {{mySelection}}
+				value: {{initialSelect}}
 			</div>
 			<div class="col-xs-6 text-center text-muted">
-				value: {{myTags}}
+				value: {{initialTags}}
 			</div>
 		</div>
 		<div class="row">
@@ -349,33 +349,6 @@
 			</div>
 		</div>
 	</div>
-
-	<h4>Promise Backed Data</h4>
-	<div id="ui-number-array-input" class="container">
-		<div class="row">
-			<div class="col-xs-5  col-md-3">
-				{{ui-select-input options=promisedOptions }}
-			</div>
-			<div class="col-xs-7 col-md-9">
-				Ember Data<br/>
-				<code>
-					\{{ui-select-input options=promisedOptions }}
-				</code>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-5  col-md-3">
-				{{ui-select-input options=promisedObject optionsField='examples'}}
-			</div>
-			<div class="col-xs-7 col-md-9">
-				Ember Data Property w/ offset<br/>
-				<code>
-					\{{ui-select-input options=promisedObject optionsField='examples'}}
-				</code>
-			</div>
-		</div>
-	</div>
-
 
 	<h4>Using Plugins</h4>
 <pre>
