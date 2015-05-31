@@ -8,14 +8,15 @@
     "ember-load-initializers": "ember-cli/ember-load-initializers#0.0.2",
     "qunit": "~1.17.1",
     "ember-qunit": "0.3.3",
-    "ember-qunit-notifications": "0.0.7",
+    "ember-qunit-notifications": "0.0.5",
     "ember-resolver": "~0.1.15",
     "ember-data": "1.0.0-beta.17",
     "loader.js": "ember-cli/loader.js#3.2.0",
-    "ember-cli-shims": "ember-cli/ember-cli-shims#0.0.3",
-    "ember-qunit-notifications": "0.0.5",
     "bootstrap": "~3.3.2",
     "selectize": "~0.11.2",
     "pretender": "0.1.0"
+  },
+  "devDependencies": {
+    "animate.css": "~3.3.0"
   }
 }
