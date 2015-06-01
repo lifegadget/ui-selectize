@@ -1,6 +1,6 @@
 {
   "name": "ui-selectize",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "a select and tag based input control",
   "directories": {
     "doc": "doc",
@@ -17,6 +17,20 @@
   },
   "author": "LifeGadget Ltd",
   "license": "MIT",
+  "files": [
+    "Brocfile.js",
+    "LICENSE.md",
+    "README.md",
+    "addon",
+    "app",
+    "bower.json",
+    "config",
+    "index.js",
+    "package.json",
+    "testem.json",
+    "vendor"
+  ],
+  "main": "index.js",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
     "ember-cli": "^0.2.5",
@@ -46,6 +60,7 @@
     "form-control"
   ],
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "demoURL": "http://development.ui-selectize.divshot.io/"
   }
 }
