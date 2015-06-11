@@ -61,7 +61,7 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
   // OPTIONS
   // -------------------
 	options: null,
-  _options: computed('options','options.@each.isFulfilled', 'options.@each.value','valueField','labelField', function() {
+  _options: computed('options','options.isFulfilled', 'options.@each.value','valueField','labelField', function() {
     const {labelField, valueField, optgroupField} = this.getProperties('labelField', 'valueField', 'optgroupField');
     const searchField = this.get('_searchField');
     const options = convertToObjectArray(this.get('options'));

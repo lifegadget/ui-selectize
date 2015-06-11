@@ -463,7 +463,7 @@ enter into an inline mode but the width of the selectize control remains constan
       <div class="col-xs-7 col-md-9">
         Animals loaded from ED<br/>
         <code>
-          \{{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=true}}
+          \{{ui-tags-input options=edAnimals fingerFriendly=true}}
         </code>
       </div>
     </div>
@@ -475,21 +475,6 @@ enter into an inline mode but the width of the selectize control remains constan
         NOT Fat Finger friendly (desktop default)<br/>
         <code>
           \{{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=false}}
-        </code>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-2  col-md-1">
-        {{ui-tags-input disabled=disabledToggle}}
-      </div>
-      <div class="col-xs-3 col-md-2">
-        {{ui-select-input disabled=disabledToggle}}
-      </div>
-      <div class="col-xs-7 col-md-9">
-        {{ui-toggle-button on='disabled' off='enabled' size='small' value=disabledToggle}}<br/>
-        <code>
-          \{{ui-tags-input {{#if disabledToggle}}disabled=true{{/if}} }}
-          \{{ui-select-input {{#if disabledToggle}}disabled=true{{/if}} }}
         </code>
       </div>
     </div>
