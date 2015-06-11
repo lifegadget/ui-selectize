@@ -61,7 +61,7 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
   // OPTIONS
   // -------------------
 	options: null,
-  _options: computed('options','options.@each.value','valueField','labelField', function() {
+  _options: computed('options','options.@each.isFulfilled', 'options.@each.value','valueField','labelField', function() {
     const {labelField, valueField, optgroupField} = this.getProperties('labelField', 'valueField', 'optgroupField');
     const searchField = this.get('_searchField');
     const options = convertToObjectArray(this.get('options'));
@@ -69,6 +69,7 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
     return options.map(item => {
       const value = get(item,valueField);
       const label = get(item,labelField);
+      console.log('label: %s', label);
       const group = optgroupField ? get(item,optgroupField) : null;
 
       let result = { label: label, value: value, group: group, search: searchField, object: item };
@@ -80,6 +81,7 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
     });
   }),
   _optionsObserver: on('init', observer('_options', function() {
+    console.log('options change observed: %o', this.get('_options'));
     const hasInitialized = this.get('hasInitialized');
     if(hasInitialized) {
       run(() => {
@@ -133,7 +135,8 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
 		config.onInitialize = Ember.$.proxy(this._onInitialize, this);
 		config.onOptionAdd = Ember.$.proxy(this._onOptionAdd, this);
 		config.onOptionRemove = Ember.$.proxy(this._onOptionRemove, this);
-		config.onChange = Ember.$.proxy(this._onChange, this);
+    config.onChange = Ember.$.proxy(this._onChange, this);
+    config.onLoad = Ember.$.proxy(this._onLoad, this);
 		config.onDropdownOpen = Ember.$.proxy(this._onDropdownOpen, this);
 		config.onDropdownClose = Ember.$.proxy(this._onDropdownClose, this);
 		config.onItemAdd = Ember.$.proxy(this._onItemAdd, this);
@@ -164,17 +167,23 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
 		}
 	},
 	loadOptions: function() {
-		// const hasInitialized = this.get('hasInitialized');
     const options = this.get('_options');
     const selectize = this.get('selectize');
 		if(!isEmpty(options) ) {
-			selectize.load((callback) => {
-				callback(options);
-			});
+      selectize.load((callback) => {
+        callback(options);
+        // selectize.off('clear');
+      });
+      // selectize.on('clear', function() {
+      //   console.log('clear complete');
+      // });
+      // selectize.clear();
 		}
 	},
 	teardown: on('willDestroyElement', function() {
-		this.get('selectize').off();
+    const selectize = this.get('selectize');
+		selectize.off();
+    selectize.destroy();
 	})
 
 });

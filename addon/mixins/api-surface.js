@@ -113,6 +113,10 @@ var ApiSurface = Ember.Mixin.create({
       }
       this.sendAction('onChange',value, this.get('valueObject'));
     },
+    _onLoad:function(data) {
+      this.sendAction('onLoad', data);
+      console.log('loaded: %o', data);
+    },
     _onOptionAdd:function(value,data) {
       this.sendAction('onOptionAdd', value, data);
     },
