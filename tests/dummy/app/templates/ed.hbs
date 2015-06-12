@@ -1,0 +1,277 @@
+<h3>Overview</h3>
+<p>
+  This control, developed by Brian Reavis has become very popular due to its small footprint, skinnable interface and programatic API (including a plugin API). Most of the documentation you'll want to use
+  can be found on his site:
+  <a href="http://brianreavis.github.io/selectize.js/" target="selectize-demo">Github</a>
+</p>
+<p class="downer">
+  The remaining sections hopefully will be a good demonstrative overview of how to use these controls in
+  your Ember app.
+</p>
+
+<h3>Loading Options from Various Sources</h3>
+<p class="downer">
+  Options are loaded by providing data to the <code>options</code> property. You can provide CSV string, a simple array of strings, an array of POJO's or Ember Data.
+</p>
+<div id="ui-number-array-input" class="container">
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+      {{ui-selectize options='Frog,Piglett,Angry Wolf' class='foobar' value=csvValue}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Animals loaded from template string: {{csvValue}}<br/>
+      <code>
+        \{{ui-selectize options='Frog,Piglett,Angry Wolf'}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+      {{ui-selectize options=demoChoices value=arrayValue}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Animals loaded from container array:  {{arrayValue}}<br/>
+      <code>
+        \{{ui-selectize options=demoChoices}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+      {{ui-selectize options=edAnimals value=edValue}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Animals loaded from Ember Data:  {{edValue}}<br/>
+      <code>
+        \{{ui-selectize options=edAnimals}}
+      </code>
+    </div>
+  </div>
+</div>
+
+<p class="downer">
+  It's worth noting that the animals in the CSV were intentionally made to demonstrate that the 'value' of a CSV
+  input is automatically "camelized" where as the name is left <i>as is</i>.
+</p>
+
+
+<h3>Available Components</h3>
+<p class="downer">
+  Up to now we've just used the <code>ui-selectize</code> control which does have the base implementation for the other components but typically you'll use one of the two subclasses of selectize which just have parameters set for you in a handy way:
+  <ul>
+    <li><code>ui-tags-input</code> - like the default control, it assumes you're specifying 1 or more "tags"</li>
+    <li>
+      <code>ui-select-input</code> - this control constrains the user to choose only 1 thing making it behave like a
+    </li>
+  </ul>
+</p>
+<div id="ui-number-array-input" class="container">
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+      {{ui-tags-input options='Frog,Piglett,Angry Wolf' value=tagsValue}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      ui-tags-input:  {{tagsValue}}<br/>
+      <code>
+        \{{ui-tags-input options='Frog,Piglett,Angry Wolf'}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+    {{ui-select-input options='Frog,Piglett,Angry Wolf' value=selectValue}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      ui-tags-input:  {{selectValue}}<br/>
+      <code>
+        \{{ui-select-input options='Frog,Piglett,Angry Wolf'}}
+      </code>
+    </div>
+  </div>
+</div>
+<p class="downer">
+  Let's quickly cover the small variances that you should experience above:
+  <ul>
+    <li>
+      ui-tags-input
+      <ul>
+        <li>Selected buttons have a "cancel" button (an example of a plugin ... more later)</li>
+        <li>After selecting an item it is removed as an option to choose again</li>
+      </ul>
+    </li>
+    <li>
+      ui-select-input
+      <ul>
+        <li>Input restricted to only 1 item max</li>
+        <li>Selectize control automatically adds graphic flurish to make it clear this control is a select control</li>
+        <li>Note: the value returned is a scalar and not an array (with a single element in it)</li>
+      </ul>
+    </li>
+  </ul>
+</p>
+
+
+<h3>Groups</h3>
+<p class="downer">
+  One of the nice additions to selectize's dropdown and/or tagging solution is that options can be grouped. A group is created when the options have defined a group property (it is 'group' by default) and then
+  the value of this property needs to map into array of groups that is provided independently on the
+  <code>optgroup</code> property.
+</p>
+<div id="ui-number-array-input" class="container">
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+      {{ui-select-input options=things optgroups=optGroup value=thingsValue}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Grouped selection: {{thingsValue}}<br/>
+      <code>
+        \{{ui-select-input options=things optgroups=optGroup}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+      {{ui-tags-input options=things optgroups=groups value=thingsValue2}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Grouped selection: {{thingsValue2}}<br/>
+      <code>
+      \{{ui-tags-input options=things optgroups=group}}
+      </code>
+    </div>
+  </div>
+</div>
+<p class="downer">
+  Note: the second example has exactly the same results but the optgroups property is derived from Ember Data instead of a container array.
+</p>
+
+<h3>Plugins</h3>
+<p class="downer">Using plugins is just a matter of including the name in the plugin property.
+  By default \{{ui-tags-input}} has <b>remove_button</b> included.
+</p>
+<div id="ui-number-array-input" class="container">
+  <div class="row">
+    <div class="col-xs-5 col-md-3">
+      {{ui-select-input options=things optgroups=optGroup plugins='optgroup_columns' }}
+    </div>
+    <div class="col-xs-7 col-md-9">
+      Column-base selection: <i>optgroup_columns</i><br/>
+      <code>
+        \{{ui-select-input options=things optgroups=optGroup plugins='optgroup_columns' optgroups=optGroup }}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5 col-md-3">
+      {{ui-tags-input options=things plugins='remove_button,restore_on_backspace' optgroups=optGroup optgroupField="group"}}
+    </div>
+    <div class="col-xs-7 col-md-9">
+      Tags with: <i>remove_button(default), restore_on_backspace</i><br/>
+      <code>
+        \{{ui-tags-input options=things plugins='remove_button,restore_on_backspace'}}
+      </code>
+    </div>
+  </div>
+</div>
+
+<h3>Formatting</h3>
+<div id="ui-number-array-input" class="container">
+  <div class="row">
+    <div class="col-xs-5  col-md-3">
+      {{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=true}}
+    </div>
+    <div class="col-xs-7 col-md-9">
+      Fat Finger (mobile default)<br/>
+      <code>
+        \{{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=true}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5  col-md-3">
+      {{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=false}}
+    </div>
+    <div class="col-xs-7 col-md-9">
+      NOT Fat Finger friendly (desktop default)<br/>
+      <code>
+        \{{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=false}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2  col-md-1">
+      {{ui-tags-input disabled=disabledToggle options=things}}
+    </div>
+    <div class="col-xs-3 col-md-2">
+      {{ui-select-input disabled=disabledToggle options=things}}
+    </div>
+    <div class="col-xs-7 col-md-9">
+      {{ui-toggle-button on='disabled' off='enabled' size='small' value=disabledToggle}}<br/>
+      <code>
+        \{{ui-tags-input {{#if disabledToggle}}disabled=true{{/if}} }}
+        \{{ui-select-input {{#if disabledToggle}}disabled=true{{/if}} }}
+      </code>
+    </div>
+  </div>
+</div>
+
+<h3>Inline</h3>
+<p class="downer">
+  By default selectize is displayed as a <em>block</em> component but you can change this behaviour by setting the <b>inline</b>
+  property which is a boolean flag. The one issue with this is that just setting the CSS <em>display</em> property will result in
+  the control dynamically resize to fit the content once it is selected. This may sound good but its actually typically NOT the
+  user experience you want.
+
+  Instead using the <code>width</code> property is more often the better option. By setting the width property to a non-null value
+  -- this can be discreet <em>px</em> value or more abstracted measurements like <em>em</em> or even <em>%</em> -- you automatically
+  enter into an inline mode but the width of the selectize control remains constant.
+</p>
+<div id="ui-number-array-input" class="container">
+  <div class="row">
+    <div class="col-xs-5 col-md-3">
+      {{ui-select-input options='foo,bar,baz' inline=true}} Look at me
+    </div>
+    <div class="col-xs-7 col-md-9">
+      Inline control with text on right<br/>
+      <code>
+        \{{ui-select-input options='foo,bar,baz' inline=true}} Look at me
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5 col-md-3">
+      {{ui-select-input options='foo,bar,baz' inline=true}} {{ui-tags-input options='foo,bar,baz' inline=true}}
+    </div>
+    <div class="col-xs-7 col-md-9">
+      Two inline controls side-by-side<br/>
+      <code>
+        \{{ui-select-input options='foo,bar,baz' inline=true}} \{{ui-tags-input options='foo,bar,baz' inline=true}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5 col-md-3">
+      {{ui-select-input options='foo,bar,baz' width='49%'}} {{ui-tags-input options='foo,bar,baz' width='49%'}}
+    </div>
+    <div class="col-xs-7 col-md-9">
+      Two inline controls with fixed width (50%)<br/>
+      <code>
+        \{{ui-select-input options='foo,bar,baz' width='49%'}} \{{ui-tags-input options='foo,bar,baz' width='49%'}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5 col-md-3">
+      {{ui-select-input options='foo,bar,baz' width='150px'}} hello world
+    </div>
+    <div class="col-xs-7 col-md-9">
+      An inline control with fixed width and text to right<br/>
+      <code>
+        \{{ui-select-input options='foo,bar,baz' width='150px'}} hello world
+      </code>
+    </div>
+  </div>
+
+</div>
+
+

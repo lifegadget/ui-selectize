@@ -2,20 +2,14 @@ import Ember from 'ember';
 const { computed, observer, $, A, run, on, typeOf, debug, keys, get, set, inject, isEmpty } = Ember;    // jshint ignore:line
 import StyleManager from 'ui-selectize/mixins/style-manager';
 import ApiSurface from 'ui-selectize/mixins/api-surface';
-const convertToObjectArray = function(thingy) {
-  let result = typeOf(thingy) === 'string' ? thingy.split(',') : thingy;
-  if(!result || typeOf(result) === 'instance' ) {
-    return [];
-  }
-
-  return result.map(item => {
-    if(typeOf(item) === 'string' || typeOf(item) === 'number') {
-      return { name: String(item), id: item };
-    } else {
-      return item;
-    }
-  });
+const camelize = Ember.String.camelize;
+const convertStringToArray = function(data) {
+  data = typeOf(data) === 'string' ? data.split(',') : data || [];
+  return new A(data);
 };
+const objectifyString = function(thingy) {
+  return typeOf(thingy) === 'string' ? {id: camelize(thingy), name: thingy} : thingy;
+}
 
 export default Ember.Component.extend(StyleManager,ApiSurface,{
 	// component props
@@ -61,34 +55,48 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
   // OPTIONS
   // -------------------
 	options: null,
-  _options: computed('options','options.isFulfilled', 'options.@each.value','valueField','labelField', function() {
+  _options: computed('options','options.isFulfilled', 'options.[]', function() {
     const {labelField, valueField, optgroupField} = this.getProperties('labelField', 'valueField', 'optgroupField');
     const searchField = this.get('_searchField');
-    const options = convertToObjectArray(this.get('options'));
-
-    return options.map(item => {
+    const options = convertStringToArray(this.get('options'));
+    let result = new A([]);
+    options.forEach( item => {
+      item = objectifyString(item);
       const value = get(item,valueField);
       const label = get(item,labelField);
-      console.log('label: %s', label);
       const group = optgroupField ? get(item,optgroupField) : null;
 
-      let result = { label: label, value: value, group: group, search: searchField, object: item };
+      let newItem = { label: label, value: value, group: group, search: searchField, object: item };
       // iterate through search fields and make sure they are represented on root object
       new A(searchField).forEach(field => {
-        result[field] = get(item,field);
+        newItem[field] = get(item,field);
       });
-      return result;
+
+      result.pushObject(newItem);
+    });
+
+    return result;
+  }),
+  _optionsObserver: observer('_options', function() {
+    run(() => {
+      this.loadOptions();
     });
   }),
-  _optionsObserver: on('init', observer('_options', function() {
-    console.log('options change observed: %o', this.get('_options'));
-    const hasInitialized = this.get('hasInitialized');
-    if(hasInitialized) {
-      run(() => {
-        this.loadOptions();
+  optgroups: null,
+  _optgroups: computed('optgroups', 'optgroups.[]', function() {
+    const { optgroupValueField, optgroupLabelField } = this.getProperties('optgroupValueField', 'optgroupLabelField');
+    const optgroups = convertStringToArray(this.get('optgroups'));
+    let result = new A([]);
+    optgroups.forEach(group => {
+      result.pushObject({
+        id: get(group, optgroupValueField),
+        name: get(group, optgroupLabelField)
       });
-    }
-  })),
+    });
+
+    return result;
+  }),
+
 
 	// VALUE
   // ----------------------
@@ -141,8 +149,8 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
 		config.onDropdownClose = Ember.$.proxy(this._onDropdownClose, this);
 		config.onItemAdd = Ember.$.proxy(this._onItemAdd, this);
 		config.onItemRemove = Ember.$.proxy(this._onItemRemove, this);
-    console.log('config: %o', config);
     // Instantiate
+    config.optgroups = this.get('_optgroups');
 		this.$().selectize(config);
 		this.selectize = this.$()[0].selectize;
 		this.set('hasInitialized', true);
@@ -169,15 +177,10 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
 	loadOptions: function() {
     const options = this.get('_options');
     const selectize = this.get('selectize');
-		if(!isEmpty(options) ) {
+    if(!isEmpty(options) ) {
       selectize.load((callback) => {
         callback(options);
-        // selectize.off('clear');
       });
-      // selectize.on('clear', function() {
-      //   console.log('clear complete');
-      // });
-      // selectize.clear();
 		}
 	},
 	teardown: on('willDestroyElement', function() {
