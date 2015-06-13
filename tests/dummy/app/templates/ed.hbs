@@ -207,24 +207,24 @@
 <h3>Formatting</h3>
 <div class="container">
   <div class="row">
-    <div class="col-xs-5  col-md-3">
-      {{ui-tags-input options=groupedChoices optgroups=optGroup optgroupField="group" fingerFriendly=true}}
+    <div class="col-xs-5  col-md-4">
+      {{ui-tags-input options=things optgroups=groups fingerFriendly=true}}
     </div>
-    <div class="col-xs-7 col-md-9">
-      Finger Friendly (for mobile): <span class="text-muted">extra vertical space added</span><br/>
+    <div class="col-xs-7 col-md-8">
+      Finger Friendly (for mobile): <span class="text-muted">extra vertical space added in dropdown</span><br/>
       <code>
         \{{ui-tags-input fingerFriendly=true}}
       </code>
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-2  col-md-1">
+    <div class="col-xs-2  col-md-2">
       {{ui-tags-input disabled=disabledToggle options=things}}
     </div>
     <div class="col-xs-3 col-md-2">
       {{ui-select-input disabled=disabledToggle options=things}}
     </div>
-    <div class="col-xs-7 col-md-9">
+    <div class="col-xs-7 col-md-8">
       {{ui-toggle-button on='disabled' off='enabled' size='small' value=disabledToggle}}<br/>
       <code>
         \{{ui-tags-input {{#if disabledToggle}}disabled=true{{/if}} }}
@@ -298,7 +298,7 @@
       {{ui-select-input options='foo,bar,baz' width='49%'}} {{ui-tags-input options='foo,bar,baz' width='49%'}}
     </div>
     <div class="col-xs-7 col-md-8">
-      Two inline controls with fixed width (50%)<br/>
+      Set width to a percentage<br/>
       <code>
         \{{ui-select-input width='49%'}} \{{ui-tags-input width='49%'}}
       </code>
@@ -309,11 +309,50 @@
       {{ui-select-input width='150px'}} hello world
     </div>
     <div class="col-xs-7 col-md-8">
-      An inline control with fixed width and text to right<br/>
+      Set width to a pixel length<br/>
       <code>
         \{{ui-select-input width='150px'}} hello world
       </code>
     </div>
   </div>
+</div>
 
+<h4>Mood</h4>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-5 col-md-4">
+      {{ui-select-input value='foo' mood='success' placeholder='success' options='foo,bar,baz' width='49%'}}
+      {{ui-tags-input  mood='success' placeholder='success' options='foo,bar,baz' width='49%'}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Success Mood<br/>
+      <code>
+      \{{ui-select-input mood='success'}} \{{ui-tags-input mood='success'}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5 col-md-4">
+    {{ui-select-input value='bar' mood='warning' placeholder='warning' options='foo,bar,baz' width='49%'}}
+    {{ui-tags-input mood='warning' placeholder='warning' options='foo,bar,baz' width='49%'}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Warning Mood<br/>
+      <code>
+        \{{ui-select-input mood='warning'}} \{{ui-tags-input mood='warning'}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5 col-md-4">
+    {{ui-select-input value='baz' mood='error' placeholder='error' options='foo,bar,baz' width='49%'}}
+    {{ui-tags-input value='baz' mood='error' placeholder='error' options='foo,bar,baz' width='49%'}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Error Mood<br/>
+      <code>
+      \{{ui-select-input mood='error'}} \{{ui-tags-input mood='error'}}
+      </code>
+    </div>
+  </div>
 </div>

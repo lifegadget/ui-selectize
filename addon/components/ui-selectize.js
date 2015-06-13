@@ -3,6 +3,7 @@ const { computed, observer, $, A, run, on, typeOf, debug, keys, get, set, inject
 import StyleManager from 'ui-selectize/mixins/style-manager';
 import ApiSurface from 'ui-selectize/mixins/api-surface';
 import SizeManager from 'ui-selectize/mixins/size-manager';
+import MoodManager from 'ui-selectize/mixins/mood-manager';
 const camelize = Ember.String.camelize;
 const convertStringToArray = function(data) {
   data = typeOf(data) === 'string' ? data.split(',') : data || [];
@@ -12,7 +13,7 @@ const objectifyString = function(thingy) {
   return typeOf(thingy) === 'string' ? {id: camelize(thingy), name: thingy} : thingy;
 };
 
-export default Ember.Component.extend(SizeManager,StyleManager,ApiSurface,{
+export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSurface,{
 	// component props
 	tagName: 'select',
 	classNames: ['ui-selectize'],
@@ -107,7 +108,7 @@ export default Ember.Component.extend(SizeManager,StyleManager,ApiSurface,{
       // this is a post-init (clear use case is a promise being delivered)
       _optgroups.forEach(group => {
         selectize.addOptionGroup(group.id, group);
-      })
+      });
       selectize.refreshOptions(false); // false stops the control from receiving focus
     }
   })),
