@@ -121,7 +121,7 @@ var ApiSurface = Ember.Mixin.create({
       this.sendAction('onOptionAdd', value, data);
     },
     _onOptionRemove:function(value) {
-      this.sendAction('onOptionAdd', value);
+      this.sendAction('onOptionRemove', value);
     },
     _onDropdownOpen:function($dropdown) {
       this.sendAction('onDropdownOpen', $dropdown);

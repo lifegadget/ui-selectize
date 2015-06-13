@@ -17,16 +17,22 @@ export default Ember.Controller.extend({
     {id:'monkey', name:'Monkey', group:'animal'},
     {id:'lion', name:'Lion', group:'animal'},
     {id:'rabbit', name:'Rabbit', group:'animal'}
-   ],
+  ],
+  things: computed(function() {
+    return this.store.find('thing');
+  }),
+  groups: computed(function() {
+    return this.store.find('group');
+  }),
   optGroup: [
     {id: 'color', name: 'Colors'},
     {id: 'animal', name: 'Animals'},
     {id: 'body', name: 'Body'}
   ],
   animals: [
-    {id:'monkey', name:'Monkey', group:'animal', synonyms: ['ape','gorilla']},
-    {id:'lion', name:'Lion', group:'animal', synonyms: 'king'},
-    {id:'rabbit', name:'Rabbit', group:'animal'}
+  {id:'monkey', name:'Monkey', group:'animal', synonyms: ['ape','gorilla']},
+  {id:'lion', name:'Lion', group:'animal', synonyms: 'king'},
+  {id:'rabbit', name:'Rabbit', group:'animal'}
   ],
   edAnimals: computed(function() {
     return this.store.find('animal');
