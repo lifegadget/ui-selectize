@@ -2,6 +2,7 @@ import Ember from 'ember';
 const { computed, observer, $, A, run, on, typeOf, debug, keys, get, set, inject, isEmpty } = Ember;    // jshint ignore:line
 import StyleManager from 'ui-selectize/mixins/style-manager';
 import ApiSurface from 'ui-selectize/mixins/api-surface';
+import SizeManager from 'ui-selectize/mixins/size-manager';
 const camelize = Ember.String.camelize;
 const convertStringToArray = function(data) {
   data = typeOf(data) === 'string' ? data.split(',') : data || [];
@@ -9,9 +10,9 @@ const convertStringToArray = function(data) {
 };
 const objectifyString = function(thingy) {
   return typeOf(thingy) === 'string' ? {id: camelize(thingy), name: thingy} : thingy;
-}
+};
 
-export default Ember.Component.extend(StyleManager,ApiSurface,{
+export default Ember.Component.extend(SizeManager,StyleManager,ApiSurface,{
 	// component props
 	tagName: 'select',
 	classNames: ['ui-selectize'],
@@ -96,7 +97,21 @@ export default Ember.Component.extend(StyleManager,ApiSurface,{
 
     return result;
   }),
-
+  _optgroupsObserver: on('init',observer('_optgroups', function() {
+    const {_optgroups, _optgroupsObserverMutex, selectize} = this.getProperties('_optgroups', '_optgroupsObserverMutex', 'selectize');
+    if(!_optgroupsObserverMutex) {
+      // on init we will just ignore a change as this should be incorporated into
+      // Selectize initialization (and more gracefully than the API provides)
+      this.set('_optgroupsObserverMutex', true);
+    } else {
+      // this is a post-init (clear use case is a promise being delivered)
+      _optgroups.forEach(group => {
+        selectize.addOptionGroup(group.id, group);
+      })
+      selectize.refreshOptions(false); // false stops the control from receiving focus
+    }
+  })),
+  _optgroupsObserverMutex: null,
 
 	// VALUE
   // ----------------------
