@@ -165,6 +165,11 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
 		config.onDropdownClose = Ember.$.proxy(this._onDropdownClose, this);
 		config.onItemAdd = Ember.$.proxy(this._onItemAdd, this);
 		config.onItemRemove = Ember.$.proxy(this._onItemRemove, this);
+    // The "create" callback is handled somewhat differently
+    if(typeOf(config.create) === 'function') {
+      config.create = Ember.$.proxy(config.create, this);
+    }
+
     // Instantiate
     config.optgroups = this.get('_optgroups');
 		this.$().selectize(config);
