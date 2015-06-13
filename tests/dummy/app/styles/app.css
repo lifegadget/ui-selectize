@@ -69,3 +69,16 @@ note {
 .link.selected {
 	font-weight: 900;
 }
+
+p.downer {
+  margin-top: 10px;
+  margin-bottom: 10px
+}
+ul {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+li:last-child {
+  margin-bottom: 10px
+}
+

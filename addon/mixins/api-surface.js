@@ -5,13 +5,13 @@ const { computed, observer, $, A, run, on, typeOf, debug, keys, get, set, inject
 var ApiSurface = Ember.Mixin.create({
     // Selectize API surface
     // ------------------------------
-
     // bound values passed straight through to control
     apiPassThrough: [
       'optgroups',
-      'inputClass','onInitialize','onDestroy','sortField','placeholder',
+      'inputClass','onInitialize','onDestroy','sortField','placeholder','copyClassesToDropdown',
       'create','createOnBlur','createFilter','highlight','persist','openOnFocus','maxOptions','maxItems','hideSelected',
       'allowEmptyOption','scrollDuration','dropdownParent','addPrecedence','selectOnTab',
+      'optgroupField','optgroupValueField','optgroupLabelField',
       'score'
     ],
     // Arguably not needed except for "meta" reasons; these are props which are consumed directly by a CP
@@ -30,9 +30,10 @@ var ApiSurface = Ember.Mixin.create({
       labelField: 'label',
       optgroupField: 'group'
     },
+    copyClassesToDropdown: true,
 
     optgroups: null, // the array of optgroups
-    optgroupField: null, // property name on "options" which refers to optgroupsValueField
+    optgroupField: 'group', // property name on "options" which refers to optgroupsValueField
     optgroupValueField: 'id', // the displayed name for optgroup
     optgroupLabelField: 'name', // property on "optgroups" array for the "value" which will match options property
     optgroupOrder: null, // array of optgroup keys in a particular order
@@ -100,7 +101,7 @@ var ApiSurface = Ember.Mixin.create({
     inputClass: 'form-control selectize-input',
     // callback function to score the result (default used if left as null)
     score: null,
-    placeholder: 'Select one',
+    placeholder: 'Select tags',
     loadingMessage: 'loading ...',
 
     // Component Event Handling
@@ -115,13 +116,12 @@ var ApiSurface = Ember.Mixin.create({
     },
     _onLoad:function(data) {
       this.sendAction('onLoad', data);
-      console.log('loaded: %o', data);
     },
     _onOptionAdd:function(value,data) {
       this.sendAction('onOptionAdd', value, data);
     },
     _onOptionRemove:function(value) {
-      this.sendAction('onOptionAdd', value);
+      this.sendAction('onOptionRemove', value);
     },
     _onDropdownOpen:function($dropdown) {
       this.sendAction('onDropdownOpen', $dropdown);
