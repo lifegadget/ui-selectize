@@ -39,11 +39,10 @@ export default Ember.Controller.extend({
   }),
   isolate: false,
   disabledToggle: true,
-  newAnimalAdded: function(value, $item) {
+  newAnimalAdded: function(value) {
     const selectize = this.get('selectize');
     selectize.addOption({value: value, label: value});
     selectize.addItem(value);
-    // window.alert('The value ' + value + ' was added: ' + $item);
     return value;
   },
   _newAnimalAdded: computed(function() {

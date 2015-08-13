@@ -39,7 +39,7 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
     return inline || width;
   }),
 	fingerFriendly: null,
-	_fingerFriendly: on('didInsertElement', function() {
+	_fingerFriendly: on('willRender', function() {
 		if(this.get('touchDevice') && this.get('fingerFriendly') === null) {
 			this.set('fingerFriendly', true);
 		}
