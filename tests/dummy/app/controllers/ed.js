@@ -30,22 +30,13 @@ export default Ember.Controller.extend({
     {id: 'body', name: 'Body'}
   ],
   animals: [
-  {id:'monkey', name:'Monkey', group:'animal', synonyms: ['ape','gorilla']},
-  {id:'lion', name:'Lion', group:'animal', synonyms: 'king'},
-  {id:'rabbit', name:'Rabbit', group:'animal'}
+    {id:'monkey', name:'Monkey', group:'animal', synonyms: ['ape','gorilla']},
+    {id:'lion', name:'Lion', group:'animal', synonyms: 'king'},
+    {id:'rabbit', name:'Rabbit', group:'animal'}
   ],
   edAnimals: computed(function() {
     return this.store.find('animal');
   }),
   isolate: false,
-  disabledToggle: true,
-  newAnimalAdded: function(value) {
-    const selectize = this.get('selectize');
-    selectize.addOption({value: value, label: value});
-    selectize.addItem(value);
-    return value;
-  },
-  _newAnimalAdded: computed(function() {
-    return Ember.$.proxy(this._onItemRemove, this);
-  })
+  disabledToggle: true
 });
