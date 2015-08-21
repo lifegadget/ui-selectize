@@ -1,5 +1,6 @@
 import Ember from 'ember';
-const { computed, observer, $, A, run, on, typeOf, debug, keys, get, set, inject } = Ember;    // jshint ignore:line
+const { keys, create } = Object; // jshint ignore:line
+const {computed, observer, $, A, run, on, typeOf, debug, defineProperty, get, set, inject, isEmpty} = Ember;  // jshint ignore:line
 
 export default Ember.Controller.extend({
   demoChoices: ['Frog','Monkey','Lion'],
@@ -19,10 +20,10 @@ export default Ember.Controller.extend({
     {id:'rabbit', name:'Rabbit', group:'animal'}
   ],
   things: computed(function() {
-    return this.store.find('thing');
+    return this.store.findAll('thing');
   }),
   groups: computed(function() {
-    return this.store.find('group');
+    return this.store.findAll('group');
   }),
   optGroup: [
     {id: 'color', name: 'Colors'},
@@ -35,7 +36,7 @@ export default Ember.Controller.extend({
     {id:'rabbit', name:'Rabbit', group:'animal'}
   ],
   edAnimals: computed(function() {
-    return this.store.find('animal');
+    return this.store.findAll('animal');
   }),
   isolate: false,
   disabledToggle: true

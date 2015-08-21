@@ -1,5 +1,6 @@
 import Ember from 'ember';
-const { computed, observer, $, A, run, on, typeOf, debug, keys, get, set, inject, isEmpty } = Ember;    // jshint ignore:line
+const { keys, create } = Object; // jshint ignore:line
+const {computed, observer, $, A, run, on, typeOf, debug, defineProperty, get, set, inject, isEmpty} = Ember;  // jshint ignore:line
 import StyleManager from 'ui-selectize/mixins/style-manager';
 import ApiSurface from 'ui-selectize/mixins/api-surface';
 import SizeManager from 'ui-selectize/mixins/size-manager';
@@ -23,7 +24,7 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
   _propertyRemapping: on('init', function() {
     Ember.A(this.get('attributeBindings')).removeObject('disabled');
   }),
-
+  display: 'none',
 	autocomplete: false,
 	autofocus: false,
 	touchDevice: computed(function() {
@@ -130,8 +131,8 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
 	_valueObserver: observer('value', function() {
 		const value = this.get('_value');
     const options = new A(this.get('_options'));
-    const selectize = this.get('selectize');
-    const uiValue = selectize.getValue();
+    const selectize = this.selectize;
+    const uiValue = selectize ? selectize.getValue() : null;
 
     // update Selectize's value
     if(JSON.stringify(value) !== JSON.stringify(uiValue)) {
@@ -142,7 +143,7 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
   }),
 
 	// INITIALIZE
-	initializeSelectize: on('didInsertElement', function() {
+	initializeSelectize: on('willRender', function() {
     const {apiProcessed, apiPassThrough, apiStaticMappings} = this.getProperties('apiProcessed', 'apiPassThrough', 'apiStaticMappings');
     // const optgroupOrder = this.get('_optgroupOrder');
     const value = this.get('_value');
@@ -170,24 +171,26 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
       config.create = Ember.$.proxy(config.create, this);
     }
 
-    // Instantiate
-    config.optgroups = this.get('_optgroups');
-		this.$().selectize(config);
-		this.selectize = this.$()[0].selectize;
-		this.set('hasInitialized', true);
-    this.loadOptions();
-    this._disabledObserver();
-    // Set existing value(s)
-    if(value) {
-      new A(value).forEach( item => {
-        this.selectize.addItem(item);
-      });
-    }
-    this.sendAction('onInitialize');
+    run.schedule('afterRender', ()=>{
+          // Instantiate
+          config.optgroups = this.get('_optgroups');
+          this.$().selectize(config);
+          this.selectize = this.$()[0].selectize;
+          this.set('hasInitialized', true);
+          this.loadOptions();
+          this._disabledObserver();
+          // Set existing value(s)
+          if(value) {
+            new A(value).forEach( item => {
+              this.selectize.addItem(item);
+            });
+          }
+          this.sendAction('onInitialize');
+    });
 	}),
 	addOptions: function(options) {
 			if(options && options.length > 0) {
-			var selectize = this.get('selectize');
+			var selectize = this.selectize;
 			selectize.clearOptions();
 			options.forEach(function(option) {
 				selectize.addOption(option);
@@ -197,7 +200,7 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
 	},
 	loadOptions: function() {
     const options = this.get('_options');
-    const selectize = this.get('selectize');
+    const selectize = this.selectize;
     if(!isEmpty(options) ) {
       selectize.load((callback) => {
         callback(options);
@@ -205,7 +208,7 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
 		}
 	},
 	teardown: on('willDestroyElement', function() {
-    const selectize = this.get('selectize');
+    const selectize = this.selectize;
     if(selectize) {
       selectize.off();
       selectize.destroy();
