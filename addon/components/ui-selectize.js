@@ -206,8 +206,10 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
 	},
 	teardown: on('willDestroyElement', function() {
     const selectize = this.get('selectize');
-		selectize.off();
-    selectize.destroy();
+    if(selectize) {
+      selectize.off();
+      selectize.destroy();
+    }
 	})
 
 });
