@@ -1,0 +1,33 @@
+<h3 class='section-heading'>Groups</h3>
+<p class="downer">
+  One of the nice additions to selectize's dropdown and/or tagging solution is that options can be grouped. A group is created when the options have defined a group property (it is 'group' by default) and then
+  the value of this property needs to map into array of groups that is provided independently on the
+  <code>optgroup</code> property.
+</p>
+<div id="ui-number-array-input" class="container">
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+      {{ui-select-input options=things optgroups=optGroup value=thingsValue}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Grouped selection: {{thingsValue}}<br/>
+      <code>
+        \{{ui-select-input options=things optgroups=optGroup}}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+      {{ui-tags-input options=things optgroups=groups value=thingsValue2}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      Grouped selection: {{thingsValue2}}<br/>
+      <code>
+      \{{ui-tags-input options=things optgroups=groups}}
+      </code>
+    </div>
+  </div>
+</div>
+<p class="downer">
+  Note: the second example has exactly the same results but the optgroups property is derived from Ember Data instead of a container array. The fact that this source is resolved asynchronously, however, means the way of populating the group information is via API rather than just being passed in as a parameter at initialization. This <i>shouldn't</i> have any functional impact.
+</p>

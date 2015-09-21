@@ -1,0 +1,67 @@
+<h3 class='section-heading'>Value Binding</h3>
+<row>
+  <widget class='left'>
+    {{ui-tags-input
+      value=myValue
+      placeholder="placeholder"
+      options='foo,bar,baz'
+    }}
+  </widget>
+  <code>
+    {{display-component componentName='ui-tags-input'
+      value=':myValue'
+      placeholder="placeholder"
+      options='foo,bar,baz'
+    }}
+  </code>
+  <description>
+    <h4>Two way binding</h4>
+      <prop>value</prop> is bound to the container's <prop>myValue</prop> property ({{myValue}}). These days ther is a lot of emphasis of the <i>Data Down, Actions Up</i> and this doesn't in this example conform to this principle but that doesn't make this "wrong" and with a fairly atomic input control this can actually be a lot easier.
+  </description>
+</row>
+<row>
+  <widget class='left'>
+    {{ui-tags-input
+      value=(readonly myValue)
+      placeholder="placeholder"
+      options='foo,bar,baz'
+    }}
+  </widget>
+  <code>
+    {{display-component componentName='ui-tags-input'
+      value=':(read-only myValue)'
+      placeholder="placeholder"
+      options='foo,bar,baz'
+    }}
+  </code>
+  <description>
+      <h4>One way binding</h4>
+      If you do want to ensure that selectize doesn't set the passed in value the easiest way to achieve this is with the <prop>read-only</prop> helper as demonstated to the left. Of course, you'll probably still want to know when the internal state of the dropdown changes. To understand this go to the <b>Actions</b> section.
+  </description>
+</row>
+<row>
+  <widget class='left'>
+    {{ui-select-input value=selectValue placeholder="placeholder" options='foo,bar,baz'}}<br/>
+    {{ui-tags-input value=tagValues placeholder="placeholder" options='foo,bar,baz'}}
+  </widget>
+  <code>
+    {{display-component componentName='ui-select-input'
+      value=selectValue
+      placeholder="placeholder"
+      options='foo,bar,baz'
+    }}<br/>
+    {{display-component componentName='ui-tags-input'
+      value=tagValues
+      placeholder="placeholder"
+      options='foo,bar,baz'
+    }}
+  </code>
+  <description>
+  <h4>Multiplicity</h4>
+  <p>
+    This might be obvious but its worth stating that a <i>tag</i>-based input results in a value which is an <i>array</i> whereas a <i>select</i>-based input results in a single scalar value.
+  </p>
+  </description>
+</row>
+
+

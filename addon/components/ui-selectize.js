@@ -142,6 +142,25 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
     this.set('valueObject', valueObject);
   }),
 
+  // RENDER
+  // -----------------------
+
+  itemRender: null,
+  optionRender: null,
+  createRender: null,
+  groupHeaderRender: null,
+  groupRender: null,
+  _bespokeRender: computed('itemRender','optionRender','createRender', 'groupRender', 'groupHeaderRender', function() {
+    const {itemRender,optionRender,createRender,groupRender,groupHeaderRender} = this.getProperties('itemRender', 'optionRender', 'createRender', 'groupRender', 'groupHeaderRender');
+    return {
+      item: itemRender,
+      option: optionRender,
+      option_create: createRender,
+      optgroup: groupRender,
+      optgroup_header: groupHeaderRender
+    };
+  }),
+
 	// INITIALIZE
 	initializeSelectize: on('willRender', function() {
     const {apiProcessed, apiPassThrough, apiStaticMappings} = this.getProperties('apiProcessed', 'apiPassThrough', 'apiStaticMappings');
@@ -171,12 +190,14 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
     if(typeOf(config.create) === 'function') {
       config.create = Ember.$.proxy(config.create, this);
     }
+    // render
+    config.render = Ember.$.proxy(this._bespokeRender, this);
 
     run.schedule('afterRender', ()=>{
           // Instantiate
           config.optgroups = this.get('_optgroups');
           this.$().selectize(config);
-          this.selectize = this.$()[0].selectize;
+          this.set('selectize',this.$()[0].selectize);
           this.set('hasInitialized', true);
           this.loadOptions();
           this._disabledObserver();
