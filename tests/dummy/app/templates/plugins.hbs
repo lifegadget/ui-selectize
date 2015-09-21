@@ -1,0 +1,28 @@
+<h3 class='section-heading'>Plugins</h3>
+<p class="downer">Using plugins is just a matter of including the name in the <code>plugin</code> property.
+  By default \{{ui-tags-input}} has <b>remove_button</b> included.
+</p>
+<div id="ui-number-array-input" class="container">
+  <div class="row">
+    <div class="col-xs-5 col-md-3">
+      {{ui-select-input options=things optgroups=groups plugins='optgroup_columns' }}
+    </div>
+    <div class="col-xs-7 col-md-9">
+      Column-base selection: <i>optgroup_columns</i><br/>
+      <code>
+        \{{ui-select-input options=things optgroups=groups plugins='optgroup_columns' optgroups=optGroup }}
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5 col-md-3">
+      {{ui-tags-input options=things plugins='remove_button,restore_on_backspace' optgroups=optGroup optgroupField="group"}}
+    </div>
+    <div class="col-xs-7 col-md-9">
+      Tags with: <i>remove_button(default), restore_on_backspace</i><br/>
+      <code>
+        \{{ui-tags-input options=things plugins='remove_button,restore_on_backspace'}}
+      </code>
+    </div>
+  </div>
+</div>

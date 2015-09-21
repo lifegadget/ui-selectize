@@ -1,0 +1,58 @@
+<h3 class='section-heading'>Shorthands</h3>
+<p class="downer">
+  The selectize control is implemented mostly as part of the <prop>ui-selectize</prop> component
+  but there are two major types of control that can be generated. For semantic clarity and also to ease the speed of use we have broken out two sub-classes which make this distinction clearer.
+</p>
+<p>
+  We refer to these here as <i>shorthands</i>; the shorthands are:
+  <ul>
+    <li><prop>ui-tags-input</prop> - like the default control, it assumes you're specifying 1 or more "tags"</li>
+    <li>
+      <prop>ui-select-input</prop> - this control constrains the user to choose only 1 thing making it behave like a
+    </li>
+  </ul>
+</p>
+<div id="ui-number-array-input" class="container">
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+      {{ui-tags-input options='Frog,Piglett,Angry Wolf' value=tagsValue}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      <code>
+        \{{ui-tags-input options='Frog,Piglett,Angry Wolf'}}<br/>
+      </code>
+      ui-tags-input:  {{tagsValue}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5  col-md-4">
+    {{ui-select-input options='Frog,Piglett,Angry Wolf' value=selectValue}}
+    </div>
+    <div class="col-xs-7 col-md-8">
+      <code>
+        \{{ui-select-input options='Frog,Piglett,Angry Wolf'}}<br/>
+      </code>
+      value:  {{selectValue}}
+    </div>
+  </div>
+</div>
+<p class="downer">
+  Let's quickly cover the small variances that you should experience above:
+  <ul>
+    <li>
+      ui-tags-input
+      <ul>
+        <li>Selected buttons have a "cancel" button (an example of a plugin ... more later)</li>
+        <li>After selecting an item it is removed as an option to choose again</li>
+      </ul>
+    </li>
+    <li>
+      ui-select-input
+      <ul>
+        <li>Input restricted to only 1 item max</li>
+        <li>Selectize control automatically adds graphic flurish to make it clear this control is a select control</li>
+        <li>Note: the value returned is a scalar and not an array (with a single element in it)</li>
+      </ul>
+    </li>
+  </ul>
+</p>

@@ -107,37 +107,73 @@ var ApiSurface = Ember.Mixin.create({
 
     // Component Event Handling
     _onChange:function(value) {
+      const valueObject = this.get('valueObject');
       this.set('value', value);
       if (isEmpty(value)) {
         this.set('selected',false);
       } else {
         this.set('selected',true);
       }
-      this.sendAction('onChange',value, this.get('valueObject'));
+
+      this.sendAction('onChange', {
+        value: value,
+        context: valueObject,
+        component: this
+      });
     },
     _onLoad:function(data) {
-      this.sendAction('onLoad', data);
+      this.sendAction('onLoad', {
+        items: data,
+        count: data.length
+      });
     },
-    _onOptionAdd:function(value,data) {
-      this.sendAction('onOptionAdd', value, data);
+    _onOptionAdd:function(value,valueObject) {
+      this.sendAction('onOption', {
+        action: 'add',
+        option: value,
+        context: valueObject,
+        component: this
+      });
     },
     _onOptionRemove:function(value) {
-      this.sendAction('onOptionRemove', value);
+      this.sendAction('onOption', {
+        action: 'remove',
+        option: value,
+        component: this
+      });
     },
     _onDropdownOpen:function($dropdown) {
-      this.sendAction('onDropdownOpen', $dropdown);
+      this.sendAction('onDropdown', {
+        action: 'open',
+        component: this,
+        value: get(this,'value'),
+        $dropdown: $dropdown
+      });
     },
     _onDropdownClose:function($dropdown) {
-      this.sendAction('onDropdownClose', $dropdown);
+      this.sendAction('onDropdown', {
+        action: 'close',
+        component: this,
+        value: get(this,'value'),
+        $dropdown: $dropdown
+      });
     },
     _onItemAdd:function(value, $item) {
-      this.sendAction('onItemAdd', value, $item);
+      this.sendAction('itemAdd', {
+        action: 'add',
+        component: this,
+        value: value,
+        $item: $item
+      });
     },
     _onItemRemove:function(value) {
       this.sendAction('onItemRemove', value);
     },
     _onType:function(value) {
-      this.sendAction('onType', value);
+      this.sendAction('onType', {
+        component: this,
+        text: value
+      });
     },
 
     selected: false,

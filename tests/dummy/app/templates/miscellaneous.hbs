@@ -1,0 +1,38 @@
+<h3>Miscellaneous Features</h3>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-5  col-md-4">
+        {{ui-select-input options='foo,bar,baz' openOnFocus=false}}
+      </div>
+      <div class="col-xs-7 col-md-8">
+        Don't open dropdown on focus event<br/>
+        <code>
+  \{{ui-select-input options='foo,bar,baz' openOnFocus=false}}
+        </code>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-5  col-md-4">
+        {{ui-select-input options=animals searchField="name,synonyms"}}
+      </div>
+      <div class="col-xs-7 col-md-8">
+        Select w/ search on synonyms: try 'ape','king'<br/>
+        <code>
+  \{{ui-select-input options=animals searchField="synonyms"}}
+        </code>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-5  col-md-4">
+        {{ui-select-input options=animals create=newAnimalAdded}}
+      </div>
+      <div class="col-xs-7 col-md-8">
+        Add values which don't exist on the list:
+        <span class="text-muted">true, false, or callback</span>
+        <br/>
+        <code>
+          \{{ui-select-input options=animals create=newAnimalAdded}}
+        </code>
+      </div>
+      </div>
+</div>

@@ -1,9 +1,4 @@
-{{#app-page
-  repo='ui-selectize'
-  subHeading='The popular selectize control wrapped in Ember-CLI love'
-  repoOwner='lifegadget'
-  currentPath=currentPath
-}}
+{{#demo-css}}
 <div class="nav-framing">
   <div class="menu"></div>
   <div class="nav-content"></div>
@@ -18,9 +13,11 @@
 
 <h3>Sections</h3>
 <row>
-  {{ui-nav-list value=currentPath skin='nav' items=sections onChange='onChange' position='left'}}
+  {{ui-nav-list skin='nav' items=sections onChange='onChange' position='left'}}
   <description>
-    {{outlet}}
+    Choose any of the sections to the left for interactive demo / instruction.
+    {{yeild}}
   </description>
 </row>
-{{/app-page}}
+
+{{/demo-css}}

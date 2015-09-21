@@ -1,0 +1,1 @@
+export { default } from 'ui-selectize/components/selectize-option';

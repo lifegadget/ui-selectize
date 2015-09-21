@@ -1,6 +1,9 @@
 import Ember from 'ember';
 const { keys, create } = Object; // jshint ignore:line
 const {computed, observer, $, A, run, on, typeOf, debug, defineProperty, get, set, inject, isEmpty} = Ember;  // jshint ignore:line
+const dasherize = thingy => {
+  return thingy ? Ember.String.dasherize(thingy) : thingy;
+};
 
 export default Ember.Controller.extend({
   demoChoices: ['Frog','Monkey','Lion'],
@@ -48,5 +51,25 @@ export default Ember.Controller.extend({
   },
   _newAnimalAdded: computed(function() {
     return Ember.$.proxy(this._onItemRemove, this);
-  })
+  }),
+
+  sections: [
+    {'title': 'Shorthand'},
+    {'title': 'Value Binding'},
+    {'title': 'Loading Data'},
+    {'title': 'Groups'},
+    {'title': 'Plugins'},
+    {'title': 'Formatting'},
+    {'title': 'Actions'},
+    {'title': 'Bespoke Rendering'}
+  ],
+
+  actions: {
+    onChange(action,o) {
+      if(action === 'selected') {
+        const route = dasherize(get(o,'title'));
+        this.transitionToRoute(`${route}`);
+      }
+    }
+  }
 });
