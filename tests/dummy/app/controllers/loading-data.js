@@ -13,7 +13,6 @@ export default Ember.Controller.extend({
 
   actions: {
     onChange(action,o) {
-      console.log('action %s fired with: %o', action, o);
       if(action === 'selected') {
         const route = dasherize(get(o,'title'));
         this.transitionToRoute(`${route}`);

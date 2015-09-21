@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
      const flashMessages = Ember.get(this, 'flashMessages');
      flashMessages.info(`onLoad Event: ${data.count} items loaded`);
 
-     console.log('Loaded: %o', data);
+     console.log('Dropdown loaded: %o', data);
    },
    onChange(data) {
     const flashMessages = Ember.get(this, 'flashMessages');

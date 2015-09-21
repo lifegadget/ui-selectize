@@ -150,8 +150,9 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
   createRender: null,
   groupHeaderRender: null,
   groupRender: null,
-  _bespokeRender: computed('itemRender','optionRender','createRender', 'groupRender', 'groupHeaderRender', function() {
+  _bespokeRender: on('init',computed('itemRender','optionRender','createRender', 'groupRender', 'groupHeaderRender', function() {
     const {itemRender,optionRender,createRender,groupRender,groupHeaderRender} = this.getProperties('itemRender', 'optionRender', 'createRender', 'groupRender', 'groupHeaderRender');
+    console.log('setting render');
     return {
       item: itemRender,
       option: optionRender,
@@ -159,7 +160,7 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
       optgroup: groupRender,
       optgroup_header: groupHeaderRender
     };
-  }),
+  })),
 
 	// INITIALIZE
 	initializeSelectize: on('willRender', function() {
@@ -190,8 +191,8 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
     if(typeOf(config.create) === 'function') {
       config.create = Ember.$.proxy(config.create, this);
     }
-    // render
-    config.render = Ember.$.proxy(this._bespokeRender, this);
+    config.render = this.get('_bespokeRender');
+
 
     run.schedule('afterRender', ()=>{
           // Instantiate

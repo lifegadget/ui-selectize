@@ -1,18 +1,30 @@
 <h3 class='section-heading'>Bespoke Rendering</h3>
 <p class="downer">
-  So far we've only demonstrated the <prop>ui-selectize</prop> components as a <i>inline</i> component but it does have a <i>block</i> mode as well. Specifically by openning these components in block mode we can create bespoke templates for <b>items</b> and <b>options</b>.
+  In the current incarnation of this widget overriding the various sub-components of the dropdown is possible by passing in a function to one of the following:
+  <ul>
+    <li>item<i>Render</i><span class="dim">(data,escape) { ... }</span></li>
+    <li>option<i>Render</i><span class="dim">(data,escape) { ... }</span></li>
+    <li>create<i>Render</i><span class="dim">(data,escape) { ... }</span></li>
+    <li>group<i>Render</i><span class="dim">(data,escape) { ... }</span></li>
+    <li>groupHeader<i>Render</i><span class="dim">(data,escape) { ... }</span></li>
+  </ul>
 </p>
-
-<h4>Bespoke Items</h4>
+<p>
+  You can find a demonstration of it's use on the Selectize site <a href="https://github.com/brianreavis/selectize.js/blob/master/examples/customization.html">here</a>.
+</p>
+<p>
+  I would have greatly preferred it if this rendering could be done by adding other ember components and the renders be articulated in handlebars templates rather than in Javascript. If anyone knows how to do this please send me a PR and let's get it changed.
+</p>
+<h4>Example</h4>
 <row>
   <widget class='left'>
-    {{ui-tags-input itemRender=item options=things}}
-
+    {{ui-tags-input itemRender=item optionRender=option options=things}}
   </widget>
   <code>
-    code
+    {{display-component componentName='ui-tags-input' itemRender=':item' optionRender=':option' options=':things'}}
   </code>
   <description>
-    descriptino
+    In this case we've overwritten the <prop>item</prop> which is a selected tag, and <prop>option</prop>
+    which is the list of options. You see this code in the controller: <a href="https://github.com/lifegadget/ui-selectize/blob/master/tests/dummy/app/controllers/bespoke-rendering.js#L6-L16">here</a>
   </description>
 </row>

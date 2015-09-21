@@ -9,8 +9,5 @@ export default Ember.Component.extend({
   title: 'foobar',
   content: on('didRender', computed(function() {
     return Ember.String.htmlSafe(this.$('div').html());
-  })),
-  c2: computed('content',function() {
-    return this.render(layout);
-  }),
+  }))
 });
