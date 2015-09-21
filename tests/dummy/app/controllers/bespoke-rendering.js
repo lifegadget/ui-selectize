@@ -7,7 +7,6 @@ export default Ember.Controller.extend({
     return '<div class="item"><a href="' + escape(data.group) + '">' + escape(data.name) + '</a></div>';
   },
   option: function(data,escape) {
-    console.log('rendering option');
     return '<div class="option">' +
                   '😎 ' +
                   '<span class="title">' + escape(data.name) + '</span> ' +
