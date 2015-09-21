@@ -1,5 +1,3 @@
-/* jshint node: true */
-'use strict';
 module.exports = {
 	name: 'ui-selectize',
 	description: 'selectize select/tag form-control wrapped in Ember-CLI love',
