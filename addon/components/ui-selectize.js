@@ -151,15 +151,15 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
   groupHeaderRender: null,
   groupRender: null,
   _bespokeRender: on('init',computed('itemRender','optionRender','createRender', 'groupRender', 'groupHeaderRender', function() {
-    const {itemRender,optionRender,createRender,groupRender,groupHeaderRender} = this.getProperties('itemRender', 'optionRender', 'createRender', 'groupRender', 'groupHeaderRender');
-    console.log('setting render');
-    return {
-      item: itemRender,
-      option: optionRender,
-      option_create: createRender,
-      optgroup: groupRender,
-      optgroup_header: groupHeaderRender
-    };
+    const renders = this.getProperties('itemRender', 'optionRender', 'createRender', 'groupRender', 'groupHeaderRender');
+    let result = {};
+    Object.keys(renders).map( prop => {
+      if(renders[prop]) {
+        result[prop.slice(0,-6)] = renders[prop];
+      }
+    });
+
+    return result;
   })),
 
 	// INITIALIZE
