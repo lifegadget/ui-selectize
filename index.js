@@ -9,7 +9,10 @@ module.exports = {
 		app.import('vendor/ui-selectize/ui-selectize.css');
 		app.import('vendor/ui-selectize/fast_click.js');
 	},
+	normalizeEntityName: function() {},
   afterInstall: function() {
-   return this.addBowerPackageToProject('selectize');
-  }
+   return this.addBowerPackageToProject('selectize').then(()=>{
+		 console.log('ui-selectize has been installed ... happy trails!')
+	 });
+ }
 };
