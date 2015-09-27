@@ -11,8 +11,8 @@ module.exports = {
 	},
 	normalizeEntityName: function() {},
   afterInstall: function() {
-   return this.addBowerPackageToProject('selectize').then(()=>{
-		 console.log('ui-selectize has been installed ... happy trails!')
-	 });
+   return this.addBowerPackagesToProject([
+		 {name: 'selectize', target: '0.12.1'}
+	 ]);
  }
 };
