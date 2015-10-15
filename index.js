@@ -8,11 +8,5 @@ module.exports = {
 		app.import(app.bowerDirectory + '/selectize/dist/css/selectize.bootstrap3.css');
 		app.import('vendor/ui-selectize/ui-selectize.css');
 		app.import('vendor/ui-selectize/fast_click.js');
-	},
-	normalizeEntityName: function() {},
-  afterInstall: function() {
-   return this.addBowerPackagesToProject([
-		 {name: 'selectize', target: '0.12.1'}
-	 ]);
- }
+	}
 };

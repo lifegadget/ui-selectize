@@ -13,39 +13,40 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-   onLoad(data) {
-     const flashMessages = Ember.get(this, 'flashMessages');
-     flashMessages.info(`onLoad Event: ${data.count} items loaded`);
+  onLoad(data) {
+      const flashMessages = Ember.get(this, 'flashMessages');
+      flashMessages.info(`onLoad Event: ${data.count} items loaded`);
 
-     console.log('Dropdown loaded: %o', data);
-   },
-   onChange(data) {
-    const flashMessages = Ember.get(this, 'flashMessages');
-    flashMessages.success(`onChange Event: ${data.value}`);
+      console.log('Dropdown loaded: %o', data);
+    },
+    onChange(data) {
+      const flashMessages = Ember.get(this, 'flashMessages');
+      flashMessages.success(`onChange Event: ${data.value}`);
 
-    console.log('onChange: %o', data);
-  },
-  onDropdown(data) {
-    const flashMessages = Ember.get(this, 'flashMessages');
-    if(data.action === 'open') {
-      flashMessages.success(`onDropdown Event: ${data.action}`);
-      console.log('Dropdown open: %o', data);
-    } else {
-      flashMessages.danger(`onDropdownClose Event`);
-      console.log('Dropdown close: %o', data);
+      console.log('onChange: %o', data);
+    },
+    onDropdown(data) {
+      const flashMessages = Ember.get(this, 'flashMessages');
+      if (data.action === 'open') {
+        flashMessages.success(`onDropdown Event: ${data.action}`);
+        console.log('Dropdown open: %o', data);
+      } else {
+        flashMessages.danger(`onDropdownClose Event`);
+        console.log('Dropdown close: %o', data);
+      }
+    },
+    onItem(data) {
+      console.log('item: %o', data);
+      const flashMessages = Ember.get(this, 'flashMessages');
+      flashMessages.warning(`onItem Event: ${data.message}`);
+    },
+    onOption(data) {
+      const flashMessages = Ember.get(this, 'flashMessages');
+      flashMessages.info(`onOption Event: ${data.action} => ${data.option}`);
+    },
+    onType(data) {
+      const flashMessages = Ember.get(this, 'flashMessages');
+      flashMessages.success(`onType Event: ${data.text}`);
     }
-  },
-  onItem(data) {
-    const flashMessages = Ember.get(this, 'flashMessages');
-    flashMessages.success(`onItem Event: ${data.text}`);
-  },
-  onOption(data) {
-    const flashMessages = Ember.get(this, 'flashMessages');
-    flashMessages.info(`onOption Event: ${data.action} => ${data.option}`);
-  },
-  onType(data) {
-    const flashMessages = Ember.get(this, 'flashMessages');
-    flashMessages.success(`onType Event: ${data.text}`);
   }
-}
-});
+  });
