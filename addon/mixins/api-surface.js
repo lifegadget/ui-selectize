@@ -159,15 +159,21 @@ var ApiSurface = Ember.Mixin.create({
       });
     },
     _onItemAdd:function(value, $item) {
-      this.sendAction('itemAdd', {
+      this.sendAction('onItem', {
         action: 'add',
         component: this,
+        message: `added ${value} to the list`,
         value: value,
         $item: $item
       });
     },
     _onItemRemove:function(value) {
-      this.sendAction('onItemRemove', value);
+      this.sendAction('onItem', {
+        action:'remove',
+        message: `removed ${value} from the list`,
+        value: get(this,'value'),
+        component: this
+      });
     },
     _onType:function(value) {
       this.sendAction('onType', {

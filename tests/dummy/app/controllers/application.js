@@ -65,9 +65,10 @@ export default Ember.Controller.extend({
   ],
 
   actions: {
-    onChange(action,o) {
-      if(action === 'selected') {
-        const route = dasherize(get(o,'title'));
+    onChange(o) {
+      console.log(o);
+      if(o.type === 'selection') {
+        const route = dasherize(get(o,'added.title'));
         this.transitionToRoute(`${route}`);
       }
     }
