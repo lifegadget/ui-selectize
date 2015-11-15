@@ -1,6 +1,6 @@
 {
   "name": "ui-selectize",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "a select and tag based input control",
   "directories": {
     "doc": "doc",
@@ -55,7 +55,7 @@
     "express": "^4.12.4",
     "pretender": "^0.4.2",
     "ui-button": "0.6.3",
-    "ui-list": "^0.3.8"
+    "ui-list": "^0.3.13"
   },
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
