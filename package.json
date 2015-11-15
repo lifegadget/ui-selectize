@@ -19,7 +19,7 @@
   "license": "MIT",
   "main": "index.js",
   "files": [
-    "Brocfile.js",
+    "ember-cli-build.js",
     "LICENSE.md",
     "README.md",
     "addon",
@@ -55,7 +55,7 @@
     "express": "^4.12.4",
     "pretender": "^0.4.2",
     "ui-button": "0.6.3",
-    "ui-list": "^0.3.13"
+    "ui-list": "^0.3.15"
   },
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
