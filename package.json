@@ -1,6 +1,6 @@
 {
   "name": "ui-selectize",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "a select and tag based input control",
   "directories": {
     "doc": "doc",
@@ -68,6 +68,6 @@
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "http://development.ui-selectize.divshot.io/"
+    "demoURL": "https://ui-selectize.firebaseapp.com"
   }
 }
