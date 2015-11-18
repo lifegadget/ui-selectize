@@ -171,7 +171,7 @@ var ApiSurface = Ember.Mixin.create({
       this.sendAction('onItem', {
         action:'remove',
         message: `removed ${value} from the list`,
-        value: get(this,'value'),
+        value: value,
         component: this
       });
     },
