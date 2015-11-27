@@ -13,7 +13,7 @@ var ApiSurface = Ember.Mixin.create({
       'create','createOnBlur','createFilter','highlight','persist','openOnFocus','maxOptions','maxItems','hideSelected',
       'allowEmptyOption','scrollDuration','dropdownParent','addPrecedence','selectOnTab',
       'optgroupField','optgroupValueField','optgroupLabelField',
-      'score'
+      'score', 'closeAfterSelect'
     ],
     // Arguably not needed except for "meta" reasons; these are props which are consumed directly by a CP
     // rather than Selectize (which would recieve a state change indirectly)
@@ -104,6 +104,7 @@ var ApiSurface = Ember.Mixin.create({
     score: null,
     placeholder: 'Select tags',
     loadingMessage: 'loading ...',
+    closeAfterSelect: false,
 
     // Component Event Handling
     _onChange:function(value) {
