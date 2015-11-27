@@ -163,7 +163,7 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
   })),
 
 	// INITIALIZE
-	initializeSelectize: on('willRender', function() {
+	initializeSelectize: on('didInsertElement', function() {
     const {apiProcessed, apiPassThrough, apiStaticMappings} = this.getProperties('apiProcessed', 'apiPassThrough', 'apiStaticMappings');
     // const optgroupOrder = this.get('_optgroupOrder');
     const value = this.get('_value');
