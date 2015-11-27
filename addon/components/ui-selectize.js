@@ -193,22 +193,21 @@ export default Ember.Component.extend(MoodManager,SizeManager,StyleManager,ApiSu
     }
     config.render = this.get('_bespokeRender');
 
-
     run.schedule('afterRender', ()=>{
-          // Instantiate
-          config.optgroups = this.get('_optgroups');
-          this.$().selectize(config);
-          this.set('selectize',this.$()[0].selectize);
-          this.set('hasInitialized', true);
-          this.loadOptions();
-          this._disabledObserver();
-          // Set existing value(s)
-          if(value) {
-            new A(value).forEach( item => {
-              this.selectize.addItem(item);
-            });
-          }
-          this.sendAction('onInitialize');
+      // Instantiate
+      config.optgroups = this.get('_optgroups');
+      this.$().selectize(config);
+      this.set('selectize',this.$()[0].selectize);
+      this.set('hasInitialized', true);
+      this.loadOptions();
+      this._disabledObserver();
+      // Set existing value(s)
+      if(value) {
+        new A(value).forEach( item => {
+          this.selectize.addItem(item);
+        });
+      }
+      this.sendAction('onInitialize');
     });
 	}),
 	addOptions: function(options) {
