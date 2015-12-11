@@ -4,22 +4,26 @@
 
 ## Installation
 
-* change directories to your project folder
+* change directories to your project's root folder
 * `ember install ui-selectize`
-
-### Dependencies ###
-
-This addon will install the underlying **Selectize** component which itself depends on a few small libraries (see Selectize site for details).
 
 ## Examples / Tests ##
 
 Documentation, example configuration/tests are all available here:
 
-> [Online Demo](http://development.ui-selectize.divshot.io)
+> [Online Demo](https://ui-selectize.firebaseapp.com)
+
+![ ](tests/dummy/public/images/ui-selectize.gif)
+
+### Dependencies ###
+
+This addon will install the underlying **Selectize** component which itself depends on a few small libraries (see Selectize site for details).
+
+
 
 ## Repo Contribution
 
-We're open to your creative suggestions but please move past the "idea" stage 
+We're open to your creative suggestions but please move past the "idea" stage
 and send us a PR so we can incorporate your ideas without killing ourselves. :)
 
 ## Licensing
