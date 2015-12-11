@@ -16,7 +16,7 @@ var ApiSurface = Ember.Mixin.create({
       'score'
     ],
     // Arguably not needed except for "meta" reasons; these are props which are consumed directly by a CP
-    // rather than Selectize (which would recieve a state change indirectly)
+    // rather than Selectize (which would receive a state change indirectly)
     apiIntermediate: [
       'valueField', 'labelField',
       'optgroupField', 'optgroupValueField', 'optgroupLabelField'
