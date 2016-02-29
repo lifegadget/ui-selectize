@@ -1,15 +1,10 @@
 {
   "name": "ui-selectize",
   "dependencies": {
-    "jquery": "^1.11.3",
-    "ember": "1.13.10",
-    "ember-cli-shims": "0.0.6",
-    "ember-cli-test-loader": "0.2.1",
-    "ember-load-initializers": "ember-cli/ember-load-initializers#0.1.5",
-    "ember-qunit": "0.4.16",
+    "jquery": "1.11.3",
+    "ember-cli-shims": "0.1.0",
+    "ember-cli-test-loader": "0.2.2",
     "ember-qunit-notifications": "0.1.0",
-    "ember-resolver": "~0.1.20",
-    "ember-data": "1.13.15",
     "loader.js": "ember-cli/loader.js#3.2.1",
     "bootstrap": "~3.3.2",
     "selectize": "~0.12.1",
@@ -17,10 +12,13 @@
     "babel-polyfill": "~0.0.1"
   },
   "devDependencies": {
+    "ember": "~2.3.1",
     "qunit": "~1.18.0",
     "animate.css": "~3.3.0",
-    "ember-inflector": "~1.3.1",
     "lodash": "~3.9.3",
     "Faker": "~2.1.4"
+  },
+  "resolutions": {
+    "ember": "~2.3.1"
   }
 }
