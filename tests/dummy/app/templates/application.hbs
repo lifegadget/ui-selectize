@@ -13,12 +13,18 @@
   This component wraps the
   <a href="http://brianreavis.github.io/selectize.js/" target="selectize-demo"><prop>selectize</prop></a> control developed by Brian Reavis. This control has become very popular due to its small footprint, skinnable interface and programatic API (including a plugin API). The general principle for this Ember component is just to make Brian's control easily accessible within an ember application so his documentation --
   <a href="http://brianreavis.github.io/selectize.js/" target="selectize-demo">found here</a> --
-  is still very relevant. For this addon we're mainly providing the interactive demos you see here but that should get you up-to-speed quickly. If anything is unclear you can raise an issue or better yet a PR.
+  is still quite relevant.
 </p>
 
 <h3>Sections</h3>
 <row>
-  {{ui-nav-list value=currentPath skin='nav' items=sections onChange='onChange' position='left'}}
+  {{ui-nav-list
+    value=currentPath 
+    skin='nav'
+    items=sections
+    onChange='onChange'
+    position='left'
+  }}
   <description>
     {{outlet}}
   </description>

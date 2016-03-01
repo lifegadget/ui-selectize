@@ -1,67 +1,73 @@
 <h3 class='section-heading'>Value Binding</h3>
 <row>
-  <widget class='left'>
-    {{ui-tags-input
-      value=myValue
-      placeholder="placeholder"
+  <div class='col-xs-6 col-lg-2'>
+    {{tags-input
+      values=tagValue
+      placeholder="tag me"
       options='foo,bar,baz'
+      onChange=(mut tagValue)
     }}
-  </widget>
-  <code>
-    {{display-component componentName='ui-tags-input'
-      value=':myValue'
-      placeholder="placeholder"
-      options='foo,bar,baz'
-    }}
-  </code>
-  <description>
-    <h4>Two way binding</h4>
-      <prop>value</prop> is bound to the container's <prop>myValue</prop> property ({{myValue}}). These days ther is a lot of emphasis of the <i>Data Down, Actions Up</i> and this doesn't in this example conform to this principle but that doesn't make this "wrong" and with a fairly atomic input control this can actually be a lot easier.
-  </description>
+  </div>
+  <div class="col-xs-6 col-lg-4">
+<pre><code class='handlebars'>\{{tags-input
+  values=tagValue
+  placeholder="tag me"
+  options='foo,bar,baz'
+  onChange=(mut tagValue)
+}}
+</code></pre>
+  </div>
+  <div class="col-xs-12 col-lg-6">
+    <h4>DDAU</h4>
+    This addon is built for an Ember 2.x environment and supports both the {{ui-pill 'action'}} and {{ui-pill 'mut'}} helpers to provide a safe and relatively compact DDAU experience.
+  </div>
 </row>
+
 <row>
-  <widget class='left'>
-    {{ui-tags-input
-      value=(readonly myValue)
-      placeholder="placeholder"
+  <div class='col-xs-6 col-lg-2'>
+    {{tags-input
+      values=tagValue
+      placeholder="one is never enough"
       options='foo,bar,baz'
+      onChange=(mut tagValue)
     }}
-  </widget>
-  <code>
-    {{display-component componentName='ui-tags-input'
-      value=':(read-only myValue)'
-      placeholder="placeholder"
-      options='foo,bar,baz'
-    }}
-  </code>
-  <description>
-      <h4>One way binding</h4>
-      If you do want to ensure that selectize doesn't set the passed in value the easiest way to achieve this is with the <prop>read-only</prop> helper as demonstated to the left. Of course, you'll probably still want to know when the internal state of the dropdown changes. To understand this go to the <b>Actions</b> section.
-  </description>
-</row>
-<row>
-  <widget class='left'>
-    {{ui-select-input value=selectValue placeholder="placeholder" options='foo,bar,baz'}}<br/>
-    {{ui-tags-input value=tagValues placeholder="placeholder" options='foo,bar,baz'}}
-  </widget>
-  <code>
-    {{display-component componentName='ui-select-input'
+    <p>
+      container value: {{tagValue}}
+    </p>
+    <br>
+    {{select-input
       value=selectValue
-      placeholder="placeholder"
+      placeholder="one at a time"
       options='foo,bar,baz'
-    }}<br/>
-    {{display-component componentName='ui-tags-input'
-      value=tagValues
-      placeholder="placeholder"
-      options='foo,bar,baz'
+      onChange=(mut selectValue)
     }}
-  </code>
-  <description>
-  <h4>Multiplicity</h4>
-  <p>
-    This might be obvious but its worth stating that a <i>tag</i>-based input results in a value which is an <i>array</i> whereas a <i>select</i>-based input results in a single scalar value.
-  </p>
-  </description>
+    <p>
+      container value: {{selectValue}}
+    </p>
+  </div>
+  <div class="col-xs-6 col-lg-4">
+<pre><code class='handlebars'>\{{tags-input
+  values=tagValue
+  placeholder="one is never enough"
+  options='foo,bar,baz'
+  onChange=(mut tagValue2)
+}}
+
+\{{select-input
+  value=selectValue
+  placeholder="one at a time"
+  options='foo,bar,baz'
+  onChange=(mut selectValue)
+}}
+</code></pre>
+  </div>
+  <div class="col-xs-12 col-lg-6">
+    <h4>Cardinality</h4>
+    Semantically it makes sense to bind a property named {{ui-label 'value'}} for a <i>select</i>-input (which can only take on at most one value) versus the plural {{ui-label 'values'}} which is more intuitive for a tag-input.
+  </div>
 </row>
-
-
+<p>
+  <note>
+    With both components you <i>can</i> attach to either the single or the plural but semantically it makes less sense. The key though is that when sending data down on the plural api-surface you must send an array, otherwise a scalar.
+  </note>
+</p>

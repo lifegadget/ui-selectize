@@ -8,7 +8,9 @@ var Router = Ember.Router.extend({
 Router.map(function() {
   this.route('index2');
   this.route('value-binding');
-  this.route('loading-data');
+  this.route('options');
+  this.route('searching');
+  this.route('render');
   this.route('shorthand');
   this.route('groups');
   this.route('plugins');

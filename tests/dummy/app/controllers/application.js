@@ -56,7 +56,8 @@ export default Ember.Controller.extend({
   sections: [
     {'title': 'Shorthand'},
     {'title': 'Value Binding'},
-    {'title': 'Loading Data'},
+    {'title': 'Options'},
+    {'title': 'Groups'},
     {'title': 'Groups'},
     {'title': 'Plugins'},
     {'title': 'Formatting'},
@@ -66,9 +67,10 @@ export default Ember.Controller.extend({
 
   actions: {
     onChange(o) {
-      console.log(o);
       if(o.type === 'selection') {
-        const route = dasherize(get(o,'added.title'));
+        const routeString = get(o, 'added.route') || get(o, 'added.title');
+        const route = dasherize(routeString);
+        this.set('section', dasherize(get(o, 'added.title')));
         this.transitionToRoute(`${route}`);
       }
     }

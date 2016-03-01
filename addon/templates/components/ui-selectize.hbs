@@ -1,0 +1,12 @@
+<span class="ui-selectize">
+  <select
+    id="select-{{elementId}}"
+    class="{{type}}-input {{touchDevice}}{{if fingerFriendly ' finger-friendly'}} {{if selected 'selected' 'not-selected'}} {{_mood}}"
+    name="{{name}}"
+    autocomplete={{autocomplete}}
+    autofocus={{autofocus}}
+    disabled={{disabled}}
+  >
+    {{yield}}
+  </select>
+</span>

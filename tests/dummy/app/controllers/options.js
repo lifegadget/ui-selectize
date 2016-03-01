@@ -6,8 +6,12 @@ const dasherize = thingy => {
 };
 
 export default Ember.Controller.extend({
-  pojoArray: ['Frog','Monkey','Lion'],
-  emberData: computed(function() {
+  pojoOptions: [
+    { id: 1, name: 'Frog' },
+    { id: 2, name: 'Monkey' },
+    { id: 3, name: 'Lion' }
+  ],
+  model: computed(function() {
     return this.store.findAll('animal');
   }),
 

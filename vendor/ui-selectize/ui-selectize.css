@@ -7,6 +7,10 @@
 	height: auto;
 }
 
+.ui-selectize .selectize-input::after {
+  cursor: pointer;
+}
+
 .ui-selectize.finger-friendly .selectize-dropdown-content .option {
 	padding-top: 1rem;
 	padding-bottom: 1rem;
@@ -121,5 +125,3 @@
 .ui-selectize.mood-ancient .selectize-input {
     background-color: hsl(0, 0%, 60%);
 }
-
-

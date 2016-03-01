@@ -7,23 +7,23 @@
 <div id="ui-number-array-input" class="container">
   <div class="row">
     <div class="col-xs-5  col-md-4">
-      {{ui-select-input options=things optgroups=optGroup value=thingsValue}}
+      {{select-input options=things optgroups=optGroup values=thingsValue}}
     </div>
     <div class="col-xs-7 col-md-8">
       Grouped selection: {{thingsValue}}<br/>
       <code>
-        \{{ui-select-input options=things optgroups=optGroup}}
+        \{{select-input options=things optgroups=optGroup}}
       </code>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-5  col-md-4">
-      {{ui-tags-input options=things optgroups=groups value=thingsValue2}}
+      {{tags-input options=things optgroups=groups values=thingsValue2}}
     </div>
     <div class="col-xs-7 col-md-8">
       Grouped selection: {{thingsValue2}}<br/>
       <code>
-      \{{ui-tags-input options=things optgroups=groups}}
+      \{{tags-input options=things optgroups=groups}}
       </code>
     </div>
   </div>

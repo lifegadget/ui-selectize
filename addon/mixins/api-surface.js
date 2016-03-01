@@ -23,7 +23,7 @@ var ApiSurface = Ember.Mixin.create({
     ],
     // CP's to be used rather than bound value
     apiProcessed: [
-      '_optgroupOrder', '_plugins', '_searchField', '_sortField'
+      '_optgroupOrder', '_plugins', '_searchField', '_sortField', '_optgroup', '_bespokeRender'
     ],
     // Static mappings to API
     apiStaticMappings: {
@@ -32,6 +32,20 @@ var ApiSurface = Ember.Mixin.create({
       optgroupField: 'group'
     },
     copyClassesToDropdown: true,
+    eventHandlers() {
+      return {
+        onInitialize: Ember.$.proxy(this._onInitialize, this),
+        onOptionAdd: Ember.$.proxy(this._onOptionAdd, this),
+        onOptionRemove: Ember.$.proxy(this._onOptionRemove, this),
+        onChange: Ember.$.proxy(this.selectizeChanged, this),
+        onLoad: Ember.$.proxy(this._onLoad, this),
+        onDropdownOpen: Ember.$.proxy(this._onDropdownOpen, this),
+        onDropdownClose: Ember.$.proxy(this._onDropdownClose, this),
+        onItemAdd: Ember.$.proxy(this._onItemAdd, this),
+        onItemRemove: Ember.$.proxy(this._onItemRemove, this),
+        onType: Ember.$.proxy(this._onType, this),
+      };
+    },
 
     optgroups: null, // the array of optgroups
     optgroupField: 'group', // property name on "options" which refers to optgroupsValueField
@@ -107,21 +121,7 @@ var ApiSurface = Ember.Mixin.create({
     closeAfterSelect: false,
 
     // Component Event Handling
-    _onChange:function(value) {
-      const valueObject = this.get('valueObject');
-      this.set('value', value);
-      if (isEmpty(value)) {
-        this.set('selected',false);
-      } else {
-        this.set('selected',true);
-      }
 
-      this.sendAction('onChange', {
-        value: value,
-        context: valueObject,
-        component: this
-      });
-    },
     _onLoad:function(data) {
       this.sendAction('onLoad', {
         items: data,
