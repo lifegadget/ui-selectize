@@ -161,7 +161,6 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
         loader(result);
       });
     });
-    console.log('options: ', result);
 
     this.set('_options', result);
   }),
@@ -216,40 +215,6 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
     }
 
   },
-
-  // _optgroupsObserver: on('init',observer('_optgroups', function() {
-  //   const {_optgroups, _optgroupsObserverMutex, selectize} = this.getProperties('_optgroups', '_optgroupsObserverMutex', 'selectize');
-  //   if(!_optgroupsObserverMutex) {
-  //     // on init we will just ignore a change as this should be incorporated into
-  //     // Selectize initialization (and more gracefully than the API provides)
-  //     this.set('_optgroupsObserverMutex', true);
-  //   } else {
-  //     // this is a post-init (clear use case is a promise being delivered)
-  //     _optgroups.forEach(group => {
-  //       selectize.addOptionGroup(group.id, group);
-  //     });
-  //     selectize.refreshOptions(false); // false stops the control from receiving focus
-  //   }
-  // })),
-  // _optgroupsObserverMutex: null,
-
-  // inputType: computed('maxItems', function() {
-  //   return this.get('maxItems') === 1 ? 'select' : 'tags';
-  // }),
-  // // detect component value changes, push to UI control
-	// _valueObserver: observer('value', function() {
-	// 	const value = this.get('_value');
-  //   const options = a(this.get('_options'));
-  //   const selectize = this.selectize;
-  //
-  //
-  //   // update Selectize's value
-  //   if(JSON.stringify(value) !== JSON.stringify(uiValue)) {
-  //     selectize.setValue(value);
-  //   }
-  //   const valueObject = value && value.length > 0 ? options.findBy('value', value[0]) : null;
-  //   this.set('valueObject', valueObject);
-  // }),
 
   // RENDER
   // -----------------------

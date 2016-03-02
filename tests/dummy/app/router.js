@@ -9,7 +9,7 @@ Router.map(function() {
   this.route('index2');
   this.route('value-binding');
   this.route('options');
-  this.route('searching');
+  this.route('sort-and-search');
   this.route('render');
   this.route('shorthand');
   this.route('groups');

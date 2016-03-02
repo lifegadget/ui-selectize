@@ -58,10 +58,11 @@ export default Ember.Controller.extend({
     {'title': 'Value Binding'},
     {'title': 'Options'},
     {'title': 'Groups'},
-    {'title': 'Groups'},
+    {'title': 'Sort and Search'},
     {'title': 'Plugins'},
     {'title': 'Formatting'},
     {'title': 'Actions'},
+    {'title': 'Render'},
     {'title': 'Bespoke Rendering'}
   ],
 

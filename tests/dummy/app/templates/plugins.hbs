@@ -5,24 +5,45 @@
 <div id="ui-number-array-input" class="container">
   <div class="row">
     <div class="col-xs-5 col-md-3">
-      {{ui-select-input options=things optgroups=groups plugins='optgroup_columns' }}
+      {{select-input
+        options=things
+        optgroups=groups
+        optgroupField="group"
+        plugins='optgroup_columns'
+      }}
     </div>
     <div class="col-xs-7 col-md-9">
-      Column-base selection: <i>optgroup_columns</i><br/>
-      <code>
-        \{{ui-select-input options=things optgroups=groups plugins='optgroup_columns' optgroups=optGroup }}
-      </code>
+      <p>
+        Column-base selection: <i>optgroup_columns</i><br/>
+      </p>
+<pre><code>\{{select-input
+  options=things
+  optgroups=groups
+  plugins='optgroup_columns'
+  optgroups=optGroup
+}}</code></pre>
     </div>
   </div>
+
+
   <div class="row">
     <div class="col-xs-5 col-md-3">
-      {{ui-tags-input options=things plugins='remove_button,restore_on_backspace' optgroups=optGroup optgroupField="group"}}
+      {{tags-input
+        options=things
+        plugins='remove_button,restore_on_backspace'
+        optgroups=optGroup
+        optgroupField="group"
+      }}
     </div>
     <div class="col-xs-7 col-md-9">
-      Tags with: <i>remove_button(default), restore_on_backspace</i><br/>
-      <code>
-        \{{ui-tags-input options=things plugins='remove_button,restore_on_backspace'}}
-      </code>
+      <p>
+        Tags with: <i>remove_button(default), restore_on_backspace</i><br/>
+      </p>
+<pre><code>\{{tags-input
+  options=things
+  optgroups=optGroup
+  plugins='remove_button,restore_on_backspace'
+}}</code></pre>
     </div>
   </div>
 </div>
