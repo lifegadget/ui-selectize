@@ -1,6 +1,10 @@
 import Ember from 'ember';
 const { keys, create } = Object; // jshint ignore:line
-const {computed, observer, $, A, run, on, typeOf, debug, defineProperty, get, set, inject, isEmpty} = Ember;  // jshint ignore:line
+const { RSVP: {Promise, all, race, resolve, defer} } = Ember; // jshint ignore:line
+const { inject: {service} } = Ember; // jshint ignore:line
+const { computed, $, run, on, typeOf } = Ember;  // jshint ignore:line
+const { get, set, debug } = Ember; // jshint ignore:line
+const a = Ember.A; // jshint ignore:line
 
 
 var ApiSurface = Ember.Mixin.create({
@@ -37,7 +41,7 @@ var ApiSurface = Ember.Mixin.create({
         onInitialize: Ember.$.proxy(this._onInitialize, this),
         onOptionAdd: Ember.$.proxy(this._onOptionAdd, this),
         onOptionRemove: Ember.$.proxy(this._onOptionRemove, this),
-        onChange: Ember.$.proxy(this.selectizeChanged, this),
+        onChange: Ember.$.proxy(this._onChange, this),
         onLoad: Ember.$.proxy(this._onLoad, this),
         onDropdownOpen: Ember.$.proxy(this._onDropdownOpen, this),
         onDropdownClose: Ember.$.proxy(this._onDropdownClose, this),
@@ -137,6 +141,32 @@ var ApiSurface = Ember.Mixin.create({
         code: 'loaded'
       });
     },
+    _onChange: function(input) {
+      const changeInfo = { value: input };
+      let {values, type} = this.getProperties('values', 'type');
+      if(type === 'select') { changeInfo.replaced = this.get('value'); }
+      else {
+        values = values || [];
+        input = input || [];
+        if(typeOf(input) === 'string') { input = [input]; }
+        changeInfo.added = [];
+        changeInfo.removed = [];
+        input.map(v => {
+          if(!a(values).contains(v)) {
+            changeInfo.added.push(v);
+          }
+        });
+        values.map(v => {
+          if(!a(input).contains(v)) {
+            changeInfo.removed.push(v);
+          }
+        });
+        if (changeInfo.added.length === 0) { delete changeInfo.added; }
+        if (changeInfo.removed.length === 0) { delete changeInfo.removed; }
+      }
+      this.selectizeChanged(changeInfo);
+    },
+
     _onOptionAdd:function(value,valueObject) {
       if(this._optionsInitialized) {
         this.ddau('onOption', {
@@ -168,23 +198,6 @@ var ApiSurface = Ember.Mixin.create({
         code: 'close-dropdown',
         context: this,
         dropdown: $dropdown
-      });
-    },
-    _onItemAdd:function(value, $item) {
-      this.sendAction('onItem', {
-        action: 'add',
-        component: this,
-        message: `added ${value} to the list`,
-        value: value,
-        $item: $item
-      });
-    },
-    _onItemRemove:function(value) {
-      this.sendAction('onItem', {
-        action:'remove',
-        message: `removed ${value} from the list`,
-        value: value,
-        component: this
       });
     },
     _onType:function(value) {

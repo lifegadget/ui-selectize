@@ -46,6 +46,7 @@ The events supported are:
         onDropdown=(action 'onDropdown')
         onOption=(action 'onOption')
         onType=(action 'onType')
+        value=selectValue
       }}
     {{else}}
       {{tags-input
@@ -56,8 +57,13 @@ The events supported are:
         onDropdown=(action 'onDropdown')
         onOption=(action 'onOption')
         onType=(action 'onType')
+        values=tagsValue
       }}
     {{/if}}
+    <p>
+      <br>
+      Container value: {{#if isSelectInput}}{{selectValue}}{{else}}{{tagsValue}}{{/if}}
+    </p>
     <p>
       <br>
       {{ui-toggle-button

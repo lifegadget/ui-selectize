@@ -198,22 +198,29 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
     return result;
   }),
 
-  selectizeChanged:function(received) {
+  selectizeChanged:function(changeInfo) {
     let value;
     let values;
     if(this.type === 'select') {
-      value = received;
+      value = changeInfo.value;
       values = value ? [value] : [];
     } else {
-      values = received ? received : [];
+      values = changeInfo.value ? changeInfo.value : [];
       value = values[0];
     }
 
-    let allowed = this.ddau('onChange', {
+    const message = {
       code: 'selectize-changed',
       values: values,
       value: value
-    }, this.type === 'tag' ? 'values' : 'value');
+    };
+    delete changeInfo.value;
+
+    let allowed = this.ddau(
+      'onChange',
+      Object.assign(message, changeInfo),
+      this.type === 'tag' ? 'values' : 'value'
+    );
 
     // let container reject change
     if (allowed === false) {
