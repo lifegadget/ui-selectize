@@ -62,8 +62,7 @@ export default Ember.Controller.extend({
     {'title': 'Plugins'},
     {'title': 'Formatting'},
     {'title': 'Actions'},
-    {'title': 'Render'},
-    {'title': 'Bespoke Rendering'}
+    {'title': 'Option Render'}
   ],
 
   actions: {

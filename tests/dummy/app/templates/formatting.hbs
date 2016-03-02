@@ -1,151 +1,156 @@
 <h3 class='section-heading'>Formatting</h3>
+
 <div class="container">
+  <h4>Sizing</h4>
   <div class="row">
-    <div class="col-xs-5  col-md-4">
-      {{ui-tags-input options=things optgroups=groups fingerFriendly=true}}
+    <div class="col-xs-6 col-md-4">
+      {{tags-input size='tiny' placeholder='tiny' options=things optgroups=optGroup}}
     </div>
-    <div class="col-xs-7 col-md-8">
-      Finger Friendly (for mobile): <span class="text-muted">extra vertical space added in dropdown</span><br/>
-      <code>
-        \{{ui-tags-input fingerFriendly=true}}
-      </code>
+    <div class="col-xs-6 col-md-8">
+      <pre><code>\{{tags-input size='tiny' placeholder='tiny'}}</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-4">
+      {{tags-input size='small' placeholder='small' options=things optgroups=optGroup}}
+    </div>
+    <div class="col-xs-6 col-md-8">
+      <pre><code>\{{tags-input size='small' placeholder='small'}}</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-4">
+      {{tags-input placeholder='default' options=things optgroups=optGroup}}
+    </div>
+    <div class="col-xs-6 col-md-8">
+      <pre><code>\{{tags-input placeholder='default'}}</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-4">
+      {{tags-input size='large' placeholder='large' options=things optgroups=optGroup}}
+    </div>
+    <div class="col-xs-6 col-md-8">
+      <pre><code>\{{tags-input size='large' placeholder='large'}}</code></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-4">
+      {{tags-input size='huge' placeholder='huge' options=things optgroups=optGroup}}
+    </div>
+    <div class="col-xs-6 col-md-8">
+      <pre><code>\{{tags-input size='huge' placeholder='huge'}}</code></pre>
+    </div>
+  </div>
+
+  <br>
+  <h4>Finger Friendly</h4>
+  <p>
+    The idea behind "finger friendly" is to add more space for touch based devices in the dropdown menus which tend to be hard to get at for our fat fingers.
+  </p>
+  <div class="row">
+    <div class="col-xs-6 col-md-4">
+      {{select-input placeholder='normal' options=things optgroups=optGroup}}
+
+    </div>
+    <div class="col-xs-6 col-md-8">
+      <pre><code>\{{select-input }}</code></pre>
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-2  col-md-2">
-      {{ui-tags-input disabled=disabledToggle options=things}}
+    <div class="col-xs-6 col-md-4">
+      {{select-input placeholder='finger friendly' fingerFriendly=true options=things optgroups=optGroup}}
     </div>
-    <div class="col-xs-3 col-md-2">
-      {{ui-select-input disabled=disabledToggle options=things}}
-    </div>
-    <div class="col-xs-7 col-md-8">
-      {{ui-toggle-button on='disabled' off='enabled' size='small' value=disabledToggle}}<br/>
-      <code>
-        \{{ui-tags-input {{#if disabledToggle}}disabled=true{{/if}} }}
-        \{{ui-select-input {{#if disabledToggle}}disabled=true{{/if}} }}
-      </code>
-    </div>
-  </div>
-</div>
-<h4>Sizing</h4>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-6  col-md-2">
-      {{ui-select-input options=things optgroups=groups size='tiny'}}
-    </div>
-    <div class="col-xs-6  col-md-2">
-      {{ui-select-input options=things optgroups=groups size='tiny' fingerFriendly=true}}
-    </div>
-    <div class="col-xs-7 col-md-8">
-      Tiny Size<br/>
-      <code>
-        \{{ui-select-input size='small'}}
-      </code> &nbsp;
-      <code>\{{ui-select-input size='small' fingerFriendly=true}}</code>
+    <div class="col-xs-6 col-md-8">
+      <pre><code>\{{select-input fingerFriendly=true }}</code></pre>
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-6  col-md-2">
-      {{ui-select-input options=things optgroups=groups size='small'}}
+    <div class="col-xs-6 col-md-4">
+      {{tags-input
+        placeholder='finger friendly'
+        fingerFriendly=true
+        closeAfterSelect=true
+        options=things
+        optgroups=optGroup
+      }}
     </div>
-    <div class="col-xs-6  col-md-2">
-      {{ui-select-input options=things optgroups=groups size='small' fingerFriendly=true}}
-    </div>
-    <div class="col-xs-7 col-md-8">
-      Small Size<br/>
-      <code>
-        \{{ui-select-input size='small'}}
-      </code> &nbsp;
-      <code>\{{ui-select-input size='small' fingerFriendly=true}}</code>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-5  col-md-4">
-      {{ui-select-input options=things optgroups=groups size='large'}}
-    </div>
-    <div class="col-xs-7 col-md-8">
-      Large Size<br/>
-      <code>
-        \{{ui-select-input size='large'}}
-      </code>
+    <div class="col-xs-6 col-md-8">
+      <pre><code>\{{tag-input fingerFriendly=true }}</code></pre>
     </div>
   </div>
+  <note>
+    Note: If you're using {{ui-label 'tags-input'}} on a mobile device consider detecting off-control touch events and force blur of the control. Alternatively, although probably less effective, you could also
+  </note>
+
+  <br>
+  <h4>Mood</h4>
+  <p>
+    Moods are color themes that relate to the common Bootstrap naming of 'primary', 'secondary', 'success', 'warning', and 'danger'. You can actually put any string you like and it will add a class {{ui-label 'mood-[name]'}}. For the Bootstrap standard ones there is built-in styling but you can feel free to override or just use a different name.
+  </p>
+
   <div class="row">
-    <div class="col-xs-5  col-md-4">
-      {{ui-select-input options=things optgroups=groups size='huge'}}
+    <div class="col-xs-6 col-md-4">
+      {{select-input placeholder='info' mood='info' options=things optgroups=optGroup}}
     </div>
-    <div class="col-xs-7 col-md-8">
-      Huge Size<br/>
-      <code>
-        \{{ui-select-input size='huge'}}
-      </code>
+    <div class="col-xs-6 col-md-8">
+      <pre><code>\{{select-input mood='info'}}</code></pre>
     </div>
+  </div>
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    {{select-input placeholder='success' mood='success' options=things optgroups=optGroup}}
+  </div>
+  <div class="col-xs-6 col-md-8">
+    <pre><code>\{{select-input mood='success'}}</code></pre>
   </div>
 </div>
 
 
-<h4>Width</h4>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-5 col-md-4">
-      {{ui-select-input options='foo,bar,baz' width='49%'}} {{ui-tags-input options='foo,bar,baz' width='49%'}}
-    </div>
-    <div class="col-xs-7 col-md-8">
-      Set width to a percentage<br/>
-      <code>
-        \{{ui-select-input width='49%'}} \{{ui-tags-input width='49%'}}
-      </code>
-    </div>
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    {{select-input placeholder='warning' mood='warning' options=things optgroups=optGroup}}
   </div>
-  <div class="row">
-    <div class="col-xs-5 col-md-4">
-      {{ui-select-input width='150px'}} hello world
-    </div>
-    <div class="col-xs-7 col-md-8">
-      Set width to a pixel length<br/>
-      <code>
-        \{{ui-select-input width='150px'}} hello world
-      </code>
-    </div>
+  <div class="col-xs-6 col-md-8">
+    <pre><code>\{{select-input mood='warning'}}</code></pre>
   </div>
 </div>
 
-<h4>Mood</h4>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-5 col-md-4">
-      {{ui-select-input value='foo' mood='success' placeholder='success' options='foo,bar,baz' width='49%'}}
-      {{ui-tags-input  mood='success' placeholder='success' options='foo,bar,baz' width='49%'}}
-    </div>
-    <div class="col-xs-7 col-md-8">
-      Success Mood<br/>
-      <code>
-      \{{ui-select-input mood='success'}} \{{ui-tags-input mood='success'}}
-      </code>
-    </div>
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    {{select-input placeholder='danger' mood='danger' options=things optgroups=optGroup}}
   </div>
-  <div class="row">
-    <div class="col-xs-5 col-md-4">
-    {{ui-select-input value='bar' mood='warning' placeholder='warning' options='foo,bar,baz' width='49%'}}
-    {{ui-tags-input mood='warning' placeholder='warning' options='foo,bar,baz' width='49%'}}
-    </div>
-    <div class="col-xs-7 col-md-8">
-      Warning Mood<br/>
-      <code>
-        \{{ui-select-input mood='warning'}} \{{ui-tags-input mood='warning'}}
-      </code>
-    </div>
+  <div class="col-xs-6 col-md-8">
+    <span><pre><code>\{{select-input mood='danger'}}, or</code></pre></span>
+    <span><pre><code>\{{select-input mood='error'}}</code></pre></span>
   </div>
-  <div class="row">
-    <div class="col-xs-5 col-md-4">
-    {{ui-select-input value='baz' mood='error' placeholder='error' options='foo,bar,baz' width='49%'}}
-    {{ui-tags-input mood='error' placeholder='error' options='foo,bar,baz' width='49%'}}
-    </div>
-    <div class="col-xs-7 col-md-8">
-      Error Mood<br/>
-      <code>
-      \{{ui-select-input mood='error'}} \{{ui-tags-input mood='error'}}
-      </code>
-    </div>
+</div>
+
+<p>
+  <note>
+    <b>Note:</b> because this addon is using CSS instead of SCSS the container can't set the "primary" and "secondary" color variables as intended. If anyone wants to send in PR this would be a great place to do it.
+  </note>
+</p>
+
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    {{select-input placeholder='primary' mood='primary' options=things optgroups=optGroup}}
   </div>
+  <div class="col-xs-6 col-md-8">
+    <span><pre><code>\{{select-input mood='primary'}}</code></pre></span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    {{select-input placeholder='secondary' mood='secondary' options=things optgroups=optGroup}}
+  </div>
+  <div class="col-xs-6 col-md-8">
+    <span><pre><code>\{{select-input mood='secondary'}}</code></pre></span>
+  </div>
+</div>
+  <br>
 </div>

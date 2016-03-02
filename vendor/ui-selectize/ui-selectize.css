@@ -22,63 +22,58 @@
 
 /*   SIZING   */
 /* ---------- */
-.ui-selectize.size-tiny .selectize-input {
-  padding: 11px 10px;
-  font-size: 11px;
-  line-height: 0.8;
-  border-radius: 4px;
-}
-.ui-selectize.size-tiny .selectize-dropdown-content {
-  padding: 10px 8px;
-  font-size: 12px;
-  line-height: 1.33333333;
-}
-.ui-selectize.size-tiny .selectize-dropdown-content .optgroup-header {
-  font-size: 12px;
-}
-
-.ui-selectize.size-small .selectize-input {
-  padding: 10px 12px;
-  font-size: 12px;
+.selectize-control.size-tiny .selectize-input {
+  padding: 5px 10px;
+  font-size: 0.7rem;
   line-height: 1.2;
   border-radius: 4px;
 }
-.ui-selectize.size-small .selectize-dropdown-content {
-  padding: 10px 8px;
-  font-size: 12px;
-  line-height: 1.33333333;
+.selectize-control.size-tiny .selectize-dropdown-content {
+  font-size: 0.7rem;
+  line-height: 1.2;
 }
-.ui-selectize.size-small .selectize-dropdown-content .optgroup-header {
-  font-size: 12px;
-}
-
-.ui-selectize.size-large .selectize-input {
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.33333333;
-  border-radius: 6px;
-}
-.ui-selectize.size-large .selectize-dropdown-content {
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.33333333;
-}
-.ui-selectize.size-large .selectize-dropdown-content .optgroup-header {
-  font-size: 18px;
+.selectize-control.size-tiny .selectize-dropdown-content .optgroup-header {
+  font-size: 0.6rem;
 }
 
-.ui-selectize.size-huge .selectize-input {
+.selectize-control.size-small .items {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  border-radius: 4px;
+}
+.selectize-control.size-small .selectize-dropdown-content {
+  padding: 10px 0;
+  font-size: 0.9rem;
+  line-height: 1.33333333;
+}
+.selectize-control.size-small .selectize-dropdown-content .optgroup-header {
+  font-size: 0.8rem;
+}
+
+.selectize-control.size-large .items {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  border-radius: 8px;
+}
+.selectize-control.size-large .selectize-dropdown-content {
+  font-size: 1.3rem;
+  line-height: 1.33333333;
+}
+.selectize-control.size-large .selectize-dropdown-content .optgroup-header {
+  font-size: 1.2rem;
+}
+
+.selectize-control.size-huge .selectize-input {
   padding: 10px 16px;
   font-size: 26px;
   line-height: 1.4;
   border-radius: 6px;
 }
-.ui-selectize.size-huge .selectize-dropdown-content {
-  padding: 10px 16px;
+.selectize-control.size-huge .selectize-dropdown-content {
   font-size: 20px;
   line-height: 1.4;
 }
-.ui-selectize.size-huge .selectize-dropdown-content .optgroup-header {
+.selectize-control.size-huge .selectize-dropdown-content .optgroup-header {
   font-size: 20px;
 }
 
@@ -88,40 +83,41 @@
 
 }
 
-.ui-selectize.mood-success .selectize-input {
-    /*color: hsl(120, 39%, 20%);*/
+.selectize-control.mood-success .selectize-input {
+    color: hsl(120, 39%, 20%);
     border-color: hsl(120,39%, 40%);
-    background-color: hsl(120, 39%, 80%);
+    background-color: hsl(120, 77%, 97%);
 }
 /* info */
-.ui-selectize.mood-info .selectize-input {
+.selectize-control.mood-info .selectize-input {
     color: hsl(194, 66%, 20%);
     border-color: hsl(194,66%, 40%);
-    background-color: hsl(194, 66%, 80%);
+    background-color: hsl(194, 66%, 97%);
 }
 /* warn */
-.ui-selectize.mood-warning .selectize-input {
+.selectize-control.mood-warning .selectize-input {
     color: hsl(35, 84%, 20%);
     border-color: hsl(35,84%, 40%);
-    background-color: hsl(35, 84%, 80%);
+    background-color: hsl(35, 84%, 97%);
 }
 /* error */
-.ui-selectize.mood-error .selectize-input {
+.selectize-control.mood-error .selectize-input,
+.selectize-control.mood-danger .selectize-input {
     color: hsl(2, 84%, 20%);
     border-color: hsl(2,64%, 40%);
-    background-color: hsl(2, 64%, 80%);
+    background-color: hsl(2, 64%, 97%);
 }
 /* aged */
-.ui-selectize.mood-aged .selectize-input {
+.selectize-control.mood-aged .selectize-input {
     color: hsl(0, 0%, 40%);
     border-color: hsl(0, 0%, 40%);
     background-color: hsl(0, 0%, 80%);
 }
 /* ancient */
-.ui-selectize.mood-ancient .selectize-input {
+.selectize-control.mood-ancient .selectize-input {
     color: hsl(0, 0%, 50%);
     border-color: hsl(0, 0%, 90%);
 }
-.ui-selectize.mood-ancient .selectize-input {
+.selectize-control.mood-ancient .selectize-input {
     background-color: hsl(0, 0%, 60%);
 }

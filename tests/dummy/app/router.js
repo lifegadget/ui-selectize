@@ -10,13 +10,12 @@ Router.map(function() {
   this.route('value-binding');
   this.route('options');
   this.route('sort-and-search');
-  this.route('render');
+  this.route('option-render');
   this.route('shorthand');
   this.route('groups');
   this.route('plugins');
   this.route('formatting');
   this.route('actions');
-  this.route('bespoke-rendering');
 });
 
 export default Router;

@@ -58,7 +58,10 @@ export default Ember.Controller.extend({
     },
     onType(data) {
       const flashMessages = Ember.get(this, 'flashMessages');
-      flashMessages.info(htmlSafe(`<b>onType</b>: ${data.text}`));
+      flashMessages.info(htmlSafe(`<b>onType</b>: ${data.value}`));
+    },
+    onError(data) {
+      this.get('flashMessages').danger(htmlSafe(`<b>onError</b>: ${data.code}`));
     }
   }
 });

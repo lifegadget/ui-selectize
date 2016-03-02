@@ -201,9 +201,10 @@ var ApiSurface = Ember.Mixin.create({
       });
     },
     _onType:function(value) {
-      this.sendAction('onType', {
-        component: this,
-        text: value
+      this.ddau('onType', {
+        code: 'user-typing',
+        context: this,
+        value: value
       });
     },
 

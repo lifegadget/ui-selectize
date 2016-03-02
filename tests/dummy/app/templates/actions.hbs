@@ -26,10 +26,10 @@ The events supported are:
     <b>onDropdown</b> - open and close events on the dropdown
   </li>
   <li>
-    <b>onOption</b> - adding or removal of options; note that this event doesn't fire on initial load (by design) but you can pick up the options on initial load from the onLoad event if you're interested.
+    <b>onOption</b> - the adding or removal of options
   </li>
   <li>
-    <b>onType</b> - the accumalation of characters that have been typed, fired whenever user types
+    <b>onType</b> - captures user typing/searching (per keyboard stroke)
   </li>
 </ul>
 
@@ -43,6 +43,7 @@ The events supported are:
         optgroups=groups
         onLoad=(action 'onLoad')
         onChange=(action 'onChange')
+        onError=(action 'onError')
         onDropdown=(action 'onDropdown')
         onOption=(action 'onOption')
         onType=(action 'onType')
@@ -54,6 +55,7 @@ The events supported are:
         optgroups=groups
         onLoad=(action 'onLoad')
         onChange=(action 'onChange')
+        onError=(action 'onError')
         onDropdown=(action 'onDropdown')
         onOption=(action 'onOption')
         onType=(action 'onType')
@@ -81,12 +83,14 @@ The events supported are:
 <pre><code class='handlebars'>\{{select-input
   options=emberData
   optgroups=groups
-  onLoad='onLoad'
   onChange='onChange'
-  onDropdown='onDropdown'
-  onOption='onOption'
-  onItem='onItem'
-  onType='onType'
+  onLoad=(action 'onLoad')
+  onChange=(action 'onChange')
+  onError=(action 'onError')
+  onDropdown=(action 'onDropdown')
+  onOption=(action 'onOption')
+  onType=(action 'onType')
+  value=selectValue
 }}</code></pre>
 
     {{else}}
@@ -94,12 +98,13 @@ The events supported are:
 <pre><code class='handlebars'>\{{tags-input
   options=emberData
   optgroups=groups
-  onLoad='onLoad'
-  onChange='onChange'
-  onDropdown='onDropdown'
-  onOption='onOption'
-  onItem='onItem'
-  onType='onType'
+  onLoad=(action 'onLoad')
+  onChange=(action 'onChange')
+  onError=(action 'onError')
+  onDropdown=(action 'onDropdown')
+  onOption=(action 'onOption')
+  onType=(action 'onType')
+  values=tagsValue
 }}</code></pre>
 
     {{/if}}
