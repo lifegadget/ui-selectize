@@ -123,7 +123,7 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
     if(this.attrs[action] && this.attrs[action].update) {
       this.attrs[action].update(hash[valueProp]);
       return true;
-    } else if (this.attrs[action]) {
+    } else if (typeOf(this.attrs[action]) === 'function') {
       return this.attrs[action](hash);
     } else {
       this.sendAction(action, hash);
@@ -174,7 +174,7 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
         loader(result);
       });
     });
-
+    if (result.length > 0) {this._optionsInitialized = true;}
     this.set('_options', result);
   }),
   optgroups: null,

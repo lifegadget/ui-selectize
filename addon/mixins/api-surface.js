@@ -130,40 +130,44 @@ var ApiSurface = Ember.Mixin.create({
     // Component Event Handling
 
     _onLoad:function(data) {
-      this.sendAction('onLoad', {
-        items: data,
-        count: data.length
+      this.ddau('onLoad', {
+        options: data,
+        count: data.length,
+        context: this,
+        code: 'loaded'
       });
     },
     _onOptionAdd:function(value,valueObject) {
-      this.sendAction('onOption', {
-        action: 'add',
-        option: value,
-        context: valueObject,
-        component: this
-      });
+      if(this._optionsInitialized) {
+        this.ddau('onOption', {
+          code: 'add-option',
+          context: this,
+          added: value,
+          addedContext: valueObject
+        });
+      }
     },
     _onOptionRemove:function(value) {
-      this.sendAction('onOption', {
-        action: 'remove',
-        option: value,
-        component: this
-      });
+      if(this._optionsInitialized) {
+        this.ddau('onOption', {
+          code: 'remove-option',
+          context: this,
+          removed: value
+        });
+      }
     },
     _onDropdownOpen:function($dropdown) {
-      this.sendAction('onDropdown', {
-        action: 'open',
-        component: this,
-        value: get(this,'value'),
-        $dropdown: $dropdown
+      this.ddau('onDropdown', {
+        code: 'open-dropdown',
+        context: this,
+        dropdown: $dropdown
       });
     },
     _onDropdownClose:function($dropdown) {
-      this.sendAction('onDropdown', {
-        action: 'close',
-        component: this,
-        value: get(this,'value'),
-        $dropdown: $dropdown
+      this.ddau('onDropdown', {
+        code: 'close-dropdown',
+        context: this,
+        dropdown: $dropdown
       });
     },
     _onItemAdd:function(value, $item) {
