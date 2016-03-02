@@ -1,0 +1,79 @@
+<h3 class='section-heading'>Sort and Search</h3>
+<row>
+  <div class="col-xs-12">
+    <h4>Sorting</h4>
+    <p>
+      The order in which your items will show up in the list leverages the <a href="https://github.com/brianreavis/sifter.js#sifterjs">"sifter" engine</a> and in practical matters is largely determined by the {{ui-pill 'sortField'}} property on the component. This property is either a string or array of strings which indicate which fields to look at when determining precendence. By default the property is set to "name".
+    </p>
+    <p>
+      <note>Note: specifically the <i>default</i> for the sortField is whatever you have set as the {{ui-pill 'labelField'}} which not surprisingly defaults to "name"</note>
+    </p>
+    <p>
+      This default is often the sensible choice but especially if you're sorting the data in Ember before passing to this this control the <i>natural order</i> makes more sense. In order to aid in using a natural sort order this component adds the property "$natural" to each option. We've leveraged this in the example below (also take a look in the inspector at the <i>_options</i> array to the $natural values).
+    </p>
+    <p>
+      <note>
+        Note: bear in mind that this property must be set at component creation time; it is not dynamic;  typically this shouldn't matter but if you need a dynamic sort then you'll need to refer to the "block style" section
+      </note>
+    </p>
+  </div>
+</row>
+  <row>
+    <div class='col-xs-6 col-md-2'>
+      {{select-input
+        value=selectValue
+        placeholder="grouped select"
+        options='zebra,giraffe,monkey'
+        sortField='$natural'
+        optgroups=optGroup
+        onChange=(mut selectValue)
+      }}
+    </div>
+    <div class="col-xs-6 col-md-10">
+<pre><code class='handlebars'>\{{select-input
+  value=selectValue
+  placeholder="grouped select"
+  options='zebra,giraffe,monkey'
+  sortField='$natural'
+  optgroups=optGroup
+  onChange=(mut selectValue)
+}}</code></pre>
+    </div>
+  </row>
+
+  <row>
+    <div class="col-xs-12 col-md-7">
+      <h4>Searching</h4>
+      <p>
+        Searching refers to when a user is typing letters into the control and in real-time there is an attempt to reduce the set of options to only those relevant by <i>searching</i> through the options.
+        By default the searching is done on the values of your {{ui-pill "name"}} property. This is typical selectbox functionality though selectize goes a step further by highlighting in yellow the precise text match.
+      </p>
+      <p>
+        If you'd prefer to have it search for text into other fields in the options hash just send in an array of fields to {{ui-pill 'searchField'}}. In the example below we've added the <i>synonyms</i> field which means that if you type "king" it will match to "lion" and "minion" will match to the other animals (see data model in the inspector to see synonyms properties).
+      </p>
+      <p>
+        This example demonstrates the combination of multiple properties in an "and" join but you can use multiple fields with a "or" join by setting {{ui-pill 'searchConjunction'}} to 'or'.
+      </p>
+    </div>
+  </row>
+
+  <row>
+    <div class='col-xs-6 col-md-2'>
+      {{select-input
+        searchField='name,synonyms'
+        options=model
+        placeholder="the lion is king of the jungle"
+        values=searchValue
+        onChange=(mut searchValue)
+      }}
+    </div>
+    <div class="col-xs-6 col-md-10">
+<pre><code class='handlebars'>\{{select-input
+  searchField='name,synonyms'
+  options=model
+  placeholder="the lion is king of the jungle"
+  values=searchValue
+  onChange=(mut searchValue)
+}}</code></pre>
+    </div>
+  </row>

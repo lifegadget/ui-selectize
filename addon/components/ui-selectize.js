@@ -26,20 +26,20 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
       if(this.attrs.value && this.attrs.values) {
         debug(`A container to a ui-selectize component[${this.elementId}] is bound to both "value" and "values"; this is not considered a safe strategy, please choose one or the other.`);
       }
-
       this.initializeSelectize();
       this._optionsObserver();
       this.get('_optgroups'); // force evaluation
+      if(this.get('autofocus')) { this.selectize.focus(); }
     });
   },
 
   _mood: computed('mood', function() {
-    const mood = String(this.get('mood')).toLowerCase();
-    return Ember.isEmpty(mood) ? null : `mood-${mood}`;
+    const mood = this.get('mood');
+    return mood ? ` mood-${mood}` : '';
   }),
   _size: computed('size', function() {
     const size = String(this.get('size')).toLowerCase();
-    return Ember.isEmpty(size) ? '' : `size-${size}`;
+    return size ? ` size-${size}` : '';
   }),
 
 	// component props
@@ -48,6 +48,13 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
 	autofocus: false,
 	fingerFriendly: false,
 	disabled: false,
+  _disabled: observer('disabled', function() {
+    const {disabled} = this.getProperties('disabled');
+    run.next(()=> {
+      if(this.selectize && disabled) { this.selectize.disable(); }
+      if(this.selectize && !disabled) { this.selectize.enable(); }
+    });
+  }),
 
   // VALUE(s)
   values: null,
@@ -143,12 +150,18 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
     const searchField = this.get('_searchField');
     let result = a([]);
     const options = a(this.convertStringToArray(this.get('options')));
-    options.forEach( item => {
+    options.map( (item, index) => {
       const value = get(item,valueField);
       const label = get(item,labelField);
       const group = optgroupField ? get(item,optgroupField) : null;
-
-      let newItem = { label: label, value: value, group: group, search: searchField, object: item };
+      const newItem = {
+        label: label,
+        value: value,
+        group: group,
+        search: searchField,
+        object: item,
+        $natural: index
+      };
       // iterate through search fields and make sure they are represented on root object
       a(searchField).forEach(field => {
         newItem[field] = get(item,field);
@@ -178,7 +191,6 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
         id: get(group, optgroupValueField),
         name: get(group, optgroupLabelField)
       });
-      console.log('about to add group: ', group);
       selectize.addOptionGroup(group.id, group);
     });
     selectize.refreshOptions(false); // false stops the control from receiving focus

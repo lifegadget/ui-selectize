@@ -13,40 +13,6 @@
   If you really want to exert full control you can also set the {{ui-pill 'optgroupValueField'}} and {{ui-pill 'optgroupLabelField'}} properties which state which property in the group array to find the value and label.
 </p>
 
-<row>
-  <div class='col-xs-12 col-lg-3'>
-    {{select-input
-      options='Frog,Pig,Bad Wolf'
-      values=csvValue
-      idStrategy=caseStrategy
-      onChange=(mut csvValue)
-    }}
-    <br>
-    <p>
-      container value: {{csvValue}}
-    </p>
-    <p>
-      <hr>
-    </p>
-<pre><code class='handlebars'>\{{select-input
-  options='Frog,Pig,Bad Wolf'
-  value=csvValue
-  idStrategy="{{caseStrategy}}"
-  onChange=(mut csvValue)
-}}
-</code></pre>
-  </div>
-  <div class="col-xs-12 col-lg-9">
-    <h4>Select Plugins</h4>
-    <p>
-      Select plugins don't come with any plugins <i>plugged in</i> by default but there is one pretty cool plugin we can add.
-    </p>
-  </div>
-</row>
-
-
-
-
   <row>
     <div class='col-xs-6 col-lg-2'>
       {{select-input

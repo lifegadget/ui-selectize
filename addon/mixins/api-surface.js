@@ -76,7 +76,14 @@ var ApiSurface = Ember.Mixin.create({
       return typeOf(searchField) === 'string' ? searchField.split(',') : searchField;
     }),
     searchConjunction: 'and', // when searching for multiple terms (seperated by a space)
-    sortField: 'name',
+    sortField: computed('labelField', {
+      set(_, name) {
+        return name;
+      },
+      get() {
+        return this.get('labelField');
+      }
+    }),
     // Selectize allows "sortField" to be an array of objects or a string value;
     // we will just simplify this to the more versatile array of objects which also
     // allows the optional attribute "direction" (which is "asc" or "desc")
