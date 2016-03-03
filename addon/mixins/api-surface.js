@@ -167,6 +167,30 @@ var ApiSurface = Ember.Mixin.create({
       this.selectizeChanged(changeInfo);
     },
 
+    _onCreate(input, cb) {
+      const values = this.get('values') || [];
+      const response = this.ddau('onCreate', {
+        code: 'user-create',
+        input: input,
+      }, 'input');
+
+      // only create if container allows
+      if(response !== false) {
+        console.log('adding');
+        this.addOption(input);
+        cb(); // tell selectize we're done
+        this.ddau('onChange', {
+          code: 'selected-new-option',
+          added: [ input ],
+          value: input,
+          values: values.push(input)
+        });
+      } else {
+        cb(); // tell selectize we're done
+      }
+
+    },
+
     _onOptionAdd:function(value,valueObject) {
       if(this._optionsInitialized) {
         this.ddau('onOption', {

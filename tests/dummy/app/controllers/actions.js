@@ -62,6 +62,10 @@ export default Ember.Controller.extend({
     },
     onError(data) {
       this.get('flashMessages').danger(htmlSafe(`<b>onError</b>: ${data.code}`));
+      console.log('onError:', data );
+    },
+    onCreate(data) {
+      console.log(data);
     }
   }
 });

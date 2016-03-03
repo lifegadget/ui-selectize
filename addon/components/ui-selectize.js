@@ -17,7 +17,7 @@ const snake = thingy => {
   return thingy ? Ember.String.underscore(thingy) : thingy;
 };
 
-export default Ember.Component.extend(StyleManager, ApiSurface, {
+const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
   layout,
   tagName: '',
   init() {
@@ -30,8 +30,12 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
       this._optionsObserver();
       this.get('_optgroups'); // force evaluation
       if(this.get('autofocus')) { this.selectize.focus(); }
+      // if(this.get('hasTouch')) {
+      //   window.on('touchstart', this.detectClickAway);
+      // }
     });
   },
+  hasTouch: computed(()=> 'ontouchstart' in window),
 
   _mood: computed('mood', function() {
     const mood = this.get('mood');
@@ -64,7 +68,9 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
     }
     return this.get('readonly') ? ' read-only' : '';
   }),
-  _skin: computed('skin', function() {return this.get('skin') ? ` skin-${this.get('skin')}` : ''}),
+  _skin: computed('skin', function() {
+    return this.get('skin') ? ` skin-${this.get('skin')}` : '';
+  }),
 
   // VALUE(s)
   values: null,
@@ -285,8 +291,8 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
       config[prop.slice(1)] = get(this, prop);
     });
     config = Object.assign(config, apiStaticMappings, eventHandlers);
-    if(typeOf(config.create) === 'function') {
-      config.create = Ember.$.proxy(config.create, this);
+    if(config.create) {
+      config.create = Ember.$.proxy(this._onCreate, this);
     }
 
     // Instantiate
@@ -308,16 +314,27 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
       context: this
     });
 	},
-	addOptions: function(options) {
+	addOptions(options) {
 			if(options && options.length > 0) {
 			var selectize = this.selectize;
 			selectize.clearOptions();
-			options.forEach(function(option) {
-				selectize.addOption(option);
-			});
+      selectize.addOption(options);
+			// options.forEach(function(option) {
+			// });
 			selectize.refreshOptions();
 		}
 	},
+  addOption(o) {
+    if(typeOf(o) === 'string') {
+      o = this.convertStringToArray(o)[0];
+    }
+    var selectize = this.selectize;
+    console.log('1: ', o);
+    selectize.addOption(o);
+    console.log('2');
+    selectize.refreshOptions(false);
+    console.log('3');
+  },
   clearOptions: function() {
     this.selectize.clearOptions();
   },
@@ -359,12 +376,23 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
     return a(data || []);
   },
 
+  detectMobileBlur(e) {
+    this.selectize.blur();
+    return;
+  },
+
 	teardown: on('willDestroyElement', function() {
     const selectize = this.selectize;
     if(selectize) {
       selectize.off();
       selectize.destroy();
     }
+    // if(this.get('hasTouch')) {
+    //   window.removeEventListener('touchstart', this.detectMobileBlur);
+    // }
 	})
 
 });
+
+selectize[Ember.NAME_KEY] = 'ui-selectize';
+export default selectize;

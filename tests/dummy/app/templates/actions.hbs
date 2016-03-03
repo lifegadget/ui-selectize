@@ -21,6 +21,9 @@ The events supported are:
   <li>
     <b>onChange</b> fired whenever the values/value properties are changed by selectize; as has been seen in previous examples, this event is also fully compliant with the {{ui-label 'mut'}} helper but if you do bind to a method you'll get more information back than just the value.
   </li>
+  <li>
+    <b>onCreate</b> if a user is allowed to <i>add</i> to the list of items (by setting {{ui-pill 'create'}} to <i>true</i>)
+  </li>
   <li><b>onError</b> for when bad shit happens</li>
   <li>
     <b>onDropdown</b> - open and close events on the dropdown
@@ -44,10 +47,12 @@ The events supported are:
         onLoad=(action 'onLoad')
         onChange=(action 'onChange')
         onError=(action 'onError')
+        onCreate=(action 'onCreate')
         onDropdown=(action 'onDropdown')
         onOption=(action 'onOption')
         onType=(action 'onType')
         value=selectValue
+        create=true
       }}
     {{else}}
       {{tags-input
@@ -55,11 +60,13 @@ The events supported are:
         optgroups=groups
         onLoad=(action 'onLoad')
         onChange=(action 'onChange')
+        onCreate=(action 'onCreate')
         onError=(action 'onError')
         onDropdown=(action 'onDropdown')
         onOption=(action 'onOption')
         onType=(action 'onType')
         values=tagsValue
+        create=true
       }}
     {{/if}}
     <p>
