@@ -1,0 +1,43 @@
+<h3 class='section-heading'>Skinning</h3>
+<div class='col-xs-12'>
+  <p>
+    Components in the <b>ui-selectize</b> addon support two ways to 'skin' the components:
+  </p>
+
+  <ul>
+    <li><b>Full Skin</b> - if you change the {{ui-pill 'selectizeSkin'}} property in your <code>environment.js</code> file then you can replace all skinnable styling globally across the app. This is the original skinning approach that Selectize uses and you can use "bootstrap3" or "default" as they come out of the box. This is also a great place to add a PR if you have built some cool styling that you think others will use. Simply fork and put your CSS into the <code>vendor/ui-selectize/skins</code> directory. If you don't state a base skin in your environment then 'bootstrap3' will be used by default.</li>
+    <li><b>Skin Enhancements</b> - if you set the {{ui-pill 'skin'}} property on any component it will generate a class called 'skin-[name]' which allows you to extend the base skin. This allows a project to easily create a few simple modification or give slightly different look and feels at differnt parts of the app. We've included a few that you can see below (CSS is found in <code>vendor/ui-selectize/enh-skins</code>)</li>
+  </ul>
+
+  <br>
+  <h4>Skin Enhancements</h4>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-4">
+      {{select-input
+        skin=skin
+        options=model
+        optgroups=optGroup
+      }}
+      <p>
+        <br>
+      </p>
+      <p>
+        Choose a skin:
+        {{ui-buttons
+            buttons='flat,minimal'
+            size='small'
+            value=skin
+            onChange=(mut skin)
+        }}
+      </p>
+    </div>
+    <div class="col-xs-6 col-md-8">
+<pre><code>\{{select-input
+  skin=skin
+  options=model
+  optgroups=optGroup
+}}</code></pre>
+    </div>
+  </div>
+</div>

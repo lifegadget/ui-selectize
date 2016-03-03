@@ -1,4 +1,4 @@
-<span class="ui-selectize{{if fingerFriendly ' finger-friendly'}}">
+<span class="ui-selectize{{if fingerFriendly ' finger-friendly'}}{{_skin}}{{_readonly}}">
   <select
     id="select-{{elementId}}"
     class="{{type}}-input {{touchDevice}}{{if selected 'selected' 'not-selected'}}{{_mood}}{{_size}}"
@@ -6,6 +6,7 @@
     autocomplete={{autocomplete}}
     autofocus={{autofocus}}
     disabled={{disabled}}
+    readonly={{readonly}}
   >
     {{yield}}
   </select>

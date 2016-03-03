@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('option-render');
   this.route('shorthand');
   this.route('groups');
+  this.route('skinning');
   this.route('plugins');
   this.route('formatting');
   this.route('actions');

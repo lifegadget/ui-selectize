@@ -61,6 +61,7 @@ export default Ember.Controller.extend({
     {'title': 'Sort and Search'},
     {'title': 'Plugins'},
     {'title': 'Formatting'},
+    {'title': 'Skinning'},
     {'title': 'Actions'},
     {'title': 'Option Render'}
   ],

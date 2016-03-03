@@ -55,6 +55,16 @@ export default Ember.Component.extend(StyleManager, ApiSurface, {
       if(this.selectize && !disabled) { this.selectize.enable(); }
     });
   }),
+  _readonly: computed('readonly', function() {
+    if(this.selectize && this.get('readonly')) {
+      this.selectize.disable();
+    }
+    if(this.selectize && !this.get('readonly')) {
+      this.selectize.enable();
+    }
+    return this.get('readonly') ? ' read-only' : '';
+  }),
+  _skin: computed('skin', function() {return this.get('skin') ? ` skin-${this.get('skin')}` : ''}),
 
   // VALUE(s)
   values: null,

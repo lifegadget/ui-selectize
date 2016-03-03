@@ -152,5 +152,51 @@
     <span><pre><code>\{{select-input mood='secondary'}}</code></pre></span>
   </div>
 </div>
-  <br>
+
+<br>
+<h4>Disable / Read Only</h4>
+<p>
+  A minor point but the control does respond to as you'd expect to the {{ui-pill 'disable'}} property.
+</p>
+
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    {{select-input disabled=disabled options=things optgroups=optGroup}}
+  </div>
+  <div class="col-xs-6 col-md-8 flexy">
+    <pre style='display:inline-flex; flex 1 1;'>
+      <code>\{{select-input mood='primary'}}</code>
+    </pre>
+    <span>
+      {{ui-toggle-button
+          on='disabled'
+          off='enabled'
+          size='small'
+          value=disabled
+          onToggle=(mut disabled)
+      }}
+    </span>
+  </div>
 </div>
+
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    {{select-input readonly=readonly options=things optgroups=optGroup}}
+  </div>
+  <div class="col-xs-6 col-md-8 flexy">
+    <pre style='display:inline-flex; flex 1 1;'>
+      <code>\{{select-input readonly=readonly}}</code>
+    </pre>
+    <span>
+      {{ui-toggle-button
+          off='writable'
+          on='read only'
+          size='small'
+          value=readonly
+          onToggle=(mut readonly)
+      }}
+    </span>
+  </div>
+</div>
+
+</div> {{! /container }}
