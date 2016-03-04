@@ -199,4 +199,50 @@
   </div>
 </div>
 
+<hr>
+<h4>Styling</h4>
+<p>
+  There are a number of <i>style</i> properties which you can proxy through to the select control, such as:
+
+  <ul>
+    <li>width</li>
+    <li>minWidth</li>
+    <li>height</li>
+    <li>minHeight</li>
+    <li>color</li>
+  </ul>
+</p>
+
+<p>
+  Below is an example, admittedly it looks a bit silly but at least we made the point.
+</p>
+
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    {{select-input
+      width="75%"
+      height='100px'
+      options=things
+      optgroups=optGroup
+    }}
+  </div>
+  <div class="col-xs-6 col-md-8 flexy">
+<pre><code>\{{select-input
+  width="75%"
+  height='100px'
+  options=things
+  optgroups=optGroup
+}}</code></pre>
+    <span>
+      {{ui-toggle-button
+          off='writable'
+          on='read only'
+          size='small'
+          value=readonly
+          onToggle=(mut readonly)
+      }}
+    </span>
+  </div>
+</div>
+
 </div> {{! /container }}

@@ -132,7 +132,10 @@ var ApiSurface = Ember.Mixin.create({
     closeAfterSelect: false,
 
     // Component Event Handling
-
+    _onInitialize() {
+      window.$(`#${this.elementId} .form-control`).attr('style', this.get('stylist'));
+      // ; // adds styling
+    },
     _onLoad:function(data) {
       this.ddau('onLoad', {
         options: data,

@@ -16,6 +16,20 @@ const dasherize = thingy => {
 const snake = thingy => {
   return thingy ? Ember.String.underscore(thingy) : thingy;
 };
+const escapeHtml = html => {
+  const entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+  };
+
+  return String(html).replace(/[&<>"'\/]/g, function (s) {
+    return entityMap[s];
+  });
+};
 
 const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
   layout,
@@ -30,9 +44,11 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
       this._optionsObserver();
       this.get('_optgroups'); // force evaluation
       if(this.get('autofocus')) { this.selectize.focus(); }
-      // if(this.get('hasTouch')) {
-      //   window.on('touchstart', this.detectClickAway);
-      // }
+    });
+  },
+  didInsertElement() {
+    run.schedule('afterRender', ()=> {
+      this.get('style');
     });
   },
   hasTouch: computed(()=> 'ontouchstart' in window),
@@ -47,7 +63,6 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
   }),
 
 	// component props
-  display: 'none',
 	autocomplete: false,
 	autofocus: false,
 	fingerFriendly: false,
@@ -70,6 +85,11 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
   }),
   _skin: computed('skin', function() {
     return this.get('skin') ? ` skin-${this.get('skin')}` : '';
+  }),
+  style: computed('stylist', function() {
+    const stylist = this.get('stylist');
+    this.selectize.$control.attr('style', stylist);
+    return stylist;
   }),
 
   // VALUE(s)
@@ -307,6 +327,11 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
       });
     }
 
+    const renderTemplate = this.get('renderTemplate');
+    if(renderTemplate) {
+      this.selectize.render = Ember.$.proxy(this._renderTemplates, this);
+    }
+
     this.hasInitialized = true;
     // Send Actions
     this.ddau('onInitialize', {
@@ -316,24 +341,17 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 	},
 	addOptions(options) {
 			if(options && options.length > 0) {
-			var selectize = this.selectize;
-			selectize.clearOptions();
-      selectize.addOption(options);
-			// options.forEach(function(option) {
-			// });
-			selectize.refreshOptions();
+			this.selectize.clearOptions();
+      this.selectize.addOption(options);
+			this.selectize.refreshOptions();
 		}
 	},
   addOption(o) {
     if(typeOf(o) === 'string') {
       o = this.convertStringToArray(o)[0];
     }
-    var selectize = this.selectize;
-    console.log('1: ', o);
-    selectize.addOption(o);
-    console.log('2');
-    selectize.refreshOptions(false);
-    console.log('3');
+    this.selectize.addOption(o);
+    this.selectize.refreshOptions(false);
   },
   clearOptions: function() {
     this.selectize.clearOptions();
@@ -352,6 +370,42 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 
     });
 	},
+
+  /**
+   * Responsible for building a hash of render functions for
+   * the "parts" which are defined either as a inline template
+   * or a bespoke render using the block component
+   */
+  _renderTemplates(type, item) {
+    const {parts} = this.getProperties('parts');
+    console.log('parts: ', parts);
+    let response = {};
+
+    // check for parts which have registered themselves
+    keys(parts).map(p => {
+      console.log(p);
+      response[p] = item => {
+        const injector = (match, p1) => {
+          return escapeHtml(get(item, p1));
+        };
+
+        let content = parts[p].getTemplate();
+        content = content.replace(/\[\[item\.(\S*)\]\]/g, injector);
+        console.log('content', content);
+
+        return content;
+      };
+
+    });
+
+    return response[type](item);
+  },
+
+  parts: computed(() => { return {}; }),
+  registerPart(handler) {
+    console.log('handler: ', handler);
+    this.get('parts')[handler.part] = handler;
+  },
 
   convertStringToArray(data) {
     let idStrategy = this.get('idStrategy');
@@ -376,20 +430,12 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
     return a(data || []);
   },
 
-  detectMobileBlur(e) {
-    this.selectize.blur();
-    return;
-  },
-
 	teardown: on('willDestroyElement', function() {
     const selectize = this.selectize;
     if(selectize) {
       selectize.off();
       selectize.destroy();
     }
-    // if(this.get('hasTouch')) {
-    //   window.removeEventListener('touchstart', this.detectMobileBlur);
-    // }
 	})
 
 });

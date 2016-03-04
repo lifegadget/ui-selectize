@@ -4,6 +4,19 @@
   opacity: 1;
 }
 
+.ui-selectize .part {
+	display: none;
+}
+
+.selectize.item-template {
+  display: flex;
+  flex-direction: column;
+}
+.selectize.item-template span,
+.selectize.item-template div {
+  display: flex;
+}
+
 /* READ ONLY*/
 .ui-selectize.read-only .selectize-control .selectize-input.disabled,
 .ui-selectize.read-only .selectize-control .selectize-input.disabled input {

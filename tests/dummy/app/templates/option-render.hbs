@@ -3,17 +3,35 @@
   Rather than just a simple text string for the options choosen, or the options available you can render your own layouts (using the block format of this component) or use a few built-in defaults.
 </p>
 
-<h4>Build-In Renderers</h4>
+<h4>Built-In Renderers</h4>
 <p>
   Currently there are two built in renderers that can get you a nicer look and feel right out of the gate. They are:
 </p>
 <ul>
-  <li>sub-heading</li>
-  <li>icon-plus</li>
+  <li>name-email</li>
+  <li>name-plus</li>
 </ul>
 
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    {{select-input
+      options=model
+      renderTemplate='name-email'
+      optgroups=optGroup
+    }}
+  </div>
+  <div class="col-xs-6 col-md-8 flexy">
+<pre><code>\{{select-input
+  width="75%"
+  height='100px'
+  options=model
+  optgroups=optGroup
+}}</code></pre>
+  </div>
+</div>
+
 <br>
-<h4>Bespoke Rendering</h4>
+<h4>Bespoke Rendering &amp; Block Format</h4>
 <p>
   The world is your oyster, especially now that Ember has give us <i>contextual components</i> which really open up creativity to do almost anything with the options menu.
 </p>

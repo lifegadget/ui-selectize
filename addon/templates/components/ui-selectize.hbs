@@ -1,4 +1,7 @@
-<span class="ui-selectize{{if fingerFriendly ' finger-friendly'}}{{_skin}}{{_readonly}}">
+<span
+  id="{{this.elementId}}"
+  class="ui-selectize{{if fingerFriendly ' finger-friendly'}}{{_skin}}{{_readonly}}"
+>
   <select
     id="select-{{elementId}}"
     class="{{type}}-input {{touchDevice}}{{if selected 'selected' 'not-selected'}}{{_mood}}{{_size}}"
@@ -7,7 +10,50 @@
     autofocus={{autofocus}}
     disabled={{disabled}}
     readonly={{readonly}}
-  >
-    {{yield}}
-  </select>
+  ></select>
+  {{#if hasBlock}}
+    {{yield (hash
+      option: (component 'selectize-render-part'
+        part='option'
+        register=registerPart
+        containerId=elementId
+      )
+      item: (component 'selectize-render-part'
+        part='item'
+        register=registerPart
+        containerId=elementId
+      )
+      create: (component 'selectize-render-part'
+        part='create'
+        register=registerPart
+        containerId=elementId
+      )
+      header: (component 'selectize-render-part'
+        part='header'
+        register=registerPart
+        containerId=elementId
+      )
+      group: (component 'selectize-render-part'
+        part='group'
+        register=registerPart
+        containerId=elementId
+      )
+    )}}
+  {{else}}
+    {{! INLINE STYLE }}
+    {{#if (eq renderTemplate 'name-email')}}
+      {{#selectize-render-part
+        part='option'
+        register=(action registerPart)
+        containerId=elementId
+      }}
+        <span class="title">
+          [[item.name]]
+        </span>
+        <span class="email text-muted small">
+          [[item.object.email]]
+        </span>
+      {{/selectize-render-part}}
+    {{/if}}
+  {{/if}}
 </span>

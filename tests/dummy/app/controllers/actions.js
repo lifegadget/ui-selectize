@@ -5,6 +5,7 @@ const htmlSafe = Ember.String.htmlSafe;
 
 export default Ember.Controller.extend({
   flashMessages: inject.service(),
+  styleBindings: ['width', 'height', 'minWidth', 'minHeight', 'color', 'touchAction'],
   pojoArray: ['Frog','Monkey','Lion'],
   emberData: computed(function() {
     return this.store.findAll('thing');
@@ -38,6 +39,9 @@ export default Ember.Controller.extend({
         this.set('tagsValue', data.values);
       }
 
+      if (data.code = 'suggested-change') {
+        this.set('values', data.values);
+      }
       console.log('onChange: %o', data);
     },
     onDropdown(data) {
