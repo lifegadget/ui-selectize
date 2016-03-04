@@ -376,14 +376,40 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
    * the "parts" which are defined either as a inline template
    * or a bespoke render using the block component
    */
-  _renderTemplates(type, item) {
-    const {parts} = this.getProperties('parts');
-    console.log('parts: ', parts);
-    let response = {};
+  _renderTemplates(templateName, item) {
+    console.log('rendering ', templateName);
+    const {templates} = this.getProperties('templates');
+    let html = templates[templateName](item, escapeHtml);
+    // add required HTML properties
+    const regex_tag = /^[\t \r\n]*<([a-z][a-z0-9\-_]*(?:\:[a-z][a-z0-9\-_]*)?)/i;
+    switch(templateName) {
+      case 'option':
+      case 'option_create':
+        html = html.replace(regex_tag, '<$1 data-selectable');
+        break;
+      case 'optgroup':
+        let id = item[this.get('optgroupValueField')] || '';
+        html = html.replace(regex_tag, '<$1 data-group="' + escapeHtml(id) + '"');
+        break;
+    }
+    if (templateName === 'option' || templateName === 'item') {
+      html = html.replace(regex_tag, `<$1 data-value="${escapeHtml(item.value || '')}"`);
+    }
 
-    // check for parts which have registered themselves
+    return html;
+  },
+
+  /**
+   * User defined templates
+   */
+  bespokeTemplates: computed('parts', 'renderTemplate', function() {
+    const {parts} = this.getProperties('parts');
+    const response = {};
+
     keys(parts).map(p => {
-      console.log(p);
+      if (this.selectize.renderCache[p]) {
+        delete this.selectize.renderCache[p];
+      }
       response[p] = item => {
         const injector = (match, p1) => {
           return escapeHtml(get(item, p1));
@@ -391,20 +417,41 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 
         let content = parts[p].getTemplate();
         content = content.replace(/\[\[item\.(\S*)\]\]/g, injector);
-        console.log('content', content);
 
         return content;
       };
-
     });
 
-    return response[type](item);
-  },
+    return response;
+  }),
+
+  genericTemplates: computed(function() {
+    return this.selectize.settings.render;
+  }),
+
+  templates: computed('bespokeTemplates', 'genericTemplates', function() {
+    const {bespokeTemplates, genericTemplates} = this.getProperties('bespokeTemplates', 'genericTemplates');
+    const templates = {};
+    merge(templates, genericTemplates);
+    merge(templates, bespokeTemplates);
+
+    return templates;
+  }),
 
   parts: computed(() => { return {}; }),
   registerPart(handler) {
-    console.log('handler: ', handler);
-    this.get('parts')[handler.part] = handler;
+    const parts = this.get('parts');
+    parts[handler.part] = handler;
+    this.set('parts', parts);
+  },
+
+  removePart(obj) {
+    const parts = this.get('parts');
+    const part = parts[obj.get('part')];
+    if(get(obj, 'id') === get(part, 'id')) {
+      delete parts[part];
+    }
+    this.set('parts', parts);
   },
 
   convertStringToArray(data) {

@@ -65,7 +65,8 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
     "ember-cli-htmlbars": "1.0.1",
-    "ember-cli-stylist": "^0.4.2"
+    "ember-cli-stylist": "^0.4.2",
+    "ember-truth-helpers": "^1.2.0"
   },
   "keywords": [
     "ember-addon",

@@ -7,6 +7,10 @@
 .ui-selectize .part {
 	display: none;
 }
+.ui-selectize .option-avatar {
+  align-items: center;
+  align-content: center;
+}
 
 .selectize.item-template {
   display: flex;

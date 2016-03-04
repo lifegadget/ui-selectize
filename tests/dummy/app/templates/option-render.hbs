@@ -5,29 +5,46 @@
 
 <h4>Built-In Renderers</h4>
 <p>
-  Currently there are two built in renderers that can get you a nicer look and feel right out of the gate. They are:
+  Currently there are two built in renderers that can get you a nicer look and feel right out of the gate. While we think they're "neat" in most cases you'll probably just want to jump down to the bespoke rendering as it's pretty darn easy to have it your way. Anyway, here they are:
 </p>
+
 <ul>
   <li>name-email</li>
-  <li>name-plus</li>
+  <li>name-icon</li>
 </ul>
 
 <div class="row">
-  <div class="col-xs-6 col-md-4">
+  <div class="col-xs-12 col-md-4">
     {{select-input
       options=model
+      searchField='name,email'
       renderTemplate='name-email'
       optgroups=optGroup
     }}
+    <p>
+      <br>
+    </p>
+    {{tags-input
+      options=model
+      renderTemplate='name-icon'
+      optgroups=optGroup
+    }}
+
   </div>
-  <div class="col-xs-6 col-md-8 flexy">
+  <div class="col-xs-6 col-md-4 ">
 <pre><code>\{{select-input
-  width="75%"
-  height='100px'
   options=model
+  searchField='name,email'
+  renderTemplate='name-email'
   optgroups=optGroup
 }}</code></pre>
-  </div>
+  </div>  <div class="col-xs-6 col-md-4">
+<pre><code>\{{tags-input
+  options=model
+  renderTemplate='name-email'
+  optgroups=optGroup
+}}</code></pre>
+    </div>
 </div>
 
 <br>

@@ -75,6 +75,7 @@ var ApiSurface = Ember.Mixin.create({
     labelField: 'name',
     valueField: 'id', // the field in the incoming hash which will be used for assigning a value to the input selector
     searchField: 'name', // property/properties to search through for a match
+    searchFields: computed.alias('searchField'),
     _searchField: computed('searchField', function() {
       const searchField = this.get('searchField');
       return typeOf(searchField) === 'string' ? searchField.split(',') : searchField;

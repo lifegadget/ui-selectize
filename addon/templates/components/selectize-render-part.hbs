@@ -2,7 +2,12 @@
   id="{{elementId}}-for-{{containerId}}"
   class="part {{part}}"
 >
-  <div data-selectable data-value="[[item.value]]" class="selectize item-template {{part}} needsclick">
+  <div
+    data-selectable
+    data-value="[[item.value]]"
+    data-group="{{if (eq part 'optgroup') "[[item.group]]" ""}}"
+    class="selectize item-template {{part}} needsclick"
+  >
     {{yield}}
   </div>
 </div>

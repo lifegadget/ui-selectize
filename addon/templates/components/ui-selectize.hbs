@@ -15,27 +15,32 @@
     {{yield (hash
       option: (component 'selectize-render-part'
         part='option'
-        register=registerPart
+        register=(action registerPart)
+        unregister=(action removePart)
         containerId=elementId
       )
       item: (component 'selectize-render-part'
         part='item'
-        register=registerPart
+        register=(action registerPart)
+        unregister=(action removePart)
         containerId=elementId
       )
       create: (component 'selectize-render-part'
         part='create'
-        register=registerPart
+        register=(action registerPart)
+        unregister=(action removePart)
         containerId=elementId
       )
       header: (component 'selectize-render-part'
         part='header'
-        register=registerPart
+        register=(action registerPart)
+        unregister=(action removePart)
         containerId=elementId
       )
       group: (component 'selectize-render-part'
         part='group'
-        register=registerPart
+        register=(action registerPart)
+        unregister=(action removePart)
         containerId=elementId
       )
     )}}
@@ -45,6 +50,7 @@
       {{#selectize-render-part
         part='option'
         register=(action registerPart)
+        unregister=(action removePart)
         containerId=elementId
       }}
         <span class="title">
@@ -54,6 +60,25 @@
           [[item.object.email]]
         </span>
       {{/selectize-render-part}}
-    {{/if}}
+    {{/if}}{{! end name-email}}
+
+    {{#if (eq renderTemplate 'name-icon')}}
+      {{#selectize-render-part
+        part='option'
+        register=(action registerPart)
+        unregister=(action removePart)
+        containerId=elementId
+      }}
+        <span>
+          <span>
+            <img src="[[item.object.avatar]]" class='.option-icon' style='height: 1.5rem; width: 1.5rem; border-radius: 50%;'>
+          </span>
+          <span style='width: 0.5rem'></span>
+          <span>
+            [[item.name]]
+          </span>
+        </span>
+      {{/selectize-render-part}}
+    {{/if}} {{! end name-icon}}
   {{/if}}
 </span>

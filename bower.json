@@ -6,7 +6,7 @@
     "ember-cli-shims": "0.1.0",
     "ember-cli-test-loader": "0.2.2",
     "bootstrap": "v4.0.0-alpha.2",
-    "selectize": "~0.12.1",
+    "selectize": "selectize/selectize.js",
     "pretender": "~0.10.1",
     "Faker": "~3.0.0",
     "prism": "^1.4.1",

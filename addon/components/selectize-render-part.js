@@ -16,6 +16,7 @@ export default Ember.Component.extend({
     const {part, register} = this.getProperties('part', 'register');
     run.schedule('afterRender', () => {
       register({
+        id: this.elementId,
         part: part,
         getTemplate: Ember.$.proxy(this.getTemplate, this)
       });
@@ -24,5 +25,8 @@ export default Ember.Component.extend({
   getTemplate() {
     const $find = `#${this.elementId}-for-${get(this, 'containerId')}`;
     return window.$($find).html();
+  },
+  willDestroyElement() {
+    this.get('unregister')(this);
   }
 });
