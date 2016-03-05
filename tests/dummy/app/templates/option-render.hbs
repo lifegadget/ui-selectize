@@ -26,7 +26,7 @@
     </p>
     {{tags-input
       options=model
-      renderTemplate='name-icon'
+      renderTemplate='name-avatar'
       optgroups=optGroup
     }}
 
@@ -41,7 +41,7 @@
   </div>  <div class="col-xs-6 col-md-4">
 <pre><code>\{{tags-input
   options=model
-  renderTemplate='name-email'
+  renderTemplate='name-avatar'
   optgroups=optGroup
 }}</code></pre>
     </div>
@@ -52,3 +52,66 @@
 <p>
   The world is your oyster, especially now that Ember has give us <i>contextual components</i> which really open up creativity to do almost anything with the options menu.
 </p>
+
+<div class="row downer">
+  <div class="col-xs-6 col-md-4">
+    {{#select-input
+      options=model
+      searchField='name,email'
+      renderTemplate='name-email'
+      optgroups=optGroup
+      as |s|
+    }}
+      {{s.option '> [[item.name]]'}}
+      {{#s.item}}
+        <span class='option-avatar'>
+          <span>
+            <img src="[[item.object.avatar]]" class='.option-icon' style='height: 2.0rem; width: 2.0rem; border-radius: 50%;'>
+          </span>
+          <span style='width: 0.5rem'></span>
+          <span>
+            [[item.name]]
+          </span>
+        </span>
+      {{/s.item}}
+      {{#s.group}}
+        <b>
+          {{ui-icon 'bars'}}
+          [[item.group]]
+        </b>
+      {{/s.group}}
+    {{/select-input}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-md-7 ">
+<pre><code>\{{#select-input
+  options=model
+  searchField='name,email'
+  renderTemplate='name-email'
+  optgroups=optGroup
+  as |s|
+}}
+  \{{s.option '> [[item.name]]'}}
+  \{{#s.item}}
+    &lt;span class='option-avatar'>
+      &lt;span&gt;
+        &lt;img src="[[item.object.avatar]]"&gt;
+      &lt;/span&gt;
+      &lt;span&gt;
+        [[item.name]]
+      &lt;/span>
+    &lt;/span>
+  \{{/s.item}}
+  \{{#s.group}}
+    &lt;b&gt;
+      \{{ui-icon 'bars'}}
+      [[item.group]]
+    &lt;/b&gt;
+  \{{/s.group}}
+\{{/select-input}}</code></pre>
+  </div>
+  <div class="col-xs-12 col-md-5">
+    describe
+  </div>
+</div>

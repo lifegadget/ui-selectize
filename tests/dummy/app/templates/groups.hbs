@@ -24,11 +24,12 @@
       }}
     </div>
     <div class="col-xs-6 col-lg-4">
-<pre><code class='handlebars'>\{{tags-input
-  values=tagValue
-  placeholder="tag me"
-  options='foo,bar,baz'
-  onChange=(mut tagValue)
+<pre><code class='handlebars'>\{{select-input
+  value=selectValue
+  placeholder="grouped select"
+  options=things
+  optgroups=optGroup
+  onChange=(mut selectValue)
 }}</code></pre>
     </div>
     <div class="col-xs-12 col-lg-6">

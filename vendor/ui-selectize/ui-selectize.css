@@ -11,6 +11,10 @@
   align-items: center;
   align-content: center;
 }
+.ui-selectize .option-avatar span {
+  display: flex;
+}
+
 
 .selectize.item-template {
   display: flex;

@@ -377,7 +377,6 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
    * or a bespoke render using the block component
    */
   _renderTemplates(templateName, item) {
-    console.log('rendering ', templateName);
     const {templates} = this.getProperties('templates');
     let html = templates[templateName](item, escapeHtml);
     // add required HTML properties

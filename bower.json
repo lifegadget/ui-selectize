@@ -10,7 +10,8 @@
     "pretender": "~0.10.1",
     "Faker": "~3.0.0",
     "prism": "^1.4.1",
-    "lodash": "~3.7.0"
+    "lodash": "~3.7.0",
+    "fontawesome": "4.5.0"
   },
   "devDependencies": {
     "ember-qunit-notifications": "0.1.0",

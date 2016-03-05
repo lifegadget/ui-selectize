@@ -8,7 +8,7 @@ const a = Ember.A; // jshint ignore:line
 
 import layout from '../templates/components/selectize-render-part';
 
-export default Ember.Component.extend({
+const renderPart = Ember.Component.extend({
   layout,
   tagName: '',
   init() {
@@ -30,3 +30,9 @@ export default Ember.Component.extend({
     this.get('unregister')(this);
   }
 });
+
+renderPart.reopenClass({
+  positionalParams: ['inlineContent']
+});
+renderPart[Ember.NAME_KEY] = 'render-part';
+export default renderPart;
