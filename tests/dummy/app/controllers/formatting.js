@@ -14,5 +14,8 @@ export default Ember.Controller.extend({
   }),
   groups: computed(function() {
     return this.store.findAll('group');
-  })
+  }),
+
+
+
 });

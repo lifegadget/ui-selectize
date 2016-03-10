@@ -1,0 +1,107 @@
+<span
+  id="{{this.elementId}}"
+  class="ui-selectize{{if fingerFriendly ' finger-friendly'}}{{_skin}}{{_readonly}}"
+>
+  <select
+    id="select-{{elementId}}"
+    class="{{type}}-input {{touchDevice}}{{if selected 'selected' 'not-selected'}}{{_mood}}{{_size}}"
+    name="{{name}}"
+    autocomplete={{autocomplete}}
+    autofocus={{autofocus}}
+    disabled={{disabled}}
+    readonly={{readonly}}
+  ></select>
+  {{#if hasBlock}}
+    {{! BLOCK FORM }}
+
+    {{yield (hash
+      option=(component 'selectize-render-part'
+        part='option'
+        register=(action registerPart)
+        unregister=(action removePart)
+        containerId=elementId
+      )
+      item=(component 'selectize-render-part'
+        part='item'
+        register=(action registerPart)
+        unregister=(action removePart)
+        containerId=elementId
+      )
+      create=(component 'selectize-render-part'
+        part='create'
+        register=(action registerPart)
+        unregister=(action removePart)
+        containerId=elementId
+      )
+      header=(component 'selectize-render-part'
+        part='header'
+        register=(action registerPart)
+        unregister=(action removePart)
+        containerId=elementId
+      )
+      group=(component 'selectize-render-part'
+        part='group'
+        register=(action registerPart)
+        unregister=(action removePart)
+        containerId=elementId
+      )
+    )}}
+  {{else}}
+    {{! INLINE STYLE }}
+
+    {{#if (eq renderTemplate 'name-email')}}
+      {{#selectize-render-part
+        part='option'
+        register=(action registerPart)
+        unregister=(action removePart)
+        containerId=elementId
+      }}
+        <span class="title">
+          [[item.name]]
+        </span>
+        <span class="email text-muted small">
+          [[item.object.email]]
+        </span>
+      {{/selectize-render-part}}
+    {{/if}}{{! end name-email}}
+
+    {{#if (eq renderTemplate 'name-avatar')}}
+      {{#selectize-render-part
+        part='option'
+        register=(action registerPart)
+        unregister=(action removePart)
+        containerId=elementId
+      }}
+        <span class='option-avatar'>
+          <span>
+            <img src="[[item.object.avatar]]" class='.option-icon' style='height: 1.5rem; width: 1.5rem; border-radius: 50%;'>
+          </span>
+          <span style='width: 0.5rem'></span>
+          <span>
+            [[item.name]]
+          </span>
+        </span>
+      {{/selectize-render-part}}
+
+      {{#selectize-render-part
+        part='item'
+        register=(action registerPart)
+        unregister=(action removePart)
+        containerId=elementId
+      }}
+        <span class='option-avatar'>
+          <span>
+            <img src="[[item.object.avatar]]" class='.option-icon' style='height: 2.0rem; width: 2.0rem; border-radius: 50%;'>
+          </span>
+          <span style='width: 0.5rem'></span>
+          <span>
+            [[item.name]]
+          </span>
+          <span>
+            <a href="javascript:void(0)" data-component={{elementId}} data-value="[[item.value]]" class="remove" tabindex="-1" title="Remove">×</a>
+          </span>
+        </span>
+      {{/selectize-render-part}}
+    {{/if}} {{! end name-icon}}
+  {{/if}}
+</span>

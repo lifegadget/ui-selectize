@@ -30,15 +30,9 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
-	ENV.contentSecurityPolicy['default-src'] = "'unsafe-eval' https://d3ijcis4e2ziok.cloudfront.net ";
-	ENV.contentSecurityPolicy['script-src'] = "'self' 'unsafe-eval' 0.0.0.0:35729";
-	ENV.contentSecurityPolicy['connect-src'] = "'self' 0.0.0.0:35729";
-
+  	ENV.contentSecurityPolicy['default-src'] = "'unsafe-eval' https://d3ijcis4e2ziok.cloudfront.net ";
+  	ENV.contentSecurityPolicy['script-src'] = "'self' 'unsafe-eval' 0.0.0.0:35729";
+  	ENV.contentSecurityPolicy['connect-src'] = "'self' 0.0.0.0:35729";
   }
 
   if (environment === 'test') {

@@ -1,6 +1,10 @@
 import Ember from 'ember';
 const { keys, create } = Object; // jshint ignore:line
-const {computed, observer, $, A, run, on, typeOf, debug, defineProperty, get, set, inject, isEmpty} = Ember;  // jshint ignore:line
+const { RSVP: {Promise, all, race, resolve, defer} } = Ember; // jshint ignore:line
+const { inject: {service} } = Ember; // jshint ignore:line
+const { computed, $, run, on, typeOf } = Ember;  // jshint ignore:line
+const { get, set, debug } = Ember; // jshint ignore:line
+const a = Ember.A; // jshint ignore:line
 
 
 var ApiSurface = Ember.Mixin.create({
@@ -23,7 +27,7 @@ var ApiSurface = Ember.Mixin.create({
     ],
     // CP's to be used rather than bound value
     apiProcessed: [
-      '_optgroupOrder', '_plugins', '_searchField', '_sortField'
+      '_optgroupOrder', '_plugins', '_searchField', '_sortField', '_optgroup', '_bespokeRender'
     ],
     // Static mappings to API
     apiStaticMappings: {
@@ -32,6 +36,20 @@ var ApiSurface = Ember.Mixin.create({
       optgroupField: 'group'
     },
     copyClassesToDropdown: true,
+    eventHandlers() {
+      return {
+        onInitialize: Ember.$.proxy(this._onInitialize, this),
+        onOptionAdd: Ember.$.proxy(this._onOptionAdd, this),
+        onOptionRemove: Ember.$.proxy(this._onOptionRemove, this),
+        onChange: Ember.$.proxy(this._onChange, this),
+        onLoad: Ember.$.proxy(this._onLoad, this),
+        onDropdownOpen: Ember.$.proxy(this._onDropdownOpen, this),
+        onDropdownClose: Ember.$.proxy(this._onDropdownClose, this),
+        onItemAdd: Ember.$.proxy(this._onItemAdd, this),
+        onItemRemove: Ember.$.proxy(this._onItemRemove, this),
+        onType: Ember.$.proxy(this._onType, this),
+      };
+    },
 
     optgroups: null, // the array of optgroups
     optgroupField: 'group', // property name on "options" which refers to optgroupsValueField
@@ -57,12 +75,20 @@ var ApiSurface = Ember.Mixin.create({
     labelField: 'name',
     valueField: 'id', // the field in the incoming hash which will be used for assigning a value to the input selector
     searchField: 'name', // property/properties to search through for a match
+    searchFields: computed.alias('searchField'),
     _searchField: computed('searchField', function() {
       const searchField = this.get('searchField');
       return typeOf(searchField) === 'string' ? searchField.split(',') : searchField;
     }),
     searchConjunction: 'and', // when searching for multiple terms (seperated by a space)
-    sortField: 'name',
+    sortField: computed('labelField', {
+      set(_, name) {
+        return name;
+      },
+      get() {
+        return this.get('labelField');
+      }
+    }),
     // Selectize allows "sortField" to be an array of objects or a string value;
     // we will just simplify this to the more versatile array of objects which also
     // allows the optional attribute "direction" (which is "asc" or "desc")
@@ -107,79 +133,119 @@ var ApiSurface = Ember.Mixin.create({
     closeAfterSelect: false,
 
     // Component Event Handling
-    _onChange:function(value) {
-      const valueObject = this.get('valueObject');
-      this.set('value', value);
-      if (isEmpty(value)) {
-        this.set('selected',false);
-      } else {
-        this.set('selected',true);
-      }
-
-      this.sendAction('onChange', {
-        value: value,
-        context: valueObject,
-        component: this
-      });
+    _onInitialize() {
+      window.$(`#${this.elementId} .form-control`).attr('style', this.get('stylist'));
+      // ; // adds styling
     },
     _onLoad:function(data) {
-      this.sendAction('onLoad', {
-        items: data,
-        count: data.length
+      this.ddau('onLoad', {
+        options: data,
+        count: data.length,
+        context: this,
+        code: 'loaded'
       });
     },
+    /**
+     * Responds to changes in value to the selectize control.
+     */
+    _onChange: function(input) {
+      const changeInfo = { value: input };
+      let {values, type} = this.getProperties('values', 'type');
+      if(type === 'select') { changeInfo.replaced = this.get('value'); }
+      else {
+        values = values || [];
+        input = input || [];
+        if(typeOf(input) === 'string') { input = [input]; }
+        changeInfo.added = [];
+        changeInfo.removed = [];
+        input.map(v => {
+          if(!a(values).contains(v)) {
+            changeInfo.added.push(v);
+          }
+        });
+        values.map(v => {
+          if(!a(input).contains(v)) {
+            changeInfo.removed.push(v);
+          }
+        });
+        if (changeInfo.added.length === 0) { delete changeInfo.added; }
+        if (changeInfo.removed.length === 0) { delete changeInfo.removed; }
+      }
+      this.selectizeChanged(changeInfo);
+    },
+
+    /**
+     * When a user types something NOT in the option list and
+     * the user has set "create" to true then this method will
+     * add the value to the list and select it
+     */
+    _onCreate(input, cb) {
+      const values = this.get('values') || [];
+      const response = this.ddau('onCreate', {
+        code: 'user-create',
+        input: input,
+      }, 'input');
+
+      // only create if container allows
+      if(response !== false) {
+        // input is a string, addOption will convert to an option object
+        const option = this.addOption(input);
+        const newValue = option[get(this, 'apiStaticMappings.valueField')];
+        console.log('option:', option);
+        console.log('Values is currently: ', values);
+        console.log('New value is: ', newValue);
+        cb(); // tell selectize we're done
+        let changedValue = {
+          code: 'selected-new-option',
+          added: [ input ],
+          value: newValue,
+          values: Object.assign(values, [newValue])
+        };
+        this.ddau('onChange', changedValue);
+      } else {
+        cb(); // tell selectize we're done
+      }
+
+    },
+
     _onOptionAdd:function(value,valueObject) {
-      this.sendAction('onOption', {
-        action: 'add',
-        option: value,
-        context: valueObject,
-        component: this
-      });
+      if(this._optionsInitialized) {
+        this.ddau('onOption', {
+          code: 'add-option',
+          context: this,
+          added: value,
+          addedContext: valueObject
+        });
+      }
     },
     _onOptionRemove:function(value) {
-      this.sendAction('onOption', {
-        action: 'remove',
-        option: value,
-        component: this
-      });
+      if(this._optionsInitialized) {
+        this.ddau('onOption', {
+          code: 'remove-option',
+          context: this,
+          removed: value
+        });
+      }
     },
     _onDropdownOpen:function($dropdown) {
-      this.sendAction('onDropdown', {
-        action: 'open',
-        component: this,
-        value: get(this,'value'),
-        $dropdown: $dropdown
+      this.ddau('onDropdown', {
+        code: 'open-dropdown',
+        context: this,
+        dropdown: $dropdown
       });
     },
     _onDropdownClose:function($dropdown) {
-      this.sendAction('onDropdown', {
-        action: 'close',
-        component: this,
-        value: get(this,'value'),
-        $dropdown: $dropdown
-      });
-    },
-    _onItemAdd:function(value, $item) {
-      this.sendAction('onItem', {
-        action: 'add',
-        component: this,
-        message: `added ${value} to the list`,
-        value: value,
-        $item: $item
-      });
-    },
-    _onItemRemove:function(value) {
-      this.sendAction('onItem', {
-        action:'remove',
-        message: `removed ${value} from the list`,
-        value: value,
-        component: this
+      this.ddau('onDropdown', {
+        code: 'close-dropdown',
+        context: this,
+        dropdown: $dropdown
       });
     },
     _onType:function(value) {
-      this.sendAction('onType', {
-        component: this,
-        text: value
+      this.ddau('onType', {
+        code: 'user-typing',
+        context: this,
+        value: value
       });
     },
 
