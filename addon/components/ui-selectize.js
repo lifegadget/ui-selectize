@@ -47,8 +47,13 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
     });
   },
   didInsertElement() {
-    run.schedule('afterRender', ()=> {
+    run.schedule('afterRender', () => {
+      const {value, values, type} = this.getProperties('value', 'values', 'type');
       this.get('style');
+      run.next(() => {
+        if(type === 'tag' && values && values.length > 0) { this._valuesObserver(); }
+        if(type === 'select' && value) { this._valueObserver(); }
+      });
     });
   },
   hasTouch: computed(()=> 'ontouchstart' in window),
@@ -292,7 +297,7 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 
   getComponentValue() {
     const { value, values, type } = this.getProperties('value', 'values', 'type');
-    if (type === 'tags' && this.attrs.values) { return values; }
+    if (type === 'tag' && this.attrs.values) { return values; }
     else if(type === 'select' && this.attrs.value) { return [value]; }
     else {
       debug(`${type}-input component is not currently bound to values or value.`);
@@ -310,7 +315,7 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
     a(apiProcessed).forEach(prop => {
       config[prop.slice(1)] = get(this, prop);
     });
-    config = merge(config, apiStaticMappings, eventHandlers);
+    config = Object.assign(config, apiStaticMappings, eventHandlers);
     if(config.create) {
       config.create = Ember.$.proxy(this._onCreate, this);
     }
