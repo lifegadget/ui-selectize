@@ -190,7 +190,7 @@ var ApiSurface = Ember.Mixin.create({
       if(response !== false) {
         // input is a string, addOption will convert to an option object
         const option = this.addOption(input);
-        const newValue = option[get(this, 'apiStaticMappings.valueField')];
+        const newValue = option[get(this, 'valueField')];
         console.log('option:', option);
         console.log('Values is currently: ', values);
         console.log('New value is: ', newValue);

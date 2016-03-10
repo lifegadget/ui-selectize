@@ -476,18 +476,32 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
         literal: f => f,
         snakecase: snake
       };
-      const valueField = this.apiStaticMappings.valueField;
-      const labelField = this.apiStaticMappings.labelField;
+      const valueField = this.valueField;
+      const labelField = this.labelField;
       console.log(valueField, labelField, data);
       data = data.map(item => {
         const replacement = {};
         replacement[labelField] = item;
+        replacement.label = item;
         replacement[valueField] = convert[idStrategy](item);
+        replacement.value = convert[idStrategy](item);
+        replacement.search = this.get('_searchField');
+        replacement.group = item[this.optgroupField];
         return replacement;
       });
     }
     console.log('data now: ', data);
     return a(data || []);
+  },
+
+  getOptionValue(option) {
+    return option[this.valueField];
+  },
+  getOptionLabel(option) {
+    return option[this.labelField];
+  },
+  setOptionValue(option, value) {
+    return option[this.valueField] = value;
   },
 
 	teardown: on('willDestroyElement', function() {
