@@ -4,9 +4,9 @@
     The components in this addon leverage Ember {{ui-label 'action'}} helper to create "closure actions" but will fall back to the old actions (aka, <code>sendAction()</code>) when the container doesn't explicitly bind to a given action type.
   </p>
   <p>
-    The underlying Selectize control has a lot of events (<a href="https://github.com/selectize/selectize.js/blob/master/docs/api.md#methods_events">see here</a>) but we've reorganised it to make it a little more compact. All events are listed below sends back a single object hash as its only parameter but the properties defined on that hash will be dependant on the type of message (open a developer console to see details when using interactive demo). That said, all events will have:
+    The underlying Selectize control has a lot of events (<a href="https://github.com/selectize/selectize.js/blob/master/docs/api.md#methods_events">see here</a>) but we've reorganised it to make it a little more compact. All events listed below send back a single object hash as the only parameter but the properties defined on that hash will be dependant on the type of message (open a developer console to see details when using this demo). That said, all events will have:
     <ul>
-      <li>{{ui-pill 'code'}} - a dasherized string representing the</li>
+      <li>{{ui-pill 'code'}} - a dasherized string representing the state of the component</li>
       <li>{{ui-pill 'context'}} - a object reference back to the Ember component</li>
     </ul>
   </p>

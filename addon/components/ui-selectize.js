@@ -489,16 +489,6 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
     return a(data || []);
   },
 
-  getOptionValue(option) {
-    return option[this.valueField];
-  },
-  getOptionLabel(option) {
-    return option[this.labelField];
-  },
-  setOptionValue(option, value) {
-    return option[this.valueField] = value;
-  },
-
 	teardown: on('willDestroyElement', function() {
     const selectize = this.selectize;
     if(selectize) {
