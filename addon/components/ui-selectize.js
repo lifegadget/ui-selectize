@@ -357,9 +357,6 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
     if(typeOf(o) === 'string') {
       o = this.convertStringToArray(o)[0];
     }
-    // o.value = 'foobar';
-    // o.label = 'foobar';
-    console.log('adding option: ', o);
     this.selectize.addOption(o);
     this.selectize.refreshOptions(false);
     return o;
@@ -478,7 +475,6 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
       };
       const valueField = this.valueField;
       const labelField = this.labelField;
-      console.log(valueField, labelField, data);
       data = data.map(item => {
         const replacement = {};
         replacement[labelField] = item;
@@ -490,7 +486,6 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
         return replacement;
       });
     }
-    console.log('data now: ', data);
     return a(data || []);
   },
 

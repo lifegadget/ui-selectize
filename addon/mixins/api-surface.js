@@ -191,9 +191,6 @@ var ApiSurface = Ember.Mixin.create({
         // input is a string, addOption will convert to an option object
         const option = this.addOption(input);
         const newValue = option[get(this, 'valueField')];
-        console.log('option:', option);
-        console.log('Values is currently: ', values);
-        console.log('New value is: ', newValue);
         cb(); // tell selectize we're done
         let changedValue = {
           code: 'selected-new-option',
