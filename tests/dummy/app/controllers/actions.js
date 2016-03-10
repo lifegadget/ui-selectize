@@ -69,7 +69,9 @@ export default Ember.Controller.extend({
       console.log('onError:', data );
     },
     onCreate(data) {
+      console.log('CREATE CALLED');
       console.log(data);
+      return true;
     }
   }
 });

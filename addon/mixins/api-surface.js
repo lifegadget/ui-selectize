@@ -145,6 +145,9 @@ var ApiSurface = Ember.Mixin.create({
         code: 'loaded'
       });
     },
+    /**
+     * Responds to changes in value to the selectize control.
+     */
     _onChange: function(input) {
       const changeInfo = { value: input };
       let {values, type} = this.getProperties('values', 'type');
@@ -171,6 +174,11 @@ var ApiSurface = Ember.Mixin.create({
       this.selectizeChanged(changeInfo);
     },
 
+    /**
+     * When a user types something NOT in the option list and
+     * the user has set "create" to true then this method will
+     * add the value to the list and select it
+     */
     _onCreate(input, cb) {
       const values = this.get('values') || [];
       const response = this.ddau('onCreate', {
@@ -180,15 +188,20 @@ var ApiSurface = Ember.Mixin.create({
 
       // only create if container allows
       if(response !== false) {
-        console.log('adding');
-        this.addOption(input);
+        // input is a string, addOption will convert to an option object
+        const option = this.addOption(input);
+        const newValue = option[get(this, 'apiStaticMappings.valueField')];
+        console.log('option:', option);
+        console.log('Values is currently: ', values);
+        console.log('New value is: ', newValue);
         cb(); // tell selectize we're done
-        this.ddau('onChange', {
+        let changedValue = {
           code: 'selected-new-option',
           added: [ input ],
-          value: input,
-          values: values.push(input)
-        });
+          value: newValue,
+          values: Object.assign(values, [newValue])
+        };
+        this.ddau('onChange', changedValue);
       } else {
         cb(); // tell selectize we're done
       }

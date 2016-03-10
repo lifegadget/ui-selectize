@@ -1,7 +1,7 @@
 {
   "name": "ui-selectize",
   "dependencies": {
-    "ember": "~2.3.1",
+    "ember": "~2.4.1",
     "jquery": "1.11.3",
     "ember-cli-shims": "0.1.0",
     "ember-cli-test-loader": "0.2.2",
@@ -15,8 +15,6 @@
   },
   "devDependencies": {
     "ember-qunit-notifications": "0.1.0",
-    "qunit": "~1.18.0",
-    "animate.css": "~3.3.0",
     "Faker": "~3.0.0",
     "lodash": "~3.7.0"
   }

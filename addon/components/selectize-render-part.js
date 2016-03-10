@@ -15,11 +15,15 @@ const renderPart = Ember.Component.extend({
     this._super(...arguments);
     const {part, register} = this.getProperties('part', 'register');
     run.schedule('afterRender', () => {
-      register({
-        id: this.elementId,
-        part: part,
-        getTemplate: Ember.$.proxy(this.getTemplate, this)
-      });
+      if (register) {
+        register({
+          id: this.elementId,
+          part: part,
+          getTemplate: Ember.$.proxy(this.getTemplate, this)
+        });
+      } else {
+        debug('could\'t register with selectize control');
+      }
     });
   },
   getTemplate() {
@@ -27,7 +31,10 @@ const renderPart = Ember.Component.extend({
     return window.$($find).html();
   },
   willDestroyElement() {
-    this.get('unregister')(this);
+    const unregister = get(this, 'unregister');
+    if(unregister) {
+      unregister(this);
+    }
   }
 });
 

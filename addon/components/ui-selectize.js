@@ -99,7 +99,7 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
     let {values} = this.getProperties('values');
     if (typeOf(values) === 'string') { values = values.split(','); }
     if (typeOf(values) !== 'array') {
-      debug(`ui-selectize[${this.elementId}] does not have a valid value. Disabling control until corrected.`);
+      debug(`ui-selectize[${this.elementId}] does not have a valid value. Disabling control until corrected. Values property was of type ${typeOf(values)}: `, JSON.stringify(values, null, 2));
       this.set('disabled', true);
       this.set('_invalidValue', true);
       this.sendSuggestedValue([], values);
@@ -344,14 +344,25 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 			this.selectize.clearOptions();
       this.selectize.addOption(options);
 			this.selectize.refreshOptions();
+      this.selectize.refreshItems();
 		}
 	},
   addOption(o) {
+    if(typeOf(o) === 'number') {
+      o = {
+        [this.get('apiStaticMappings.labelField')]: o,
+        [this.get('apiStaticMappings.valueField')]: o
+      };
+    }
     if(typeOf(o) === 'string') {
       o = this.convertStringToArray(o)[0];
     }
+    // o.value = 'foobar';
+    // o.label = 'foobar';
+    console.log('adding option: ', o);
     this.selectize.addOption(o);
     this.selectize.refreshOptions(false);
+    return o;
   },
   clearOptions: function() {
     this.selectize.clearOptions();
@@ -465,7 +476,9 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
         literal: f => f,
         snakecase: snake
       };
-      const {valueField, labelField} = this.getProperties('valueField', 'labelField');
+      const valueField = this.apiStaticMappings.valueField;
+      const labelField = this.apiStaticMappings.labelField;
+      console.log(valueField, labelField, data);
       data = data.map(item => {
         const replacement = {};
         replacement[labelField] = item;
@@ -473,6 +486,7 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
         return replacement;
       });
     }
+    console.log('data now: ', data);
     return a(data || []);
   },
 
