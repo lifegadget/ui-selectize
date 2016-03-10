@@ -1,0 +1,1658 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"code",
+				"codeclimate	Code Climate config file"
+			],
+			[
+				"onItem",
+				"onItemRemove	(ui-selectize.js)"
+			],
+			[
+				"onDropd",
+				"onDropdownOpen	(ui-selectize.js)"
+			],
+			[
+				"new",
+				"newItem"
+			],
+			[
+				"api",
+				"apiStaticMappings"
+			],
+			[
+				"inpu",
+				"inputType"
+			],
+			[
+				"label",
+				"labelField"
+			],
+			[
+				"load",
+				"loadOptions"
+			],
+			[
+				"has",
+				"hasInitialized"
+			],
+			[
+				"searc",
+				"searchField"
+			],
+			[
+				"convert",
+				"convertToObjectArray"
+			],
+			[
+				"nam",
+				"nameField"
+			],
+			[
+				"attribute",
+				"attributeBindings"
+			],
+			[
+				"style",
+				"styleProperties"
+			],
+			[
+				"depen",
+				"dependencies"
+			],
+			[
+				"tra",
+				"transitionToRoute"
+			],
+			[
+				"cen",
+				"center"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"siz",
+				"font-size"
+			],
+			[
+				"br",
+				"border-radius"
+			],
+			[
+				"list",
+				"list-n	list-style-type: none;"
+			],
+			[
+				"filter",
+				"filteredClients"
+			],
+			[
+				"clien",
+				"clientId"
+			],
+			[
+				"curren",
+				"currentClientId"
+			],
+			[
+				"curr",
+				"currentClientId"
+			],
+			[
+				"Action",
+				"actionHandler"
+			],
+			[
+				"paneA",
+				"paneAction"
+			],
+			[
+				"f",
+				"folders"
+			],
+			[
+				"class",
+				"classNameBindings"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "tests/dummy/app/templates/index.hbs",
+			"settings":
+			{
+				"buffer_size": 13956,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.js",
+			"settings":
+			{
+				"buffer_size": 521,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "blueprints/ui-selectize/index.js",
+			"settings":
+			{
+				"buffer_size": 341,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 1947,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/JSHint/JSHint.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/JSHint/JSHint.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"last_filter": "stree",
+		"selected_items":
+		[
+			[
+				"stree",
+				"SourceTree: Open SourceTree"
+			],
+			[
+				"fini",
+				"Git-flow: Release Finish"
+			],
+			[
+				"statu",
+				"Git: Status"
+			],
+			[
+				"finish",
+				"Git-flow: Release Finish"
+			],
+			[
+				"releas",
+				"Git-flow: Release Finish"
+			],
+			[
+				"release",
+				"Git-flow: Release Start"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"feat",
+				"Git-flow: Feature Finish"
+			],
+			[
+				"stat",
+				"Git: Status"
+			],
+			[
+				"git st",
+				"Git: Status"
+			],
+			[
+				"ord",
+				"Origami: Destroy Current Pane"
+			],
+			[
+				"diff",
+				"Git: Diff"
+			],
+			[
+				"gitstat",
+				"Git: Status"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"gitst",
+				"Git: Status"
+			],
+			[
+				"status",
+				"Git: Status"
+			],
+			[
+				"han",
+				"Set Syntax: Handlebars"
+			],
+			[
+				"json",
+				"Pretty JSON: Validate"
+			],
+			[
+				"json pre",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"npm",
+				"Snippet: adds files and main sections to NPM package definition"
+			],
+			[
+				"snipp",
+				"SnippetMaker: Edit Snippet"
+			],
+			[
+				"prett",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"fold",
+				"BracketHighlighter: Fold Bracket Content"
+			],
+			[
+				"source",
+				"SourceTree: Open SourceTree"
+			],
+			[
+				"sourc",
+				"SourceTree: Open SourceTree"
+			],
+			[
+				"quote",
+				"BracketHighlighter: Swap Quotes"
+			],
+			[
+				"findkey",
+				"FindKeyConflicts: All Conflicts"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"key",
+				"Keymaps: Find a keymap for..."
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"badge",
+				"Snippet: add a npm-version badge to the README.md"
+			],
+			[
+				"ember",
+				"Snippet: Ember Project Configuration"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"dest",
+				"Origami: Destroy Current Pane"
+			],
+			[
+				"orgbelo",
+				"Origami: Create Pane with File Below"
+			],
+			[
+				"colo",
+				"Color Picker"
+			],
+			[
+				"orgdes",
+				"Origami: Destroy Current Pane"
+			],
+			[
+				"orabel",
+				"Origami: Create and Focus Pane Below"
+			],
+			[
+				"emmwrap",
+				"Emmet: Wrap With Abbreviation"
+			],
+			[
+				"scss",
+				"Set Syntax: SCSS"
+			],
+			[
+				"toggle",
+				"BracketHighlighter: Toggle High Visibility Mode"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"todo",
+				"TodoReview: Open Files"
+			],
+			[
+				"isntall",
+				"Package Control: Install Package"
+			],
+			[
+				"variab",
+				"List stylesheet variables"
+			],
+			[
+				"jshin",
+				"JSHint: Set Plugin Options"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"high",
+				"BracketHighlighter: Select Bracket Content with Brackets"
+			],
+			[
+				"o",
+				"Origami: Destroy Current Pane"
+			],
+			[
+				"destory",
+				"Origami: Destroy Current Pane"
+			],
+			[
+				"focus righ",
+				"Origami: Focus on Pane on the Right"
+			],
+			[
+				"orgam",
+				"Origami: Destroy Pane Below"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"align",
+				"Preferences: Alignment File Settings – User"
+			],
+			[
+				"marked",
+				"Marked"
+			],
+			[
+				"git commit",
+				"Git: Commit"
+			],
+			[
+				"git qa",
+				"Git: Quick Add"
+			],
+			[
+				"git com",
+				"Git: Quick Commit"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"packlist",
+				"Package Control: List Packages"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"pack ",
+				"Package Control: Remove Package"
+			],
+			[
+				"pack list",
+				"Package Control: Remove Repository"
+			],
+			[
+				"build",
+				"Build: Cancel"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"packinstal",
+				"Package Control: Install Package"
+			],
+			[
+				"gitlic",
+				"SublimeGit: Add License"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			],
+			[
+				"install pack",
+				"Package Control: Install Package"
+			],
+			[
+				"jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"Package Control: In",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: Install Package",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: pat",
+				"Package Control: Add Repository"
+			]
+		],
+		"width": 579.0
+	},
+	"console":
+	{
+		"height": 358.0,
+		"history":
+		[
+			"clear",
+			"list",
+			"ll",
+			"ls",
+			"install EditorConfig",
+			"install package ",
+			"ls",
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"install ",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Volumes/PEGASUS/repos/mine/ui-selectize",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/addon",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/app"
+	],
+	"file_history":
+	[
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/index.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/controllers/index.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/package.json",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/ember-cli-build.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/.codeclimate.yml",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/addon/components/ui-selectize.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/Brocfile.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/bower.json",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/.travis.yml",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/addon/mixins/api-surface.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/divshot.json",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/controllers/ed.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/addon/mixins/mood-manager.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/addon/mixins/size-manager.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/app/mirage/config.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/models/group.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/vendor/ui-selectize/ui-selectize.css",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/router.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/templates/ed.hbs",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/unit/mixins/mood-manager-test.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/unit/mixins/size-manager-test.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/unit/mixins/shared-size-test.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/app/mirage/fixtures/groups.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/models/groupie.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/app/mirage/fixtures/animals.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/models/animal.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/models/color.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/templates/application.hbs",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/addon/components/ui-select-input.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/app/mirage/fixtures/things.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/models/thing.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/styles/app.css",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/controllers/application.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/templates/index.hbs",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/unit/components/ui-selectize-test.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/addon/mixins/style-manager.js",
+		"/Users/Ken/.oh-my-zsh/oh-my-zsh.sh",
+		"/Users/Ken/.zshrc",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/npm.sublime-snippet",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/addon/components/ui-tags-input.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/unit/mixins/api-surface-test.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/README.md",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/unit/mixins/style-manager-test.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/index.html",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/dummy/app/index.html",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/unit/components/ui-tags-input-test.js",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/tests/unit/components/ui-select-input-test.js",
+		"/Volumes/PEGASUS/repos/mine/ui-selectize/ui-selectize.sublime-project",
+		"/Users/Ken/.gitconfig",
+		"/Users/Ken/.bash_profile",
+		"/Users/Ken/.bashrc",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/components/master-detail-item.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/models/activity.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/sessions/session/cancelled.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/controllers/sessions/session/scheduled.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/services/clients.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/clients/client/sessions.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/controllers/clients/client/sessions.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/package.json",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/styles/app.scss",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/objects/AjaxPromise.js",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/JavaScriptNext.sublime-settings",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/controllers/sessions/session/cancelled.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/controllers/sessions/session/rebooked.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/sessions/session/rebooked.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/sessions/session.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/components/activity-detailer.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/activities/activity.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/components/x-knob.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/styles/flexy.scss",
+		"/Volumes/PEGASUS/repos/mine/trainer/README.md",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/router.js",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/Emmet.sublime-settings",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/Emmet/Emmet.sublime-settings",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/models/goal.js",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/Pretty JSON.sublime-settings",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/controllers/sessions/session.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/components/activity-summary.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/sessions.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/routes/sessions/session/rebooked.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/models/relationship.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/sessions/session/completed.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/server/mocks/activities.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/services/client.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/client.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/workouts/workout.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/sessions/session/index.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/routes/sessions.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/sessions/cancel.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/routes/sessions/session.js",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Volumes/PEGASUS/repos/mine/trainer/server/mocks/users.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/routes/clients/client/sessions.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/docs/sitemap.md",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/clients/client.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/styles/clients.scss",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/styles/animation.scss",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/JSHint Gutter/JSHint.sublime-settings",
+		"/var/folders/zb/65z13rv940v04234jn3dx0140000gn/T/com.TechSmith.Snagit/2015-05-22_23-32-23.png",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/Base File.sublime-settings",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/templates/clients/client/goals.hbs",
+		"/Volumes/PEGASUS/repos/mine/trainer/app/controllers/workouts/workout.js",
+		"/Volumes/PEGASUS/repos/mine/trainer/trainer.sublime-project",
+		"/Users/Ken/sublime/ui-list.sublime-project",
+		"/Volumes/PEGASUS/repos/mine/ui-list/addon/templates/components/ui-list.hbs",
+		"/Users/Ken/reference_data.json",
+		"/Volumes/PEGASUS/repos/mine/ui-list/sublime-project.json",
+		"/Volumes/PEGASUS/repos/mine/ui-list/config/environment.js",
+		"/Users/Ken/sublime/sortable.sublime-project",
+		"/Volumes/PEGASUS/Dropbox/webwork/repos-public/ember-sortable/addon/components/sortable-group.js",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Volumes/PEGASUS/Dropbox/webwork/repos-public/ember-sortable/addon/components/sortable-item.js",
+		"/Volumes/PEGASUS/Dropbox/webwork/repos-public/ember-sortable/addon/mixins/sortable-item.js",
+		"/Volumes/PEGASUS/repos/mine/ui-list/addon/components/ui-item.js",
+		"/Volumes/PEGASUS/repos/mine/ui-list/addon/mixins/shared-item-mixin.js",
+		"/Volumes/PEGASUS/repos/mine/ui-list/.tm_properties",
+		"/Volumes/PEGASUS/repos/mine/ui-list/.watchmanconfig",
+		"/Volumes/PEGASUS/repos/mine/ui-list/.editorconfig",
+		"/Users/Ken/Library/Application Support/Sublime Text 3/Packages/User/JSON.sublime-settings",
+		"/Volumes/PEGASUS/Dropbox/webwork/repos-public/daylerees-themes/sublimeui/arstotzka/Widget - arstotzka.sublime-settings",
+		"/Users/Ken/Desktop/test.js",
+		"/Volumes/PEGASUS/Dropbox/OSX-scripts/stop-aws-test"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"*.scss",
+			"*.css",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"console.log",
+			"Successful",
+			"enabled",
+			"bind-attr",
+			"didInsertElem",
+			"onDropdownClose",
+			"size",
+			"badge",
+			".enabled",
+			"ui-list",
+			"console.l",
+			"array",
+			"value",
+			"console.",
+			"loading",
+			"console.",
+			"label:",
+			"copyClassesToDropdown",
+			"selected",
+			"label",
+			"\"name\"",
+			"console.log",
+			"label:",
+			"name:",
+			"id:",
+			"run",
+			"searchField",
+			"score",
+			"labelField",
+			"inline",
+			"width",
+			"quote",
+			"pretender",
+			"import",
+			".observes",
+			".on",
+			".property",
+			".on",
+			"52698",
+			"{{ui-selectize value=action handle=\"movable\" change=\"chooseMaster\" placeholder=placeholder options=options labelField=labelField valueField=valueField}}\n52698",
+			"options:",
+			"options=",
+			"ui-selectize",
+			".section",
+			".section-heading",
+			"right ",
+			"right",
+			"right {",
+			"AjaxPromise",
+			"attributeBinding",
+			"Binding",
+			"-skip",
+			"-hide",
+			"hide-",
+			"skip",
+			"flexy",
+			"workflow",
+			"cp",
+			"clients",
+			"filtered",
+			"    ",
+			"all",
+			"start",
+			"set:",
+			"store.find",
+			"inject",
+			"store",
+			"findAll",
+			"CTRL V",
+			"ALT SHIFT F",
+			"ALT SHIFT ",
+			"ALT SHIFT A",
+			"sessionsacti",
+			"sessions",
+			"resource",
+			"re",
+			"transitionTo.*workout",
+			"transitionTo.*activity",
+			"transitionTo",
+			"sendAction",
+			"import",
+			"const",
+			"');\n",
+			"subHeadingExists",
+			"actionHandler",
+			".set",
+			"_tellGroup",
+			"indexOf"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"name:",
+			"label:",
+			"value:",
+			"route"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "tests/dummy/app/templates/index.hbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13956,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6751,
+								6751
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": false,
+							"syntax": "Packages/Handlebars/grammars/Handlebars.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 521,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": false,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "blueprints/ui-selectize/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 341,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								333,
+								333
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": false,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1947,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								319,
+								319
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 118.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git-commit":
+	{
+		"height": 143.0
+	},
+	"output.git-flow-feature-finish":
+	{
+		"height": 114.0
+	},
+	"output.git-flow-release-finish":
+	{
+		"height": 114.0
+	},
+	"output.git-flow-release-start":
+	{
+		"height": 114.0
+	},
+	"output.git-push":
+	{
+		"height": 110.0
+	},
+	"pinned_build_system": "",
+	"project": "ui-selectize.sublime-project",
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"read",
+				"README.md"
+			],
+			[
+				"index",
+				"blueprints/ui-selectize/index.js"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"inde",
+				"tests/dummy/app/controllers/index.js"
+			],
+			[
+				"ember",
+				"ember-cli-build.js"
+			],
+			[
+				"broc",
+				"Brocfile.js"
+			],
+			[
+				"tra",
+				".travis.yml"
+			],
+			[
+				"bose",
+				"bower.json"
+			],
+			[
+				"div",
+				"divshot.json"
+			],
+			[
+				"api",
+				"addon/mixins/api-surface.js"
+			],
+			[
+				"indexjs",
+				"tests/dummy/app/controllers/index.js"
+			],
+			[
+				"mood",
+				"tests/unit/mixins/mood-manager-test.js"
+			],
+			[
+				"moo",
+				"addon/mixins/mood-manager.js"
+			],
+			[
+				"sizeman",
+				"addon/mixins/size-manager.js"
+			],
+			[
+				"size",
+				"tests/unit/mixins/size-manager-test.js"
+			],
+			[
+				"shared",
+				"tests/unit/mixins/shared-size-test.js"
+			],
+			[
+				"css",
+				"vendor/ui-selectize/ui-selectize.css"
+			],
+			[
+				"config",
+				"app/mirage/config.js"
+			],
+			[
+				"animal",
+				"tests/dummy/app/models/animal.js"
+			],
+			[
+				"anim",
+				"app/mirage/fixtures/animals.js"
+			],
+			[
+				"applicatin",
+				"tests/dummy/app/templates/application.hbs"
+			],
+			[
+				"fix",
+				"app/mirage/fixtures/animals.js"
+			],
+			[
+				"appcss",
+				"tests/dummy/app/styles/app.css"
+			],
+			[
+				"select-in",
+				"addon/components/ui-select-input.js"
+			],
+			[
+				"indehb",
+				"tests/dummy/app/templates/index.hbs"
+			],
+			[
+				"bowr",
+				"bower.json"
+			],
+			[
+				"bower",
+				"bower.json"
+			],
+			[
+				"apisr",
+				"addon/mixins/api-surface.js"
+			],
+			[
+				"style",
+				"addon/mixins/style-manager.js"
+			],
+			[
+				"apitest",
+				"tests/unit/mixins/api-surface-test.js"
+			],
+			[
+				"selectest",
+				"tests/unit/components/ui-selectize-test.js"
+			],
+			[
+				"applijs",
+				"tests/dummy/app/controllers/application.js"
+			],
+			[
+				"selectinpu",
+				"addon/components/ui-select-input.js"
+			],
+			[
+				"tagsinpu",
+				"addon/components/ui-tags-input.js"
+			],
+			[
+				"test",
+				"tests/unit/components/ui-selectize-test.js"
+			],
+			[
+				"st",
+				"tests/unit/mixins/style-manager-test.js"
+			],
+			[
+				"indexhtml",
+				"tests/dummy/app/index.html"
+			],
+			[
+				"selecinpu",
+				"addon/components/ui-select-input.js"
+			],
+			[
+				"tagsin",
+				"addon/components/ui-tags-input.js"
+			],
+			[
+				"ui-sel",
+				"addon/components/ui-selectize.js"
+			],
+			[
+				"applihbs",
+				"tests/dummy/app/templates/application.hbs"
+			],
+			[
+				"index.h",
+				"tests/index.html"
+			],
+			[
+				"modelactivy",
+				"app/models/activity.js"
+			],
+			[
+				"scheduledjs",
+				"app/controllers/sessions/session/scheduled.js"
+			],
+			[
+				"cliensessionjs",
+				"app/controllers/clients/client/sessions.js"
+			],
+			[
+				"router",
+				"app/router.js"
+			],
+			[
+				"clientsessionshbs",
+				"app/templates/clients/client/sessions.hbs"
+			],
+			[
+				"session",
+				"app/controllers/clients/client/sessions.js"
+			],
+			[
+				"ajaxp",
+				"app/objects/AjaxPromise.js"
+			],
+			[
+				"schedulhbs",
+				"app/templates/sessions/session/scheduled.hbs"
+			],
+			[
+				"cancelljs",
+				"app/controllers/sessions/session/cancelled.js"
+			],
+			[
+				"cancelled",
+				"app/templates/sessions/session/cancelled.hbs"
+			],
+			[
+				"modelac",
+				"app/models/activity.js"
+			],
+			[
+				"activitydetail",
+				"app/templates/components/activity-detailer.hbs"
+			],
+			[
+				"activityhbs",
+				"app/templates/activities/activity.hbs"
+			],
+			[
+				"package",
+				"package.json"
+			],
+			[
+				"modelgoa",
+				"app/models/goal.js"
+			],
+			[
+				"modelactiv",
+				"app/models/activity.js"
+			],
+			[
+				"server",
+				"server/mocks/activities.js"
+			],
+			[
+				"rebooked",
+				"app/controllers/sessions/session/rebooked.js"
+			],
+			[
+				"sessionshbs",
+				"app/templates/sessions/session.hbs"
+			],
+			[
+				"components",
+				"app/templates/components/activity-summary.hbs"
+			],
+			[
+				"routerebooked",
+				"app/routes/sessions/session/rebooked.js"
+			],
+			[
+				"rebook",
+				"app/routes/sessions/session/rebooked.js"
+			],
+			[
+				"modelrelat",
+				"app/models/relationship.js"
+			],
+			[
+				"service",
+				"app/services/clients.js"
+			],
+			[
+				"session.js",
+				"app/controllers/sessions/session.js"
+			],
+			[
+				"session.hbs",
+				"app/templates/sessions/session.hbs"
+			],
+			[
+				"client",
+				"app/templates/client.hbs"
+			],
+			[
+				"clienthbs",
+				"app/templates/client.hbs"
+			],
+			[
+				"workout",
+				"app/templates/workouts/workout.hbs"
+			],
+			[
+				"completed",
+				"app/templates/sessions/session/completed.hbs"
+			],
+			[
+				"sessioncancel",
+				"app/templates/sessions/cancel.hbs"
+			],
+			[
+				"serverac",
+				"server/mocks/activities.js"
+			],
+			[
+				"indexhbs",
+				"app/templates/sessions/session/index.hbs"
+			],
+			[
+				"users",
+				"server/mocks/users.js"
+			],
+			[
+				"serveractiv",
+				"server/mocks/activities.js"
+			],
+			[
+				"sessions",
+				"app/routes/sessions.js"
+			],
+			[
+				"scss",
+				"app/styles/clients.scss"
+			],
+			[
+				"sessionhbs",
+				"app/templates/clients/client/sessions.hbs"
+			],
+			[
+				"sesssions",
+				"app/controllers/clients/client/sessions.js"
+			],
+			[
+				"listjs",
+				"addon/components/ui-list.js"
+			],
+			[
+				"itemhbs",
+				"addon/templates/components/ui-item.hbs"
+			],
+			[
+				"uihbs",
+				"addon/templates/components/ui-list.hbs"
+			],
+			[
+				"env",
+				"config/environment.js"
+			],
+			[
+				"sub",
+				"sublime-project.json"
+			],
+			[
+				"rad",
+				"README.md"
+			],
+			[
+				"mixin",
+				"addon/mixins/sortable-item.js"
+			],
+			[
+				"sortabgr",
+				"addon/components/sortable-group.js"
+			],
+			[
+				"-test",
+				"tests/unit/mixins/sortable-item-test.js"
+			],
+			[
+				"group",
+				"addon/components/sortable-group.js"
+			],
+			[
+				"mixinite",
+				"addon/mixins/sortable-item.js"
+			],
+			[
+				"item",
+				"addon/components/sortable-item.js"
+			],
+			[
+				"itemjs",
+				"addon/components/ui-item.js"
+			],
+			[
+				"ui",
+				"addon/components/ui-item.js"
+			],
+			[
+				"watchman",
+				".watchmanconfig"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "sortable",
+		"selected_items":
+		[
+			[
+				"sortable",
+				"/Volumes/PEGASUS/repos/public/ember-sortable.sublime-project"
+			],
+			[
+				"icon",
+				"/Volumes/PEGASUS/repos/mine/ui-icon/ui-icon.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 27.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 955.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 206.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

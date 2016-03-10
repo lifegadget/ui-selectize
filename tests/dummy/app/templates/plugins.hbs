@@ -1,28 +1,69 @@
 <h3 class='section-heading'>Plugins</h3>
 <p class="downer">Using plugins is just a matter of including the name in the <code>plugin</code> property.
-  By default \{{ui-tags-input}} has <b>remove_button</b> included.
 </p>
-<div id="ui-number-array-input" class="container">
-  <div class="row">
-    <div class="col-xs-5 col-md-3">
-      {{ui-select-input options=things optgroups=groups plugins='optgroup_columns' }}
+
+<div class="container">
+  <row>
+    <div class='col-xs-12 col-lg-3'>
+      {{select-input
+        options=things
+        optgroups=optGroup
+        plugins='optgroup_columns'
+        value=selectValue
+        onChange=(mut selectValue)
+      }}
+      <br>
+      <p>
+        container value: {{selectValue}}
+      </p>
+      <p>
+        <hr>
+      </p>
+<pre><code class='handlebars'>\{{select-input
+  options=things
+  optgroups=optGroup
+  plugins='optgroup_columns'
+}}
+  </code></pre>
     </div>
-    <div class="col-xs-7 col-md-9">
-      Column-base selection: <i>optgroup_columns</i><br/>
-      <code>
-        \{{ui-select-input options=things optgroups=groups plugins='optgroup_columns' optgroups=optGroup }}
-      </code>
+    <div class="col-xs-12 col-lg-9">
+      <h4>Select Plugins</h4>
+      <p>
+        Select plugins don't come with any plugins <i>plugged in</i> by default but there is one pretty cool plugin we can add: <b>optgroup_columns</b>.
+      </p>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-5 col-md-3">
-      {{ui-tags-input options=things plugins='remove_button,restore_on_backspace' optgroups=optGroup optgroupField="group"}}
+  </row>
+
+  <row>
+    <div class='col-xs-12 col-lg-3'>
+      {{tags-input
+        options=things
+        optgroups=optGroup
+        plugins='remove_button,restore_on_backspace'
+        values=tagsValue
+        onChange=(mut tagsValue)
+      }}
+      <br>
+      <p>
+        container value: {{tagsValue}}
+      </p>
+      <p>
+        <hr>
+      </p>
+<pre><code class='handlebars'>\{{tags-input
+  options=things
+  optgroups=optGroup
+  plugins='remove_button,restore_on_backspace'
+  optgroupField="group"
+}}</code></pre>
     </div>
-    <div class="col-xs-7 col-md-9">
-      Tags with: <i>remove_button(default), restore_on_backspace</i><br/>
-      <code>
-        \{{ui-tags-input options=things plugins='remove_button,restore_on_backspace'}}
-      </code>
+    <div class="col-xs-12 col-lg-9">
+      <h4>Tags Plugins</h4>
+      <p>
+        Tags start with the plugin <b>remove_button</b> loaded. This provides the dismissal buttons next to each tag and it almost always a desired feature. You <i>can</i> also add the 'restore_on_backspace' which may be useful in certain circumstances.
+      </p>
     </div>
-  </div>
+  </row>
+
+
 </div>

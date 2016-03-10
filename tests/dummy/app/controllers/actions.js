@@ -1,9 +1,11 @@
 import Ember from 'ember';
 const { keys, create } = Object; // jshint ignore:line
 const {computed, observer, $, A, run, on, typeOf, debug, defineProperty, get, set, inject, isEmpty} = Ember;  // jshint ignore:line
+const htmlSafe = Ember.String.htmlSafe;
 
 export default Ember.Controller.extend({
   flashMessages: inject.service(),
+  styleBindings: ['width', 'height', 'minWidth', 'minHeight', 'color', 'touchAction'],
   pojoArray: ['Frog','Monkey','Lion'],
   emberData: computed(function() {
     return this.store.findAll('thing');
@@ -13,40 +15,63 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-  onLoad(data) {
+    onLoad(data) {
       const flashMessages = Ember.get(this, 'flashMessages');
-      flashMessages.info(`onLoad Event: ${data.count} items loaded`);
+      flashMessages.success(htmlSafe(`<b>onLoad</b>: ${data.count} items loaded`));
 
-      console.log('Dropdown loaded: %o', data);
+      console.log('onLoaded: %o', data);
     },
     onChange(data) {
       const flashMessages = Ember.get(this, 'flashMessages');
-      flashMessages.success(`onChange Event: ${data.value}`);
+      if(data.added) {
+        flashMessages.success(htmlSafe(`<b>onChange</b>: added <i>${data.added}</i>. Value(s) are now: <b>${data.values}</b>`));
+      }
+      if(data.removed) {
+        flashMessages.warning(htmlSafe(`<b>onChange</b>: removed <i>${data.removed}</i>. Value(s) are now: <b>${data.values}</b>`));
+      }
+      if(data.replaced !== undefined) {
+        flashMessages.success(htmlSafe(`<b>onChange</b>: replace the value from <i>${data.replaced}</i> to <i>${data.value}</i>`));
+      }
 
+      if(this.get('isSelectInput')) {
+        this.set('selectValue', data.value);
+      } else {
+        this.set('tagsValue', data.values);
+      }
+
+      if (data.code = 'suggested-change') {
+        this.set('values', data.values);
+      }
       console.log('onChange: %o', data);
     },
     onDropdown(data) {
       const flashMessages = Ember.get(this, 'flashMessages');
-      if (data.action === 'open') {
-        flashMessages.success(`onDropdown Event: ${data.action}`);
-        console.log('Dropdown open: %o', data);
+      if (data.code === 'open-dropdown') {
+        flashMessages.success(htmlSafe(`<b>onDropdown</b>: ${data.code}`));
+        console.log('onDropdown: %o', data);
       } else {
-        flashMessages.danger(`onDropdownClose Event`);
-        console.log('Dropdown close: %o', data);
+        flashMessages.warning(htmlSafe(`<b>onDropdown</b>: ${data.code}`));
+        console.log('onDropdown: %o', data);
       }
-    },
-    onItem(data) {
-      console.log('item: %o', data);
-      const flashMessages = Ember.get(this, 'flashMessages');
-      flashMessages.warning(`onItem Event: ${data.message}`);
+      console.log('onDropdown: %o', data);
     },
     onOption(data) {
       const flashMessages = Ember.get(this, 'flashMessages');
-      flashMessages.info(`onOption Event: ${data.action} => ${data.option}`);
+      flashMessages.info(htmlSafe(`<b>onOption</b>: ${data.code} => ${data.added}`));
+      console.log('onOption: %o', data);
     },
     onType(data) {
       const flashMessages = Ember.get(this, 'flashMessages');
-      flashMessages.success(`onType Event: ${data.text}`);
+      flashMessages.info(htmlSafe(`<b>onType</b>: ${data.value}`));
+    },
+    onError(data) {
+      this.get('flashMessages').danger(htmlSafe(`<b>onError</b>: ${data.code}`));
+      console.log('onError:', data );
+    },
+    onCreate(data) {
+      console.log('CREATE CALLED');
+      console.log(data);
+      return true;
     }
   }
-  });
+});

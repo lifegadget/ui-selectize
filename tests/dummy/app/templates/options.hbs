@@ -1,0 +1,111 @@
+<h3 class='section-heading'>Loading Data</h3>
+<p >
+  Options associated to the {{ui-pill 'options'}} property. The target data structure is set but the can be provided as a CSV string, a simple array of strings, an array of POJO's or Ember Data.
+</p>
+
+<row>
+  <div class='col-xs-12 col-lg-3'>
+    {{select-input
+      options='Frog,Pig,Bad Wolf'
+      values=csvValue
+      idStrategy=caseStrategy
+      onChange=(mut csvValue)
+    }}
+    <br>
+    <p>
+      container value: {{csvValue}}
+    </p>
+    <p>
+      <hr>
+    </p>
+<pre><code class='handlebars'>\{{select-input
+  options='Frog,Pig,Bad Wolf'
+  value=csvValue
+  idStrategy="{{caseStrategy}}"
+  onChange=(mut csvValue)
+}}
+</code></pre>
+  </div>
+  <div class="col-xs-12 col-lg-9">
+    <h4>CSV</h4>
+    <p>
+      If the groupings are small in number and not shared with other dropdowns it is often most convenient to just state them in the template as a CSV value. When doing this it will present the values as they were laid out but convert the values (by default to a "kebab case" version).
+    </p>
+    <p>
+      Choose a strategy to see it in action:
+      {{ui-buttons
+        buttons='ke-bab::kebabcase,camelCase::camelcase,PascalCase::pascalcase,snake_case::snakecase,literal'
+        value=caseStrategy
+        onChange=(mut caseStrategy)
+        size='tiny'
+      }}
+    </p>
+  </div>
+</row>
+
+<row>
+  <div class='col-xs-12 col-lg-3'>
+    {{select-input
+      options=pojoOptions
+      value=pojoValue
+      onChange=(mut pojoValue)
+    }}
+    <br>
+    <p>
+      container value: {{pojoValue}}
+    </p>
+    <p>
+      <hr>
+    </p>
+<pre><code class='handlebars'>\{{select-input
+  options=pojoOptions
+  value=pojoValue
+  onChange=(mut pogoValue)
+}}
+</code></pre>
+  </div>
+  <div class="col-xs-12 col-lg-9">
+    <h4>POJO Arrays</h4>
+    <p>
+      If you want to send in a regularly javascript array of options that's fine. Just make sure that you set at least the {{ui-pill 'name'}} property, but in most cases you'll also include {{ui-pill 'id'}}.
+    </p>
+    <p>
+      Where the array is:
+<pre><code>pojoOptions: [
+  { id: 1, name: 'Frog' },
+  { id: 2, name: 'Monkey' },
+  { id: 3, name: 'Lion' }
+],</code></pre>
+    </p>
+  </div>
+</row>
+
+
+<row>
+  <div class='col-xs-12 col-lg-3'>
+    {{select-input
+      options=model
+      value=edValue
+      onChange=(mut edValue)
+    }}
+    <br>
+    <p>
+      container value: {{pogoValue}}
+    </p>
+    <p>
+      <hr>
+    </p>
+<pre><code class='handlebars'>\{{select-input
+  options=model
+  value=edValue
+  onChange=(mut edValue)
+}}
+</code></pre>
+  </div>
+  <div class="col-xs-12 col-lg-9">
+    <h4>Ember Data</h4>
+    <p>
+      You can also point to a set of Ember Data records as well.
+    </p>
+  </div>
+</row>

@@ -8,13 +8,15 @@ var Router = Ember.Router.extend({
 Router.map(function() {
   this.route('index2');
   this.route('value-binding');
-  this.route('loading-data');
+  this.route('options');
+  this.route('sort-and-search');
+  this.route('option-render');
   this.route('shorthand');
   this.route('groups');
+  this.route('skinning');
   this.route('plugins');
   this.route('formatting');
   this.route('actions');
-  this.route('bespoke-rendering');
 });
 
 export default Router;

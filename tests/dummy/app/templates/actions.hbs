@@ -1,102 +1,123 @@
 <h3 class='section-heading'>Actions</h3>
-<p class="downer">
-  You can bind to any of the following events. For more on API for these various events look at the <a href="https://github.com/brianreavis/selectize.js/blob/master/docs/events.md">Selectize Events</a> documentation.
-  <ul>
-    <li>
-      <b>onLoad</b> -
-      { count, items }
-    </li>
-    <li>
-      <b>onChange</b> -
-      { value, context, component }
-    </li>
-    <li>
-      <b>onDropdown</b> -
-      { action: |open,close|, value, component, $dropdown }
-      <br/>
-      <note>
-        <b>Note:</b> this incorporates both the <prop>onDropdownOpen</prop> and the <prop>onDropdownClose</prop> events from selectize
-      </note>
+<div class='col-xs-12'>
+  <p>
+    The components in this addon leverage Ember {{ui-label 'action'}} helper to create "closure actions" but will fall back to the old actions (aka, <code>sendAction()</code>) when the container doesn't explicitly bind to a given action type.
+  </p>
+  <p>
+    The underlying Selectize control has a lot of events (<a href="https://github.com/selectize/selectize.js/blob/master/docs/api.md#methods_events">see here</a>) but we've reorganised it to make it a little more compact. All events are listed below sends back a single object hash as its only parameter but the properties defined on that hash will be dependant on the type of message (open a developer console to see details when using interactive demo). That said, all events will have:
+    <ul>
+      <li>{{ui-pill 'code'}} - a dasherized string representing the</li>
+      <li>{{ui-pill 'context'}} - a object reference back to the Ember component</li>
+    </ul>
+  </p>
+</div>
 
-    </li>
-    <li>
-      <b>onOption</b> - { action: |add,remove|, option, context, component }
-      <br/>
-      <note>
-        <b>Note:</b> this incorporates both the <prop>onOptionAdd</prop> and <prop>onOptionRemove</prop> selectize events
-      </note>
-    </li>
-    <li>
-      <b>onItem</b> - { action: |add,remove|, item, value, component }
-      <br/>
-      <note>
-        <b>Note:</b> this incorporates both the <prop>onItemAdd</prop> and <prop>onItemRemove</prop> selectize events
-      </note>
-    </li>
-    <li>
-      <b>onType</b> - { text, component }
-      <note>
-        <b>Note:</b> the <prop>text</prop> property is the accumalation of characters that have been typed not just the last character
-      </note>
+The events supported are:
 
-    </li>
-  </ul>
-</p>
+<ul>
+  <li>
+    <b>onLoad</b> fired on successful load of all options (the last stage of initialization)
+  </li>
+  <li>
+    <b>onChange</b> fired whenever the values/value properties are changed by selectize; as has been seen in previous examples, this event is also fully compliant with the {{ui-label 'mut'}} helper but if you do bind to a method you'll get more information back than just the value.
+  </li>
+  <li>
+    <b>onCreate</b> if a user is allowed to <i>add</i> to the list of items (by setting {{ui-pill 'create'}} to <i>true</i>)
+  </li>
+  <li><b>onError</b> for when bad shit happens</li>
+  <li>
+    <b>onDropdown</b> - open and close events on the dropdown
+  </li>
+  <li>
+    <b>onOption</b> - the adding or removal of options
+  </li>
+  <li>
+    <b>onType</b> - captures user typing/searching (per keyboard stroke)
+  </li>
+</ul>
+
+
 <h4>Interactive Example</h4>
-<row class='left'>
-  {{#if isSelectInput}}
-    <widget class='left'>
-      {{ui-select-input
+<row>
+  <div class='col-xs-6 col-md-2'>
+    {{#if isSelectInput}}
+      {{select-input
         options=emberData
         optgroups=groups
-        onLoad='onLoad'
-        onChange='onChange'
-        onDropdown='onDropdown'
-        onOption='onOption'
-        onItem='onItem'
-        onType='onType'
+        onLoad=(action 'onLoad')
+        onChange=(action 'onChange')
+        onError=(action 'onError')
+        onCreate=(action 'onCreate')
+        onDropdown=(action 'onDropdown')
+        onOption=(action 'onOption')
+        onType=(action 'onType')
+        value=selectValue
+        create=true
       }}
-    </widget>
-    <code>
-      {{display-component componentName='ui-select-input'
-        options=':emberData'
-        optgroups=':groups'
-        onLoad='onLoad'
-        onChange='onChange'
-        onDropdown='onDropdown'
-        onOption='onOption'
-        onItem='onItem'
-        onType='onType'
-      }}
-    </code>
-  {{else}}
-    <widget class='left'>
-      {{ui-tags-input
+    {{else}}
+      {{tags-input
         options=emberData
         optgroups=groups
-        onLoad='onLoad'
-        onChange='onChange'
-        onDropdown='onDropdown'
-        onOption='onOption'
-        onItem='onItem'
-        onType='onType'
+        onLoad=(action 'onLoad')
+        onChange=(action 'onChange')
+        onCreate=(action 'onCreate')
+        onError=(action 'onError')
+        onDropdown=(action 'onDropdown')
+        onOption=(action 'onOption')
+        onType=(action 'onType')
+        values=tagsValue
+        create=true
       }}
-    </widget>
-    <code>
-      {{display-component componentName='ui-tags-input'
-        options=':emberData'
-        optgroups=':groups'
-        onLoad='onLoad'
-        onChange='onChange'
-        onDropdown='onDropdown'
-        onOption='onOption'
-        onItem='onItem'
-        onType='onType'
+    {{/if}}
+    <p>
+      <br>
+      Container value: {{#if isSelectInput}}{{selectValue}}{{else}}{{tagsValue}}{{/if}}
+    </p>
+    <p>
+      <br>
+      {{ui-toggle-button
+        on='switch to "tags" input'
+        off='switch to "select" input'
+        value=isSelectInput
+        onToggle=(mut isSelectInput)
       }}
-    </code>
-  {{/if}}
-  <description>
-    {{#if isSelectInput}}<h4>Using a Select Input</h4>{{else}}<h4>Using a Tags Input</h4>{{/if}}
-    {{ui-toggle-button on='switch to "tags" input' off='switch to "select" input' value=isSelectInput}}
-  </description>
+    </p>
+
+  </div>
+  <div class="col-xs-6 col-md-10">
+    {{#if isSelectInput}}
+
+<pre><code class='handlebars'>\{{select-input
+  options=emberData
+  optgroups=groups
+  onChange='onChange'
+  onLoad=(action 'onLoad')
+  onChange=(action 'onChange')
+  onError=(action 'onError')
+  onDropdown=(action 'onDropdown')
+  onOption=(action 'onOption')
+  onType=(action 'onType')
+  value=selectValue
+  create=true
+}}</code></pre>
+
+    {{else}}
+
+<pre><code class='handlebars'>\{{tags-input
+  options=emberData
+  optgroups=groups
+  onLoad=(action 'onLoad')
+  onChange=(action 'onChange')
+  onCreate=(action 'onCreate')
+  onError=(action 'onError')
+  onDropdown=(action 'onDropdown')
+  onOption=(action 'onOption')
+  onType=(action 'onType')
+  values=tagsValue
+  create=true
+}}</code></pre>
+
+    {{/if}}
+
+  </div>
 </row>
