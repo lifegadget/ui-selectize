@@ -48,12 +48,7 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
   },
   didInsertElement() {
     run.schedule('afterRender', () => {
-      const {value, values, type} = this.getProperties('value', 'values', 'type');
       this.get('style');
-      run.next(() => {
-        if(type === 'tag' && values && values.length > 0) { this._valuesObserver(); }
-        if(type === 'select' && value) { this._valueObserver(); }
-      });
     });
   },
   hasTouch: computed(()=> 'ontouchstart' in window),
@@ -259,7 +254,7 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 
     let allowed = this.ddau(
       'onChange',
-      Object.assign(message, changeInfo),
+      Ember.$.extend({}, message, changeInfo),
       this.type === 'tag' ? 'values' : 'value'
     );
 
@@ -309,19 +304,12 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 	initializeSelectize() {
     const {apiProcessed, apiPassThrough, apiStaticMappings} = this.getProperties('apiProcessed', 'apiPassThrough', 'apiStaticMappings');
     const eventHandlers = this.eventHandlers();
-    const value = this.getComponentValue();
     let config = this.getProperties(...apiPassThrough);
     // Iterate through CP generated properties (removing _ in CP name)
     a(apiProcessed).forEach(prop => {
       config[prop.slice(1)] = get(this, prop);
     });
-    if (Ember.assign) {
-      // Ember 2.5.x+
-      config = Ember.assign(config, apiStaticMappings, eventHandlers);
-    } else {
-      config = Ember.merge(config, apiStaticMappings);
-      config = Ember.merge(config, eventHandlers);
-    }
+    config = Ember.$.extend({}, config, apiStaticMappings, eventHandlers);
     if(config.create) {
       config.create = Ember.$.proxy(this._onCreate, this);
     }
@@ -330,13 +318,6 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
     const selector = `#select-${this.elementId}`;
     $(selector).selectize(config);
     this.selectize = $(selector)[0].selectize;
-
-    // Set value(s)
-    if(value) {
-      a(value).forEach( item => {
-        this.selectize.addItem(item);
-      });
-    }
 
     const renderTemplate = this.get('renderTemplate');
     if(renderTemplate) {
@@ -355,7 +336,6 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 			this.selectize.clearOptions();
       this.selectize.addOption(options);
 			this.selectize.refreshOptions();
-      this.selectize.refreshItems();
 		}
 	},
   addOption(o) {
