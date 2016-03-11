@@ -315,7 +315,13 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
     a(apiProcessed).forEach(prop => {
       config[prop.slice(1)] = get(this, prop);
     });
-    config = Object.assign(config, apiStaticMappings, eventHandlers);
+    if (Ember.assign) {
+      // Ember 2.5.x+
+      config = Ember.assign(config, apiStaticMappings, eventHandlers);
+    } else {
+      config = Ember.merge(config, apiStaticMappings);
+      config = Ember.merge(config, eventHandlers);
+    }
     if(config.create) {
       config.create = Ember.$.proxy(this._onCreate, this);
     }
