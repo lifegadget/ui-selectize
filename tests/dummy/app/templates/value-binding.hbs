@@ -7,6 +7,9 @@
       options='foo,bar,baz'
       onChange=(mut tagValue)
     }}
+    <p>
+      container value: {{tagValue}}
+    </p>
   </div>
   <div class="col-xs-6 col-lg-4">
 <pre><code class='handlebars'>\{{tags-input
@@ -26,13 +29,13 @@
 <row>
   <div class='col-xs-6 col-lg-2'>
     {{tags-input
-      values=tagValue
+      values=tagValue2
       placeholder="one is never enough"
       options='foo,bar,baz'
-      onChange=(mut tagValue)
+      onChange=(mut tagValue2)
     }}
     <p>
-      container value: {{tagValue}}
+      container value: {{tagValue2}}
     </p>
     <br>
     {{select-input
@@ -47,7 +50,7 @@
   </div>
   <div class="col-xs-6 col-lg-4">
 <pre><code class='handlebars'>\{{tags-input
-  values=tagValue
+  values=tagValue2
   placeholder="one is never enough"
   options='foo,bar,baz'
   onChange=(mut tagValue2)

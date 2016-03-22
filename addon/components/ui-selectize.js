@@ -116,7 +116,7 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
   }),
   _valueObserver: observer('value', function() {
     let {value} = this.getProperties('value');
-    if(this.type === 'tag') {
+    if(this.type === 'tag' && this.attrs.value) {
       this.set('values', [value]);
       debug('A tag-input is bound to the value property; this in effect means only one item can be tagged which is probably unintended. For tags it is recommended to bind to the "values" property.');
     }
@@ -168,24 +168,34 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
   },
 
   setSelectizeValue() {
-    run.next(() => {
+    // run.next(() => {
       const selectize = this.selectize;
       const containerValue = this.get('containerValue');
       const selectizeValue = selectize ? selectize.getValue() : undefined;
       if(JSON.stringify(containerValue) !== JSON.stringify(selectizeValue)) {
         selectize.setValue(containerValue);
       }
-    });
+    // });
   },
 
   // OPTIONS
   // -------------------
 	options: null,
   _optionsObserver: observer('options','options.isFulfilled', 'options.[]', 'idStrategy', function() {
-    const {labelField, valueField, optgroupField} = this.getProperties('labelField', 'valueField', 'optgroupField');
+    const {labelField, valueField, optgroupField, create} = this.getProperties('options', 'labelField', 'valueField', 'optgroupField', 'create');
+    const values = this.get('values') || [];
     const searchField = this.get('_searchField');
     let result = a([]);
-    const options = a(this.convertStringToArray(this.get('options')));
+    let options = a(this.convertStringToArray(this.get('options')));
+    const optionValues = a(options).map(o => get(o, 'value'));
+
+    if (create) {
+      const validation = typeOf(create) === 'function' ? create : () => true;
+      values.filter(v => !optionValues.contains(v)).filter(v => validation(v)).forEach(v => {
+        options.pushObject(this.convertStringToArray(v));
+      });
+    }
+
     options.map( (item, index) => {
       const value = get(item,valueField);
       const label = get(item,labelField);
@@ -198,20 +208,23 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
         object: item,
         $natural: index
       };
+
       // iterate through search fields and make sure they are represented on root object
       a(searchField).forEach(field => {
         newItem[field] = get(item,field);
       });
       result.pushObject(newItem);
+      console.log('opts: ', result);
     });
-    run.next(() => {
-      this.clearOptions();
+    if(JSON.stringify(result) !== JSON.stringify(this.selectize.options)) {
       this.getOptionsLoader().then(loader => {
+        this.selectize.clearOptions();
         loader(result);
+        console.log('options loader complete: ', this.selectize.options);
       });
-    });
-    if (result.length > 0) {this._optionsInitialized = true;}
-    this.set('_options', result);
+      if (result.length > 0) {this._optionsInitialized = true;}
+      this.set('_options', result);
+    }
   }),
   optgroups: null,
   _optgroups: computed('optgroups', 'optgroups.[]', function() {
@@ -254,12 +267,13 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 
     let allowed = this.ddau(
       'onChange',
-      Ember.$.extend({}, message, changeInfo),
+      merge(message, changeInfo),
       this.type === 'tag' ? 'values' : 'value'
     );
 
     // let container reject change
     if (allowed === false) {
+      console.log('rejected');
       this.setSelectizeValue(this.type === 'tag' ? this.get('values') : this.get('value'));
     }
 
@@ -316,6 +330,7 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
 
     // Instantiate
     const selector = `#select-${this.elementId}`;
+    config.value = this.get('values') || this.get('value');
     $(selector).selectize(config);
     this.selectize = $(selector)[0].selectize;
 
@@ -394,7 +409,7 @@ const selectize = Ember.Component.extend(StyleManager, ApiSurface, {
       html = html.replace(regex_tag, `<$1 data-value="${escapeHtml(item.value || '')}"`);
     }
 
-    return html;
+    return html.replace(/source\=/g, 'src=');
   },
 
   /**

@@ -135,18 +135,6 @@ var ApiSurface = Ember.Mixin.create({
     // Component Event Handling
     _onInitialize() {
       window.$(`#${this.elementId} .form-control`).attr('style', this.get('stylist')); // adds styling
-      //TODO: this is NOT the ideal way to initialize the controls state; it works with a a little async flickr to start but loading with original config wasn't working
-      const {value, values, type} = this.getProperties('value', 'values', 'type');
-      run.next(() => {
-        if(type === 'tag' && values && values.length > 0) {
-          this._valuesObserver();
-          this.selectize.setValue(values);
-        }
-        if(type === 'select' && value) {
-          this._valueObserver();
-          this.selectize.setValue(value);
-        }
-      });
     },
     _onLoad:function(data) {
       this.ddau('onLoad', {
@@ -155,6 +143,7 @@ var ApiSurface = Ember.Mixin.create({
         context: this,
         code: 'loaded'
       });
+      this.setSelectizeValue(); // async hack to get values initializing
     },
     /**
      * Responds to changes in value to the selectize control.
@@ -201,13 +190,15 @@ var ApiSurface = Ember.Mixin.create({
       if(response !== false) {
         // input is a string, addOption will convert to an option object
         const option = this.addOption(input);
+        this.selectize.setTextboxValue('');
         const newValue = option[get(this, 'valueField')];
         cb(); // tell selectize we're done
+        console.log('values: ', typeOf(values), values);
         let changedValue = {
           code: 'selected-new-option',
-          added: [ input ],
+          added: [ newValue ],
           value: newValue,
-          values: Object.assign(values, [newValue])
+          values: values.concat(newValue)
         };
         this.ddau('onChange', changedValue);
       } else {

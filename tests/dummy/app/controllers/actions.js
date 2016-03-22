@@ -39,7 +39,7 @@ export default Ember.Controller.extend({
         this.set('tagsValue', data.values);
       }
 
-      if (data.code = 'suggested-change') {
+      if (data.code === 'suggested-change') {
         this.set('values', data.values);
       }
       console.log('onChange: %o', data);
