@@ -6,9 +6,9 @@ module.exports = {
     const skin = app.selectizeStyle || 'bootstrap3';
 		app.import(app.bowerDirectory + '/selectize/dist/js/standalone/selectize.js');
 		app.import(app.bowerDirectory + '/selectize/dist/css/selectize.css');
-		app.import(`vendor/ui-selectize/skins/${skin}.css`);
-    app.import(`vendor/ui-selectize/enh-skins/flat.css`);
-    app.import(`vendor/ui-selectize/enh-skins/minimal.css`);
+		app.import('vendor/ui-selectize/skins/${skin}.css');
+    app.import('vendor/ui-selectize/enh-skins/flat.css');
+    app.import('vendor/ui-selectize/enh-skins/minimal.css');
 		app.import('vendor/ui-selectize/ui-selectize.css');
 		app.import('vendor/ui-selectize/fast_click.js');
 	}
